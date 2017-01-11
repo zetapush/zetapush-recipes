@@ -1,0 +1,12 @@
+macroscript setObjectConfig(
+	/** Config Id */ @NotNull string id,
+	/** Config Value */ @NotNull value
+) {
+	var response = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::setStoredObject({
+		id, value: { value }, table: TABLE_OBJECT_CONFIG, zpService: zpServiceGda
+	}) hardFail;
+	/** Destructure result properties */
+	value = response.result.object;
+	var revision = response.result.revision;
+	var update = response.result.update;
+} broadcast { id, value, revision, update } on channel __selfName

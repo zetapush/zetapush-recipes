@@ -1,0 +1,33 @@
+/**
+ * Reduce an array to a map
+ */
+function reduce_array_to_map(array) {
+	var index = 0;
+	var map = {};
+	var iterations = coll:size(array);
+	var digits = str:len('' + iterations);
+	for item in array {
+		var key = fmt:pad(index, digits, 0, '.');
+		map[key] = item;
+		index +=1;
+	}
+} return map
+
+/**
+ * Reduce a map to an array
+ */
+function reduce_map_to_array(map) {
+	var index = 0;
+	var array = [];
+	for item in map {
+		array += item.value;
+	}
+} return array
+
+/**
+ * Reduce an array to and hash
+ */
+function reduce_array_to_hash(array, salt) {
+	var sorted = coll:sort(array, (a, b) -> ((a < b) ? -1 : ((a > b) ? 1 : 0)));
+} return usr:hash(salt, str:join('', sorted))
+

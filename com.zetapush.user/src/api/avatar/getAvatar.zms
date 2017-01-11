@@ -1,0 +1,7 @@
+macroscript getAvatar(
+	
+) {
+	var path = AVATAR_PATH;
+	/** Confirm file upload */
+	var avatar = zpServiceFileSystem.stat({ path });
+} broadcast { avatar } on channel __selfName

@@ -1,0 +1,20 @@
+macroscript getOneToOneConversation(
+	@NotNull string interlocutor,
+	map pagination = {pageSize: 50, pageNumber: 0}
+) {
+	var response = null;
+
+	var members = [__userKey, interlocutor];
+	var id = zpRecipeUtils::reduce_array_to_hash(members, CONVERSATION_TABLE);
+	var owner = zpRecipeUtils::GLOBAL_OWNER;
+
+	response = call getConversation({ id, owner, pagination }) hardFail;
+	/** Destructure response properties */
+	var details = response.result.details;
+	var group = response.result.group;
+	var page = response.result.page;
+	var messages = response.result.messages;
+	var unread = response.result.unread;
+
+} broadcast { details, group, messages, page, unread } on channel __selfName
+

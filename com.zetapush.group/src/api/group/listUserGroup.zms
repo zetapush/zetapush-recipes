@@ -1,0 +1,13 @@
+/**
+ * Get all the groups user is part of
+ */
+macroscript listUserGroup(
+	
+) {
+	/** Get group list from API */
+	var list = zpServiceGroups.myGroups({});
+	/** Delegate get all my groups */
+	var response = call listGroupByService({ list, zpService: zpServiceGroups }) hardFail;
+	/** Destructure response properties */
+	var groups = response.result.groups;
+} broadcast { groups } on channel __selfName

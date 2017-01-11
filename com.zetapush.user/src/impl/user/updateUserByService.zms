@@ -1,0 +1,33 @@
+/**
+ * Update an existing user
+ */
+macroscript updateUserByService(
+	/** Account */ @NotNull map profile,
+	/** Authentication Service */ @NotNull service<simple> zpService
+) {
+	var response = null;
+
+	/** Check if account login is available */
+	response = call isLoginAvailableByService({
+		login: profile.login,
+		zpAuthenticationService: zpService
+	}) hardFail;
+
+	/** Assert user exist */
+	assert !response.result.available ERROR__USER_NOT_FOUND; 
+
+	/** Create a new account */
+	var account = zpService.updateUser(profile);
+	var userKey = account.zetapushKey;
+	/** Get user infos */
+	response = call getUserByUserKey({ userKey });
+	/** Destructure response properties */
+	var user = response.result.user;
+
+	/** Execute all registered macros */
+	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__UPDATE_USER,
+		data: { user }
+	});
+	
+} broadcast { user } on channel __selfName

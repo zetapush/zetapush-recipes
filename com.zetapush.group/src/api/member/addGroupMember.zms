@@ -1,0 +1,10 @@
+/**
+ * Add user in a group
+ */
+macroscript addGroupMember(
+	/** Group id */ @NotNull string id,
+	/** User key */ @NotNull string member
+) {
+	/** Delegated add user in group */
+	call addGroupMemberByService({ id, member, zpService: zpServiceGroups }) hardFail;
+} broadcast { id, member } on channel __selfName

@@ -1,0 +1,12 @@
+macroscript removeRoleMember(
+	/** Role name */ @NotNull string name,
+	/** User key */ @NotNull string member
+) {
+	var id = str:hex(str:md5(str:upper(name)));
+	/** Delegated remove user from a group */
+	var response = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::removeGroupMemberByService({
+		id,
+		member,
+		zpService: zpServiceGroupsRole
+	}) hardFail;
+} broadcast { id, member } on channel __selfName

@@ -1,0 +1,4 @@
+/**
+ * Generate a unique id
+ */
+function uuid() return str:rnd36(16)

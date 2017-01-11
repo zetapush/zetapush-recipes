@@ -1,0 +1,12 @@
+macroscript getUser(
+	string userKey
+) {
+	/** Manage optional userKey value */
+	userKey = userKey ?: __userKey;
+	/** Get user by user key */
+	var response = call getUserByUserKey({
+		userKey
+	}) hardFail;
+	/** Destructure response properties */
+	var user = response.result.user;
+} broadcast { user } on channel __selfName

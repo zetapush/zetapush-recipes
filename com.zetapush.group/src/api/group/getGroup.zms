@@ -1,0 +1,10 @@
+/**
+ * Get a group
+ */
+macroscript getGroup(
+	/** Group id */ @NotNull string id
+) {
+	var response = call getGroupByService({ id, zpService: zpServiceGroups }) hardFail;
+	/** Destructure response properties */
+	var group = response.result.group;
+} broadcast { group } on channel __selfName

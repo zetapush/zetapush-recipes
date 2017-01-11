@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript setTargets(
+	@NotNull string id,
+	@NotNull array targets
+) {
+	/** Store tags */
+	var response = call setStoredObject({
+		id, value: usr:reduce_array_to_map(targets), table: TABLE_TARGETS, zpService: zpServiceGda
+	}) hardFail;
+	/** Destructure result properties */
+	var value = usr:reduce_map_to_array(response.result.value);
+	var revision = response.result.revision;
+	var update = response.result.update;
+} broadcast { id, value, revision, update, response } on channel __selfName

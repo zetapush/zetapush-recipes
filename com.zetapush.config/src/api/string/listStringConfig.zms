@@ -1,0 +1,11 @@
+macroscript listStringConfig(
+	/** Pagination query */ map page
+) {
+	/** List stored objects */
+	var response = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::listStoredObject({
+		table: TABLE_STRING_CONFIG, page, zpService: zpServiceGda
+	});
+	/** Destructure result properties */
+	var content = coll:map(response.result.content, entry -> zpRecipeUtils::map_entry_key_value(entry));	
+	page = response.result.page;
+} broadcast { content, page } on channel __selfName

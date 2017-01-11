@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+function pascalize(value) {
+	var string = '' + value;
+	var size = str:len(string);
+	var pascalized = '';
+	if (size > 1) {
+		pascalized = str:upper(string);
+	} else {
+		pascalized = str:upper(str:substr(string, 0, 1)) + str:substr(string, 1, size);
+	}
+} return str:rnd36(16)

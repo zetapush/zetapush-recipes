@@ -1,0 +1,20 @@
+macroscript listConversationByMember(
+	@NotNull string userKey
+) {
+	/* TODO: use directly default parameter value PABLOFIX: https://trello.com/c/9M96vidu/321-macro-autoriser-objet-tableau-map-pour-la-valeur-par-defaut-d-un-parametre) */
+	var defaultPagination = {pageSize: 50, pageNumber: 0};
+	var pagination = __parameters.pagination==null ? defaultPagination : __parameters.pagination;
+
+	var response = null;
+	/** List groups user is a part of */
+	var groups = sudo userKey zpServiceGroups.myGroups({/* PABLOFIX: https://trello.com/c/Mtm9X7V8/295-le-compilateur-ne-detecte-pas-l-erreur-dans-le-cas-ou-un-verb-d-api-n-a-aucun-parametre-obligatoire-et-qu-aucun-parametre-n-est- */});
+	var conversations = [];
+	/** List OneToOne group based conversations */
+	for group in groups {
+		var id = group.group;
+		var owner = group.owner;
+		response = call getConversation({ id, owner, pagination }) hardFail;
+		/** Add conversation to list */
+		conversations += response.result;
+	}
+} broadcast { conversations } on channel __selfName

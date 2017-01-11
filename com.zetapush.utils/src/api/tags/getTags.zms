@@ -1,0 +1,15 @@
+/**
+ *
+ */
+macroscript getTags(
+	@NotNull string id
+) {
+	/** Get Stored Object */
+	var response = call getStoredObject({
+		id, table: TABLE_TAGS, zpService: zpServiceGda
+	}) hardFail;
+	/** Destructure result properties */
+	var value = usr:reduce_map_to_array(response.result.value);
+	var revision = response.result.revision;
+	var update = response.result.update;
+} broadcast { id, value, revision, update } on channel __selfName

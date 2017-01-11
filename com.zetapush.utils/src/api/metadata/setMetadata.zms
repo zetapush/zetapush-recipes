@@ -1,0 +1,16 @@
+/**
+ * Set metadata
+ */
+macroscript setMetadata(
+	@NotNull string id,
+	@NotNull map metadata
+) {
+	/** Store metadata */
+	var response = call setStoredObject({
+		id, value: metadata, table: TABLE_METADATA, zpService: zpServiceGda
+	}) hardFail;
+	/** Destructure result properties */
+	var value = response.result.value;
+	var revision = response.result.revision;
+	var update = response.result.update;
+} broadcast { id, value, revision, update } on channel __selfName

@@ -1,0 +1,10 @@
+/**
+ * Remove user from a group
+ */
+macroscript removeGroupMember(
+	/** Group id */ @NotNull string id,
+	/** User key */ @NotNull string member
+) {
+	/** Delegated remove user from a group */
+	call removeGroupMemberByService({ id, member, zpService: zpServiceGroups }) hardFail;
+} broadcast { id, member } on channel __selfName

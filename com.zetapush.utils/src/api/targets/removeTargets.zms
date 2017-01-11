@@ -1,0 +1,11 @@
+/**
+ * Remove tags
+ */
+macroscript removeTargets(
+	/** */ string id
+) {
+	/** Remove stored object */
+	call removeStoredObject({
+		id, table: TABLE_TARGETS, zpService: zpServiceGda
+	}) hardFail;
+} broadcast { id } on channel __selfName

@@ -1,0 +1,19 @@
+/**
+ * Get all user groups for a specific groups service
+ */
+macroscript listGroupByService(
+	/** Group list */ @NotNull array list,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	var groups = [];
+	/** Format result */
+	for group in list {
+		/** Delegate get group */
+		var response = sudo group.owner call getGroupByService({
+			id: group.group,
+			zpService: zpService
+		}) hardFail;
+		/** Push result in groups list */
+		groups += response.result.group;
+	}
+} broadcast { groups } on channel __selfName

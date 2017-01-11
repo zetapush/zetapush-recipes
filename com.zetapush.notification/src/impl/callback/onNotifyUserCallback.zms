@@ -1,0 +1,22 @@
+/** */
+macroscript onNotifyUserCallback(
+	/** */ @NotNull string id,
+	/** */ @NotNull string user,
+	/** */ @NotNull number createdAt,
+	/** */ @NotNull string emitter,
+	/** */ @NotNull string type,
+	/** */ @NotNull map value
+) {
+	// TODO : Get user preference
+	// TODO : Get medias by user preference
+	var medias = [
+		MEDIUM__IN_APP
+	];
+	for medium in medias {
+		/** Execute all registered macros */
+		sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+			event: EVENT__NOTIFICATION_DISPATCH + medium,
+			data: { id, user, createdAt, emitter, type, value }
+		});
+	}
+}

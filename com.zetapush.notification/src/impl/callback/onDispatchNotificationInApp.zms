@@ -1,0 +1,18 @@
+/** */
+macroscript onDispatchNotificationInApp(
+	/** */ @NotNull string id,
+	/** */ @NotNull string user,
+	/** */ @NotNull number createdAt,
+	/** */ @NotNull string emitter,
+	/** */ @NotNull string type,
+	/** */ @NotNull map value
+) {
+	/** */
+	zpRecipeUtils::zpServiceMessaging.send({
+		target: user,
+		'channel': NOTIFICATION_TABLE,
+		data: {
+			id, createdAt, emitter, type, value
+		}
+	});
+}

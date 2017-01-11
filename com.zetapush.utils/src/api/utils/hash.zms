@@ -1,0 +1,4 @@
+/**
+ * Helper function: Hash a string with a given salt
+ */
+function hash(salt, value) return str:hex(str:md5(salt + value))

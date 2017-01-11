@@ -1,0 +1,81 @@
+/**
+ * ZetaPush Official Recipe
+ * Provide user management APIs
+ */
+recipe com.zetapush.user 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.config 2.0.0 in zpRecipeConfig;
+import recipe com.zetapush.group 2.0.0 in zpRecipeGroup;
+
+// Context
+
+const EVENT__ADD_AVATAR = 'ZetaPushContext__User_AddAvatar';
+const EVENT__CREATE_USER = 'ZetaPushContext__User_Create';
+const EVENT__UPDATE_USER = 'ZetaPushContext__User_Update';
+
+// Config
+
+const CONFIG__RESET_PASSWORD = 'ZetaPushConfig__User_ResetPassword';
+
+// Errors
+
+const ERROR__USER_ALREADY_EXISTS = #ERROR__USER_ALREADY_EXISTS;
+const ERROR__USER_NOT_FOUND = #ERROR__USER_NOT_FOUND;
+
+// Groups
+
+const ACTIVE_USERS_GROUP = 'ZetaPushUserActiveUsersGroup';
+
+// User Profile
+
+const AVATAR_PATH = '/profile/avatar/';
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Weak Authentification service
+ */
+service zpServiceWeakAuth = weak(__default).forbiddenVerbs(__all);
+/**
+ * Simple Authentification service for Users
+ */
+service zpServiceSimpleAuth = simple(__default).options({
+	simpleauth_mandatoryFields: @config.authentication.simple.mandatory_fields,
+	simpleauth_publicFields: @config.authentication.simple.public_fields
+}).forbiddenVerbs(__all);
+/**
+ * User Directory service
+ */
+service zpServiceUserDirectory = userdir(__default).forbiddenVerbs(__all);
+/**
+ * File System Storage service
+ */
+service zpServiceFileSystem = zpfs_hdfs('sr_hdfs').forbiddenVerbs(__all);
+/**
+ * Mail Sender Service
+ */
+service zpServiceMailSender = sendmail('sr_sendmail').options({
+	sendmail_username: @config.sendmail.username,
+	sendmail_password: @config.sendmail.password,
+	sendmail_host: @config.sendmail.host,
+	sendmail_port: @config.sendmail.port,
+	sendmail_from: @config.sendmail.from,
+	sendmail_replyTo: @config.sendmail.replyTo,
+	sendmail_ssl: @config.sendmail.ssl,
+	sendmail_starttls: @config.sendmail.starttls
+}).forbiddenVerbs(__all);
+/**
+ * Template Engine Service
+ */
+service zpServiceTemplateEngine = template('sr_template').forbiddenVerbs(__all);

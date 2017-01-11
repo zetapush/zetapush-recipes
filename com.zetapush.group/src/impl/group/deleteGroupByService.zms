@@ -1,0 +1,32 @@
+/**
+ *
+ */
+macroscript deleteGroupByService(
+	/** Group id */ @NotNull string id,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	var userKey = __userKey;
+	var existence = zpService.exists({
+		group: id
+	});
+
+	/** Avoid error if group not exist */
+	if (existence.exists) {
+		/** Create group */
+		zpService.delGroup({
+			group: id
+		});
+		
+		/** Delete stored metadata */
+		call zpRecipeUtils::removeMetadata({ id }) hardFail;
+		
+		/** Delete stored tags */
+		call zpRecipeUtils::removeTags({ id }) hardFail;
+		
+		/** Execute all registered macros */
+		sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+			event: EVENT__DELETE_GROUP,
+			data: { id, userKey }
+		});
+	}
+} broadcast { id } on channel __selfName

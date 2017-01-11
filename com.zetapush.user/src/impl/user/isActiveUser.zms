@@ -1,0 +1,12 @@
+/**
+ * Test if current is an applicative user
+ */
+macroscript isActiveUser(
+	
+) {
+	call zpRecipeGroup::isMemberOf({
+		id: ACTIVE_USERS_GROUP,
+		owner: zpRecipeUtils::GLOBAL_OWNER,
+		isHardFail: true
+	}) hardFail;
+}

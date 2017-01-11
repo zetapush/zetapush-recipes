@@ -1,0 +1,32 @@
+macroscript addConversationMessage(
+	/** the identifier of the conversation */
+	@NotNull string id,
+	@NotNull string owner,
+	@NotNull string type,
+	@NotNull string value,
+	object metadata = null
+) {
+	var response = null;
+	
+	var author = __userKey;
+	var date = time:now();
+	var raw = value;
+
+	/** Stored data structure */
+	var data = { author, owner, type, value, date, raw, metadata };
+	
+	/** Push message on the stack with expected data structure */
+	var message = zpServiceStack.push({ data, owner, stack: id });
+
+	/** Execute all registered macros */
+	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__ADD_CONVERSATION_MESSAGE,
+		data: { id, owner, message }
+	});
+
+	/** Create conversation */
+	response = sudo owner call zpRecipeUtils::getTargets({ id }) hardFail;
+	/** Destructure response properties */
+	var targets = response.result.value;
+
+} broadcast(targets) { id, message, targets } on channel __selfName

@@ -1,0 +1,12 @@
+macroscript createUser(
+	@NotNull string login,
+	@NotNull string password 
+) {
+	/** Create user in simple service */
+	var response = call createUserByService({
+		profile: __parameters,
+		zpService: zpServiceSimpleAuth
+	}) hardFail;
+	/** Destructure response properties */
+	var user = response.result.user;
+} broadcast { user } on channel __selfName

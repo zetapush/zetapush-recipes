@@ -1,0 +1,7 @@
+macroscript removeObjectConfig(
+	/** Config id */ @NotNull string id
+) {
+	sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::removeStoredObject({
+		id, table: TABLE_OBJECT_CONFIG, zpService: zpServiceGda
+	}) hardFail;
+} broadcast { id } on channel __selfName

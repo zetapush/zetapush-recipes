@@ -1,0 +1,16 @@
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #onCreateUserCallback,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: EVENT__CREATE_USER,
+		name: #onCreateUserCallback
+	},
+	verb: Verb_macro_func
+});
+
+/** Initialize recipe */
+sudo zpRecipeUtils::GLOBAL_OWNER call initializeUserRecipeAsGlobalOwner();

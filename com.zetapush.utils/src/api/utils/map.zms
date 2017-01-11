@@ -1,0 +1,7 @@
+/**
+ * Map a native api object to user object
+ */
+function map_entry_key_value(entry) return {
+	key: entry.key,
+	value: entry.value
+}

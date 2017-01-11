@@ -1,0 +1,9 @@
+/**
+ * Implode a list to a flat string
+ */
+function implode(list) {
+	var imploded = '';
+	for entry in list {
+		imploded += entry.value;
+	}
+} return imploded

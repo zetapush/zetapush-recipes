@@ -1,0 +1,15 @@
+macroscript getUserByLoginAndService(
+	@NotNull string login,
+	@NotNull service<simple> zpService
+	
+) {
+	var user = zpService.checkUser({
+		key: login,
+		softFail: true
+	});
+	/** Add computed property userKey */
+	user.userKey = user.zetapushKey;
+	/** Update user data structure */
+	user.zetapushKey = null;
+
+} broadcast { user } on channel __selfName

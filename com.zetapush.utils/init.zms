@@ -1,0 +1,52 @@
+// Provisionning
+
+zpServiceGda.gda_createTable({
+	name: TABLE_METADATA,
+	columns: [{
+		map: false,
+		name: COLUMN_STORED_OBJECT_VALUE,
+		type: GdaDataType_OBJECT
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_REVISION,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_UPDATE,
+		type: GdaDataType_LONG
+	}]
+});
+
+zpServiceGda.gda_createTable({
+	name: TABLE_TAGS,
+	columns: [{
+		map: true,
+		name: COLUMN_STORED_OBJECT_VALUE,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_REVISION,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_UPDATE,
+		type: GdaDataType_LONG
+	}]
+});
+
+zpServiceGda.gda_createTable({
+	name: TABLE_TARGETS,
+	columns: [{
+		map: true,
+		name: COLUMN_STORED_OBJECT_VALUE,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_REVISION,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_STORED_OBJECT_UPDATE,
+		type: GdaDataType_LONG
+	}]
+});

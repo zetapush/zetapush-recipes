@@ -1,0 +1,13 @@
+/** */
+macroscript listUserNotification(
+	/** */ map page = { direction: 'ASC', pageNumber: 0, pageSize: 100 }
+) {
+	var { result: { result } } = call zpRecipeUtils::paginatedGdaList({
+		gdaService: zpServiceGda,
+		table: NOTIFICATION_TABLE,
+		page
+	}) hardFail;
+} return {
+	notifications: result.content,
+	page: result.page
+} on channel __selfName

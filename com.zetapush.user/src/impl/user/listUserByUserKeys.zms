@@ -1,0 +1,7 @@
+macroscript listUserByUserKeys(
+	@NotNull array userKeys
+) {
+	var ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
+	/** Destructure response properties */
+	var users = zpRecipeGroup::list_user_from_api_object(ApiObjectUserInfos);
+} broadcast { users } on channel __selfName

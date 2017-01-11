@@ -1,0 +1,30 @@
+macroscript setConversationGrants(
+	@NotNull string id,
+	@NotNull service<groups> zpService
+) {
+	/** Grant list and push to the group for the stack */
+	zpService.mgrant({
+		actions: [Verb_stack_list, Verb_stack_push],
+		group: id,
+		resource: str:join(':', zpServiceStack, __userKey, id)
+	});
+	/** Grant grant to the group for the stack */
+	zpService.mgrant({
+		actions: ['GRANT'],
+		group: id,
+		resource: str:join(':', __userKey, id)
+	});
+	var path = CONVERSATION_ATTACHMENTS_PATH + id;
+	/** Grant grant to the group for the stack */
+	zpService.mgrant({
+		actions: [Verb_zpfs_hdfs_newUploadUrl],
+		group: id,
+		resource: str:join(':', zpServiceFileSystem, __userKey, path)
+	});
+	/** Grant grant to the group for the stack */
+	zpService.grant({
+		action: Verb_zpfs_hdfs_newFile,
+		group: id,
+		resource: '*'
+	});
+}

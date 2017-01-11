@@ -1,0 +1,11 @@
+/**
+ * Remove metadata
+ */
+macroscript removeMetadata(
+	/** */ string id
+) {
+	/** Remove stored object */
+	call removeStoredObject({
+		id, table: TABLE_METADATA, zpService: zpServiceGda
+	}) hardFail;
+} broadcast { id } on channel __selfName

@@ -1,0 +1,17 @@
+/**
+ * Add avatar in user profile
+ */
+macroscript addAvatar(
+	/** File guid */ @NotNull string guid
+) {
+	var userKey = __userKey;
+	/** Confirm file upload */
+	var avatar = zpServiceFileSystem.newFile({ guid });
+
+	/** Execute all registered macros */
+	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__ADD_AVATAR,
+		data: { avatar, userKey }
+	});
+
+} broadcast { avatar } on channel __selfName

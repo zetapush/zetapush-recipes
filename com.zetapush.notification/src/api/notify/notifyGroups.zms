@@ -1,0 +1,17 @@
+/** */
+macroscript notifyGroups(
+	/** */ array groups,
+	/** */ string type,
+	/** */ map value,
+	/** */ service<groups> zpService
+) {
+	/** */
+	for group in groups {
+		/** Lookup group users */
+		var { users } = zpService.groupUsers({
+			group
+		});
+		/** */
+		call notifyUsers({ users, type, value }) hardFail;
+	}
+} return { } on channel __selfName
