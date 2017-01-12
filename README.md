@@ -1,6 +1,6 @@
 # ZetaPush Official Recipies
 
-> This mono-epo contains all official recipies
+> This mono-repo contains all official recipies
 
 ## Overview
 
