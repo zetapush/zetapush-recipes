@@ -1,0 +1,43 @@
+macroscript addConversationAttachment(
+	/** The conversation identifier */
+	@NotNull string id,
+	@NotNull string owner,
+	/** The unique identifier of the uploaded file */
+	@NotNull string guid,
+	/** The virtual name used by the client side for displaying purpose only */
+	@NotNull string name
+) {	
+	var value = guid;
+	var fileMetadata = {
+		uploadedAt: time:now(),
+		// conversationId and owner are used by thumbnail generation event
+		// to retrieve conversation message
+		conversationId: id,
+		owner: owner
+	};
+	var tags = [];
+	/** Confirm file upload */
+	var file = zpServiceFileSystem.newFile({ guid, metadata: fileMetadata, tags, owner });
+	/** Destructure response properties */
+	var path = file.url.path;
+	/** Allow conversation members to get stats on attachment */
+	zpServiceGroups.grant({
+		action: Verb_zpfs_hdfs_stat,
+		group: id,
+		owner,
+		resource: str:join(':', zpServiceFileSystem, owner, path)
+	});
+	/** Format file data to store it as extra information */
+	var metadata = { 
+		contentType: file.url.contentType,
+		name: name,
+		path: file.url.path, 
+		size: file.url.size, 
+		uploadedAt: fileMetadata.uploadedAt, 
+		thumbnails: []
+	};
+	/** Add attachment to conversation */
+	var { result: { message, targets } } = call core_conversation__addConversationMessage({
+		id, owner, type: MESSAGE_TYPE_ATTACHMENT, value, metadata
+	}) hardFail;
+} broadcast(targets) { id, message } on channel __selfName

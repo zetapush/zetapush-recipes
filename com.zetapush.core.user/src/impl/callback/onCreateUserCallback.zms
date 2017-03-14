@@ -1,0 +1,17 @@
+/**
+ * Callback executed after user created
+ */
+macroscript core_user__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
+
+	/** Add created user in active users group */
+	call zpRecipeGroup::addGroupMember({ member: userKey, id: ACTIVE_USERS_GROUP }) hardFail;
+
+	/** Create avatar folder for created user */
+	sudo userKey zpServiceFileSystem.mkdir({
+		folder: AVATAR_PATH,
+		parents: true
+	});
+}

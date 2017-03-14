@@ -1,0 +1,34 @@
+macroscript core_conversation__onAddConversationMessage(
+	@NotNull string id,
+	@NotNull string owner,
+	@NotNull map message 
+) {
+	var author = message.data.author;
+	// TODO Avoid sudo with a correct grants policy
+	var { result: { group } } = sudo owner call zpRecipeGroup::core_group__getGroupByService({
+		id, zpService: zpServiceGroups
+	}) hardFail;
+	for member in group.members {
+		// TODO Add grants
+		sudo member.userKey zpServiceGda.put({
+			column: COLUMN_HISTORY_LATEST,
+			data: message,
+			key: id,
+			table: HISTORY_TABLE
+		});
+		if (author != member.userKey) {
+			// TODO Add grants
+			var { data } = sudo member.userKey zpServiceGda.inc({
+				column: COLUMN_HISTORY_UNREAD,
+				data: 1,
+				key: id,
+				table: HISTORY_TABLE
+			});
+			/** Execute all registered macros */
+			sudo member.userKey zpRecipeUtils::zpServiceTrigger.trigger({
+				event: EVENT__INC_CONVERSATION_UNREAD,
+				data: { id, owner, message, unread: data }
+			});	
+		}
+	}
+}

@@ -1,0 +1,11 @@
+/**
+ * Get metadata
+ */
+macroscript getMetadata(
+	@NotNull string id
+) {
+	/** Get Stored Object */
+	var { result: { revision, update, value } } = call core_utils__getStoredObject({
+		id, table: TABLE_METADATA, zpService: zpServiceGda
+	}) hardFail;
+} broadcast { id, value, revision, update } on channel __selfName

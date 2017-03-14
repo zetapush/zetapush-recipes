@@ -1,0 +1,10 @@
+macroscript listRole(
+) {
+	/** Get group list from API */
+	var list = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGroupsRole.allGroups({});
+	/** Delegate get all user groups */
+	var { result: { groups: roles } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__listGroupByService({
+		list,
+		zpService: zpServiceGroupsRole
+	}) hardFail;
+} broadcast { roles } on channel __selfName

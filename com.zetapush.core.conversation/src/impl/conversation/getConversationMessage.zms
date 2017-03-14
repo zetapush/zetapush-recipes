@@ -1,0 +1,22 @@
+macroscript core_conversation__getConversationMessageByFile(
+	/** the identifier of the conversation */
+	string id,
+	/** the owner of the conversation */
+	string owner,
+	/** the unique identifier of the uploaded file */
+	string guid
+) {
+		
+	/** Get the list of messages for the conversation */
+	var { result: { content } } = zpServiceStack.list({ owner, stack: id });
+	var message = null;
+	/** Search for message that contains the file identified by the provided guid */
+	for item in content {
+		var { data: { type, value } } = item;
+		if (type == MESSAGE_TYPE_ATTACHMENT && value == guid) {
+			/** Message that contains the file identified by the provided guid found */
+			message = item;
+			break;
+		}
+	}
+} return { message } on channel __selfName

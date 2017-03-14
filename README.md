@@ -4,6 +4,8 @@
 
 ## Overview
 
+Core recipies
+
 - Utils
 - Config
 - Group
@@ -11,5 +13,10 @@
 - Role
 - Notification
 - Conversation
+- Organization
+
+Plugin recipies
+
+- User Email
 
 ## Documentation

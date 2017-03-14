@@ -1,0 +1,26 @@
+/**
+ * Generic list for stored object api
+ */
+macroscript core_utils__listStoredObject(
+	/** Stored Table */ @NotNull string table,
+	/** Page query */ map page,
+	/** Storage service */ @NotNull service<gda> zpService
+) {
+	var defaultPage = {
+		pageNumber: 0,
+		pageSize: 100
+	};
+	var columns = [{
+		column: COLUMN_STORED_OBJECT_VALUE
+	}, {
+		column: COLUMN_STORED_OBJECT_REVISION
+	}, {
+		column: COLUMN_STORED_OBJECT_UPDATE
+	}];
+	/** Default page query object */
+	page = page ?: defaultPage;
+	/** Get stored config entry */
+	var response = zpService.list({ table, columns, page });
+	/** Destructure result properties */
+	var content = coll:map(response.result.content, entry -> usr:map_entry_key_value(entry));
+} broadcast { content, page } on channel __selfName

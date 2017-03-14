@@ -1,0 +1,14 @@
+/**
+ * Check if the login is available for a creation
+ */
+macroscript core_user__isLoginAvailableByService(
+	/** user login */ @NotNull string login,
+	/** Group service implementation */ @NotNull service<simple> zpAuthenticationService
+) {
+	/** Check user existence */
+	var user = zpAuthenticationService.checkUser({
+		key: login,
+		softFail: true
+	});
+	var available = !(user.login ??);
+} broadcast { available, user } on channel __selfName

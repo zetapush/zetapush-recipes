@@ -1,0 +1,15 @@
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #preset_core__onCreateUserCallback,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: zpRecipeUser::EVENT__CREATE_USER,
+		name: #preset_core__onCreateUserCallback
+	},
+	verb: Verb_macro_func
+});
+
+sudo zpRecipeUtils::GLOBAL_OWNER call preset_core__initialize();

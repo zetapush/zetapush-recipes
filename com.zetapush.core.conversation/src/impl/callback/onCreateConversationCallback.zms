@@ -1,0 +1,28 @@
+/**
+ * Callback executed after user created
+ */
+macroscript core_conversation__onCreateConversationCallback(
+	@NotNull string id,
+	@NotNull string name,
+	@NotNull array members,
+	@NotNull string owner,
+	@NotNull array groups
+) {
+	/** Update all members history */
+	for member in members {
+		sudo member zpServiceGda.puts({
+			table: HISTORY_TABLE,
+			rows:[{
+				key: id,
+				data: {
+					[COLUMN_HISTORY_OWNER]: owner,
+					[COLUMN_HISTORY_NAME]: name,
+					[COLUMN_HISTORY_CREATED_AT]: time:now(),
+					[COLUMN_HISTORY_LATEST]: null,
+					[COLUMN_HISTORY_MEMBERS]: zpRecipeUtils::reduce_array_to_map(members),
+					[COLUMN_HISTORY_GROUPS]: null
+				}
+			}]
+		});
+	}
+}

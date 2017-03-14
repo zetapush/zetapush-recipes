@@ -1,0 +1,16 @@
+macroscript core_conversation__getConversation(
+	@NotNull string id,
+	@NotNull string owner,
+	object pagination = null
+) {
+	/** Get user conversation */
+	var resultset = @@(zpServiceDatabase) SELECT * FROM ${CONVERSATION_TABLE} WHERE id = :{id} AND owner  = :{owner};
+	/** Copy first result set item */
+	var details = coll:copyMap(list:first(resultset));
+	// TODO Avoid sudo with a correct grants policy
+	var { result: { group } } = sudo owner call zpRecipeGroup::core_group__getGroupByService({ id, zpService: zpServiceGroups }) hardFail;
+	/** Get conversation messages */
+	var { result: { messages, page } } = call getConversationMessages({ id, owner, pagination }) hardFail;
+	/** Get unread messages */
+	var { result: { unread } } = call core_conversation__getConversationUnreadMessages({ id }) hardFail;
+} broadcast { details, group, messages, page, unread } on channel __selfName

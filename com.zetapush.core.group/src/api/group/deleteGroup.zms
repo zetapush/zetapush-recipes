@@ -1,0 +1,8 @@
+/**
+ * Delete a group
+ */
+macroscript deleteGroup(
+	/** Group id */ @NotNull string id
+) {
+	call core_group__deleteGroupByService({ id, zpService: zpServiceGroups }) hardFail;
+} broadcast { id } on channel __selfName

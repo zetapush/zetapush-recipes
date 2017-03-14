@@ -1,0 +1,15 @@
+/**
+ *
+ */
+macroscript setTargets(
+	@NotNull string id,
+	@NotNull array targets
+) {
+	trace('setTargets', __userKey, id, targets);
+	/** Store tags */
+	var { result: { revision, update, value } } = call core_utils__setStoredObject({
+		id, value: usr:reduce_array_to_map(targets), table: TABLE_TARGETS, zpService: zpServiceGda
+	}) hardFail;
+	/** Destructure result properties */
+	value = usr:reduce_map_to_array(value);
+} broadcast { id, value, revision, update } on channel __selfName

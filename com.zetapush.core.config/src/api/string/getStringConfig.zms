@@ -1,0 +1,10 @@
+macroscript getStringConfig(
+	/** String Config Id */ @NotNull string id
+) {
+	/** Get stored config entry */
+	var { result: { revision, update, value } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__getStoredObject({
+		id, table: TABLE_STRING_CONFIG, zpService: zpServiceGda
+	}) hardFail;
+	/** Implode stored value */
+	value = zpRecipeUtils::implode(value);
+} broadcast { id, value, revision, update } on channel __selfName

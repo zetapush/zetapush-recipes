@@ -1,0 +1,17 @@
+macroscript createOneToOneConversation(
+	@NotNull string interlocutor
+) {
+	var response = null;
+
+	var members = [__userKey, interlocutor];
+	var id = zpRecipeUtils::reduce_array_to_hash(members, CONVERSATION_TABLE);
+	var name = str:join('.', 'I18N', 'ONE_TO_ONE_CONVERSATION');
+	var owner = zpRecipeUtils::GLOBAL_OWNER;
+
+	/** Create conversation */
+	var { result: { details, group, messages, unread } } = sudo owner call core_conversation__createConversation({ id, name, members, owner, groups: [] }) hardFail;
+
+	/** Create conversation */
+	var { result: { value: targets } } = sudo owner call zpRecipeUtils::getTargets({ id }) hardFail;
+	trace('createOneToOneConversation', owner, targets);
+} broadcast(targets) { details, group, messages, unread } on channel __selfName

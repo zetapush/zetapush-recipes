@@ -1,0 +1,25 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide config APIs
+ */
+recipe com.zetapush.core.config 2.0.0;
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+
+// Constants
+
+const TABLE_OBJECT_CONFIG = 'ZetaPushObjectConfig';
+const TABLE_STRING_CONFIG = 'ZetaPushStringConfig';
+
+const CONFIG_VALUE_CELL_LIMIT = 10000;
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Data Storage service
+ */
+service zpServiceGda = gda('cr_cnfg_gda').forbiddenVerbs(__all);

@@ -1,0 +1,12 @@
+macroscript addConversationMarkup(
+	/** The conversation identifier */
+	@NotNull string id,
+	@NotNull string owner,
+	/** The message content */
+	@NotNull string value
+) {
+	/** Add attachment to conversation */
+	var { result: { message, targets } } = call core_conversation__addConversationMessage({
+		id, owner, type: MESSAGE_TYPE_MARKUP, value
+	}) hardFail;
+} broadcast(targets) { id, message } on channel __selfName

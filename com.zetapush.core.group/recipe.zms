@@ -1,0 +1,44 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide extra group management
+ */
+recipe com.zetapush.core.group 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+
+// Context
+
+const EVENT__CREATE_GROUP = 'ZetaPushEvent__CreateGroup';
+const EVENT__DELETE_GROUP = 'ZetaPushEvent__DeleteGroup';
+
+// Constants
+
+const DEFAULT_GROUP_TYPE = 'group';
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * User group service
+ */
+service zpServiceGroups = groups('cr_grp_groups').options({
+	groups_presence_owner: true,
+	groups_presence_group: true
+}).forbiddenVerbs(__all);
+/**
+ * Data Storage service
+ */
+service zpServiceGda = gda('cr_grp_gda').forbiddenVerbs(__all);
+/**
+ * User Directory service
+ */
+service zpServiceUserDirectory = userdir(__default).forbiddenVerbs(__all);

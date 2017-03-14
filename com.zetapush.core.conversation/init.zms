@@ -1,0 +1,98 @@
+/** Create conversaion table */
+zpServiceDatabase.rdbms_ddl({
+	statement : 'CREATE TABLE IF NOT EXISTS ' + CONVERSATION_TABLE + '
+	(
+		id VARCHAR(64) PRIMARY KEY NOT NULL,
+		name VARCHAR(100),
+		owner VARCHAR(50) NOT NULL,
+		createdAt DATETIME NOT NULL
+	)'
+});
+
+/** Create conversation */
+zpServiceGda.gda_createTable({
+	name: CONVERSATION_TABLE,
+	columns: [{
+		map: false,
+		name: COLUMN_CONVERSATION_UNREAD,
+		type: GdaDataType_LONG
+	}]
+});
+
+/** Create history */
+zpServiceGda.gda_createTable({
+	name: HISTORY_TABLE,
+	columns: [{
+		map: false,
+		name: COLUMN_HISTORY_OWNER,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_HISTORY_NAME,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_HISTORY_CREATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_HISTORY_LATEST,
+		type: GdaDataType_OBJECT
+	}, {
+		map: true,
+		name: COLUMN_HISTORY_MEMBERS,
+		type: GdaDataType_STRING
+	}, {
+		map: true,
+		name: COLUMN_HISTORY_GROUPS,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_HISTORY_UNREAD,
+		type: GdaDataType_LONG
+	}]
+});
+
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #core_conversation__onCreateConversationCallback,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: EVENT__CREATE_CONVERSATION,
+		name: #core_conversation__onCreateConversationCallback
+	},
+	verb: Verb_macro_func
+});
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #core_conversation__onAddConversationMessage,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: EVENT__ADD_CONVERSATION_MESSAGE,
+		name: #core_conversation__onAddConversationMessage
+	},
+	verb: Verb_macro_func
+});
+/** Trigger for thumbnail generation */
+zpRecipeUtils::zpServiceTrigger.trigger_addApiListener({
+	trigger : {
+		deploymentId: zpServiceFileSystem,
+		// TODO: use new plugin constant
+		verb: 'thumbnail',
+		name: #core_conversation__onNewThumbnail
+	},
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	verb: Verb_macro_func,
+	parameter : {
+		name: #core_conversation__onNewThumbnail,
+		parameters: TriggerCallbackField_data
+	}
+});
+
+

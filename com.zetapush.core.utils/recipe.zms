@@ -1,0 +1,50 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide utilities
+ */
+recipe com.zetapush.core.utils 2.0.0;
+
+// Constants
+
+const SERVICE_MACRO_IMPL_ID = 'macro_1';
+
+const GLOBAL_OWNER = 'ZetaPushGlobalOwner';
+
+const COLUMN_STORED_OBJECT_VALUE = 'Value';
+const COLUMN_STORED_OBJECT_REVISION = 'Revision';
+const COLUMN_STORED_OBJECT_UPDATE = 'Update';
+
+const TABLE_METADATA = 'ZetaPushMetadata';
+const TABLE_TAGS = 'ZetaPushTags';
+const TABLE_TARGETS = 'ZetaPushTargets';
+
+const EMAIL_REGEX = '.+\\@.+\\..+';
+
+// Errors Code
+const ERROR__MISSING_MANDATORY_INPUT = #ERROR__MISSING_MANDATORY_INPUT;
+const ERROR__INVALID_GRANT = #ERROR__INVALID_GRANT;
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Data Storage service
+ */
+service zpServiceGda = gda('cr_tls_gda').forbiddenVerbs(__all);
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);
+/**
+ * Messaging service
+ */
+service zpServiceMessaging = messaging(__default).options({
+	messaging_return_channel: 'message'
+});

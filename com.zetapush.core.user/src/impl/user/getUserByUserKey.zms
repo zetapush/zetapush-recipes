@@ -1,0 +1,11 @@
+macroscript core_user__getUserByUserKey(
+	@NotNull string userKey
+) {
+	var { users } = zpServiceUserDirectory.userInfo({
+		userKeys : [userKey]
+	});
+	/** Destructure response properties */
+	var user = users[userKey];
+	/** Add computed property userKey */
+	user.userKey = userKey;
+} broadcast { user } on channel __selfName

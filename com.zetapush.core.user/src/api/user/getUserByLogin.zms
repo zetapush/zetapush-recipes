@@ -1,0 +1,11 @@
+/***/
+macroscript getUserByLogin(
+	@NotNull string login
+) {
+	var response = call core_user__getUserByLoginAndService({
+		login,
+		zpService: zpServiceSimpleAuth
+	}) hardFail;
+	/** Destructure response properties */
+	var user = response.result.user;
+} broadcast { user } on channel __selfName
