@@ -1,0 +1,7 @@
+macroscript core_organization__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	// TODO : your code here
+} broadcast {
+
+} on channel __selfName
