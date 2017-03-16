@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript core_conversation__getConversationByService(
+	@ValidConversationId string id,
+	@NotNull string owner
+) {
+	var { result: { group: room } } = call zpRecipeGroup::core_group__getGroupByService({
+		id, zpService: zpServiceGroups
+	}) hardFail;
+} return {
+	room
+} on channel __selfName

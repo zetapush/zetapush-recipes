@@ -1,0 +1,11 @@
+/**
+ *
+ */
+macroscript createConversation(
+	@NotNull string name,
+	@NotNull array members
+) {
+	var { result: { room } } = call core_conversation__createConversationByService({ name, members, zpService : zpServiceGroups }) hardFail;
+} broadcast {
+	room
+} on channel __selfName

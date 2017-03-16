@@ -1,0 +1,30 @@
+/**
+ * Generate a unique conversation id
+ */
+function core_conversation__id() return str:substr(str:rnd36(CONVERSATION_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_CONVERSATION_ID)
+
+/**
+ * Generate a unique conversation id
+ */
+function core_conversation__message_suffix_id() return str:substr(str:rnd36(CONVERSATION_MESSAGE_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX)
+
+/**
+ * Generate a unique conversation message key
+ */
+function core_conversation__message_key(id) {
+	var createdAt = time:now();
+	var now = time:fmt(createdAt, 'YMDHMSM');
+	var key = id + now + usr:core_conversation__message_suffix_id();
+} return { createdAt, now, key }
+
+/**
+ * Collection contains polyfill
+ */
+function core_conversation__contains(list, searched) {
+	var found = false;
+	for item in list {
+		if (item == searched) {
+			found = true;
+		}
+	}
+} return found

@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript addConversationMessage(
+	@ValidConversationRoom map room,
+	@ValidMessageType string type,
+	@NotNull map message,
+	@NotNull map metadata
+) {
+	var { result: { createdAt, readers, targets } } = call core_conversation__addConversationMessage({ room, type, message, metadata }) hardFail;
+} broadcast(targets) {
+	type, message, createdAt, metadata, readers, targets
+} on channel __selfName

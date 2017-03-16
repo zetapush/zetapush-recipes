@@ -1,0 +1,37 @@
+/**
+ *
+ */
+macroscript core_conversation__getConversationMessageList(
+	@ValidConversationRoom map room,
+	map page = { pageSize: 100, pageNumber: 0 }
+) {
+	
+	// Y(2017)m(01)D(01)H(00)M(00)S(00)M(000) ==> 17 characters
+
+	var start = room.id + '90000000000000000' + '0000';
+	var stop = room.id + '00000000000000000' + '0000';
+	
+	var { result: { content } } = zpServiceGda.range({
+		columns: [{
+			column: COLUMN_STORAGE_AUTHOR
+		}, {
+			column: COLUMN_STORAGE_TYPE
+		}, {
+			column: COLUMN_STORAGE_MESSAGE
+		}, {
+			column: COLUMN_STORAGE_CREATED_AT
+		}, {
+			column: COLUMN_STORAGE_MESSAGE
+		}, {
+			column: COLUMN_STORAGE_READERS
+		}, {
+			column: COLUMN_STORAGE_TARGETS
+		}],
+		start,
+		table: TABLE_CONVERSATION_STORAGE,
+		stop,
+		page
+	});
+} return {
+	content, page
+} on channel __selfName

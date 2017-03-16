@@ -5,8 +5,8 @@ macroscript core_group__createGroupByService(
 	/** Group id */ @NotNull string id,
 	/** Group name */ @NotNull string name,
 	/** Group members */ @NotNull array members,
-	/** Group metadata */ @NotNull map metadata,
-	/** Group tags */ @NotNull array tags,
+	/** Group metadata */ map metadata = {},
+	/** Group tags */ array tags = [],
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
 	/** Merge metadata */
@@ -57,7 +57,7 @@ macroscript core_group__createGroupByService(
 	var userKey = __userKey;
 
 	/** Execute all registered macros */
-	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_GROUP,
 		data: { group, userKey }
 	});

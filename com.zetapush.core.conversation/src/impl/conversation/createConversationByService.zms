@@ -1,0 +1,24 @@
+/**
+ *
+ */
+macroscript core_conversation__createConversationByService(
+	@NotNull string name,
+	@NotNull array members,
+	@NotNull service<groups> zpService
+) {
+	/** Generate uniq conversation id */
+	var id = usr:core_conversation__id();
+	trace('core_conversation__createConversationByService', id);
+	/** Create conversation room */
+	var { result: { room } } = call core_conversation__createConversationRoomByService({
+		id, name, members, zpService
+	}) hardFail;
+	trace('core_conversation__createConversationRoomByService', room);
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CREATE_CONVERSATION,
+		data: { room }
+	});
+} broadcast {
+	room
+} on channel __selfName

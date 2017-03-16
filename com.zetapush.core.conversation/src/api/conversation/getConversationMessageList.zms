@@ -1,0 +1,8 @@
+macroscript getConversationMessageList(
+	@ValidConversationRoom map room,
+	map page = { pageSize: 100, pageNumber: 0 }
+) {
+	var { result: { foo } } = call core_conversation__getConversationMessageList({ room, page }) hardFail;
+} return {
+
+} on channel __selfName

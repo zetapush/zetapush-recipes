@@ -24,7 +24,7 @@ macroscript core_group__deleteGroupByService(
 		call zpRecipeUtils::removeTags({ id }) hardFail;
 		
 		/** Execute all registered macros */
-		sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+		zpRecipeUtils::zpServiceTrigger.trigger({
 			event: EVENT__DELETE_GROUP,
 			data: { id, userKey }
 		});

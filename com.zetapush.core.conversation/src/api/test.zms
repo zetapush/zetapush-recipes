@@ -1,0 +1,18 @@
+//function core_conversation__id() return str:rnd36(CONVERSATION_ID_ENTROPY)
+
+macroscript testRandom(
+	number entropy
+) {
+	var failed = false;
+	var ids = {};
+	var keys = {};
+	for i in (0..250) {
+		var id = usr:core_conversation__id();
+		ids['' + str:len(id)] = true;
+		
+		var message = usr:core_conversation__message_key(id);
+		keys['' + str:len(message.key)] = true;
+	} 
+} return {
+	ids, keys
+} on channel __selfName

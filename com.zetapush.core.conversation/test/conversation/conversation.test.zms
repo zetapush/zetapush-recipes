@@ -1,0 +1,55 @@
+zms_test test_core_conversation__ids {
+	import zms_test_setup test_core_conversation__setup;
+	
+	zms_add_handler(anonymous, createConversation, (result, errors) => {
+		trace('createConversation', result, errors);
+
+		zms_test_success;
+	});
+	
+	sudo anonymous call createConversation({
+		name: 'Conversation',
+		members: []
+	});
+}
+
+zms_test test_core_conversation__debug {
+	import zms_test_setup test_core_conversation__setup;
+	
+	zms_add_handler(anonymous, debugCreateConversation, (result, errors) => {
+		trace('debugCreateConversation', result, errors);
+
+		zms_test_success;
+	});
+	
+	sudo anonymous call debugCreateConversation();
+}
+
+zms_test test_core_conversation__conversation_room_id {
+	zms_test_setup {
+		import zms_test_setup test_core_conversation__setup;
+		var id = usr:core_conversation__id();	
+	}
+	zms_add_handler(anonymous, validateConversationRoomId, (result, errors) => {
+		trace('validateConversationRoomId', result, errors);
+
+		zms_test_success;
+	});
+	sudo anonymous call validateConversationRoomId({
+		id
+	});
+}
+
+zms_test test_core_conversation__random {
+	import zms_test_setup test_core_conversation__setup;
+	
+	zms_add_handler(anonymous, testRandom, (result, errors) => {
+		trace('testRandom', result, errors);
+
+		zms_test_success;
+	});
+	
+	sudo anonymous call testRandom({
+		entropy: 3
+	});
+}
