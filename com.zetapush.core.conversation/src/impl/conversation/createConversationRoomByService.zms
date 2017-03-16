@@ -2,10 +2,10 @@
  *
  */
 macroscript core_conversation__createConversationRoomByService(
-	@ValidConversationId string id,
-	@NotNull string name,
-	@NotNull array members,
-	@NotNull service<groups> zpService
+	/** Valid conversation room id */ @ValidConversationId string id,
+	/** Conversation room name */ @NotNull string name,
+	/** Conversation room members */ @NotNull array members,
+	/** Group service */@NotNull service<groups> zpService
 ) {
 	/** Create group */
 	var { result: { group: room } } = call zpRecipeGroup::core_group__createGroupByService({

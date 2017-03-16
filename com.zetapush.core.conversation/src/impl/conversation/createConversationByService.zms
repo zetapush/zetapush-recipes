@@ -2,12 +2,13 @@
  *
  */
 macroscript core_conversation__createConversationByService(
-	@NotNull string name,
-	@NotNull array members,
-	@NotNull service<groups> zpService
+	/** Optionnal room id */ string id,
+	/** Conversation room name */ @NotNull string name,
+	/** Conversation room members */ @NotNull array members,
+	/** Group service */@NotNull service<groups> zpService
 ) {
 	/** Generate uniq conversation id */
-	var id = usr:core_conversation__id();
+	id = id ?: usr:core_conversation__id();
 	trace('core_conversation__createConversationByService', id);
 	/** Create conversation room */
 	var { result: { room } } = call core_conversation__createConversationRoomByService({

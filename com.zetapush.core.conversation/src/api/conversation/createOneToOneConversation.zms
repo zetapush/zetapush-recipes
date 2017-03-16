@@ -1,0 +1,14 @@
+/**
+ *
+ */
+macroscript createOneToOneConversation(
+	/** Conversation interlocutor */ @NotNull string interlocutor
+) {
+	var members = [__userKey, interlocutor];
+	var id = zpRecipeUtils::reduce_array_to_hash(members, TABLE_CONVERSATION_HISTORY);
+	var name = str:join('.', 'I18N', 'ONE_TO_ONE_CONVERSATION');
+	/** Create conversation with specific id */
+	var { result: { room } } = sudo zpRecipeUtils::GLOBAL_OWNER call core_conversation__createConversationByService({ id, name, members, zpService: zpServiceGroups });
+} broadcast(room.resource) {
+	room
+} on channel __selfName

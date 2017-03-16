@@ -2,8 +2,8 @@
  *
  */
 macroscript core_conversation__getConversationMessageList(
-	@ValidConversationRoom map room,
-	map page = { pageSize: 100, pageNumber: 0 }
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
 ) {
 	/** Define range start and stop */
 	var start = room.id + '00000000000000000' + '000';

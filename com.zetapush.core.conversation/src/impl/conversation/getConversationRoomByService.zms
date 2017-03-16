@@ -2,11 +2,12 @@
  *
  */
 macroscript core_conversation__getConversationByService(
-	@ValidConversationId string id,
-	@NotNull string owner
+	/** Valid conversation room id */ @ValidConversationId string id,
+	/** Conversation room owner */ @NotNull string owner,
+	/** Group service */ @NotNull service<groups> zpService
 ) {
 	var { result: { group: room } } = call zpRecipeGroup::core_group__getGroupByService({
-		id, zpService: zpServiceGroups
+		id, zpService
 	}) hardFail;
 } return {
 	room

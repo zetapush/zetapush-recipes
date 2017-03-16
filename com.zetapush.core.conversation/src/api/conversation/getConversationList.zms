@@ -1,0 +1,10 @@
+/**
+ *
+ */
+macroscript getConversationList(
+	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+) {
+	var { result: { list } } = call core_conversation__getConversationListByService({ page, zpService: zpServiceGroups });
+} broadcast {
+	list
+} on channel __selfName

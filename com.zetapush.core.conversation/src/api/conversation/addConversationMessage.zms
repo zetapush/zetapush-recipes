@@ -2,10 +2,10 @@
  *
  */
 macroscript addConversationMessage(
-	@ValidConversationRoom map room,
-	@ValidMessageType string type,
-	@NotNull map value,
-	@NotNull map metadata
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message type */ @ValidMessageType string type,
+	/** Message value*/ @NotNull map value,
+	/** Message metadata */ @NotNull map metadata
 ) {
 	var { result: { message } } = call core_conversation__addConversationMessage({ room, type, value, metadata }) hardFail;
 } broadcast(room.resource) {

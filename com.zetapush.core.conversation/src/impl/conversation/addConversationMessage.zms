@@ -2,10 +2,10 @@
  *
  */
 macroscript core_conversation__addConversationMessage(
-	@ValidConversationRoom map room,
-	@ValidMessageType string type,
-	@NotNull map value,
-	@NotNull map metadata
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message type */ @ValidMessageType string type,
+	/** Message value*/ @NotNull map value,
+	/** Message metadata */ @NotNull map metadata
 ) {
 	// TODO Check permissions?
 	/** Get message key */

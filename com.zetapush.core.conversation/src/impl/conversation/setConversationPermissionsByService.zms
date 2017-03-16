@@ -2,8 +2,8 @@
  *
  */
 macroscript core_conversation__setConversationPermissionsByService(
-	@ValidConversationId string id,
-	@NotNull service<groups> zpService
+	/** Valid conversation room id */@ValidConversationId string id,
+	/** Group service */ @NotNull service<groups> zpService
 ) {
 	/** Grant list and push to the group for the stack */
 	zpService.mgrant({
