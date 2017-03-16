@@ -4,10 +4,10 @@
 macroscript addConversationMessage(
 	@ValidConversationRoom map room,
 	@ValidMessageType string type,
-	@NotNull map message,
+	@NotNull map value,
 	@NotNull map metadata
 ) {
-	var { result: { createdAt, readers, targets } } = call core_conversation__addConversationMessage({ room, type, message, metadata }) hardFail;
-} broadcast(targets) {
-	type, message, createdAt, metadata, readers, targets
+	var { result: { message } } = call core_conversation__addConversationMessage({ room, type, value, metadata }) hardFail;
+} broadcast(room.resource) {
+	room, message
 } on channel __selfName

@@ -5,7 +5,10 @@ macroscript createConversation(
 	@NotNull string name,
 	@NotNull array members
 ) {
+	/** Add current user a conversation member */
+	members += __userKey;
+	/** Create conversation */
 	var { result: { room } } = call core_conversation__createConversationByService({ name, members, zpService : zpServiceGroups }) hardFail;
-} broadcast {
+} broadcast(room.resource) {
 	room
 } on channel __selfName

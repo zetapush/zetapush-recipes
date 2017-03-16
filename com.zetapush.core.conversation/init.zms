@@ -11,7 +11,7 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_STRING
 	}, {
 		map: false,
-		name: COLUMN_STORAGE_MESSAGE,
+		name: COLUMN_STORAGE_VALUE,
 		type: GdaDataType_OBJECT
 	}, {
 		map: false,

@@ -19,6 +19,6 @@ macroscript core_conversation__createConversationByService(
 		event: EVENT__CREATE_CONVERSATION,
 		data: { room }
 	});
-} broadcast {
+} return {
 	room
 } on channel __selfName

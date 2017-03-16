@@ -4,7 +4,7 @@
 macroscript core_conversation__addConversationMessage(
 	@ValidConversationRoom map room,
 	@ValidMessageType string type,
-	@NotNull map message,
+	@NotNull map value,
 	@NotNull map metadata
 ) {
 	// TODO Check permissions?
@@ -18,22 +18,21 @@ macroscript core_conversation__addConversationMessage(
 		targets += userKey;
 		readers[userKey] = 0;
 	}
+	/** Define message structure */
+	var message = { type, value, createdAt, metadata, readers, targets };
 	/** Store message */
 	zpServiceGda.puts({
 		rows: [{
-			table: TABLE_CONVERSATION_STORAGE,
-			rows:[{
-				key,
-				data: {
-					[COLUMN_STORAGE_AUTHOR]: __userKey,
-					[COLUMN_STORAGE_TYPE]: type,
-					[COLUMN_STORAGE_MESSAGE]: message,
-					[COLUMN_STORAGE_CREATED_AT]: createdAt,
-					[COLUMN_STORAGE_METADATA]: metadata,
-					[COLUMN_STORAGE_READERS]: readers,
-					[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_array_to_map(targets)
-				}
-			}]
+			key,
+			data: {
+				[COLUMN_STORAGE_AUTHOR]: __userKey,
+				[COLUMN_STORAGE_TYPE]: type,
+				[COLUMN_STORAGE_VALUE]: value,
+				[COLUMN_STORAGE_CREATED_AT]: createdAt,
+				[COLUMN_STORAGE_METADATA]: metadata,
+				[COLUMN_STORAGE_READERS]: readers,
+				[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_array_to_map(targets)
+			}
 		}],
 		table: TABLE_CONVERSATION_STORAGE,
 		owner: room.owner
@@ -41,8 +40,8 @@ macroscript core_conversation__addConversationMessage(
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__ADD_CONVERSATION_MESSAGE,
-		data: { type, message, createdAt, metadata, readers, targets }
+		data: { room, message }
 	});
-} broadcast {
-	type, message, createdAt, metadata, readers, targets
+} return {
+	room, message
 } on channel __selfName

@@ -15,7 +15,7 @@ import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
 const TABLE_CONVERSATION_STORAGE = 'storage';
 const COLUMN_STORAGE_AUTHOR = 'author';
 const COLUMN_STORAGE_TYPE = 'type';
-const COLUMN_STORAGE_MESSAGE = 'message';
+const COLUMN_STORAGE_VALUE = 'value';
 const COLUMN_STORAGE_CREATED_AT = 'createdAt';
 const COLUMN_STORAGE_METADATA = 'metadata';
 const COLUMN_STORAGE_READERS = 'readers';

@@ -16,6 +16,6 @@ macroscript core_conversation__createConversationRoomByService(
 	call core_conversation__setConversationPermissionsByService({
 		id, zpService	
 	}) hardFail;
-} broadcast {
+} return {
 	room
 } on channel __selfName
