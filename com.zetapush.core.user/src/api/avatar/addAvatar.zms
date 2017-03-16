@@ -9,7 +9,7 @@ macroscript addAvatar(
 	var avatar = zpServiceFileSystem.newFile({ guid });
 
 	/** Execute all registered macros */
-	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__ADD_AVATAR,
 		data: { avatar, userKey }
 	});

@@ -1,4 +1,0 @@
-macroscript listConversation(
-) {
-	var conversations = @@(zpServiceDatabase) SELECT * FROM ${CONVERSATION_TABLE};
-} broadcast { conversations } on channel __selfName

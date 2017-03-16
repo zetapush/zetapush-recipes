@@ -1,0 +1,38 @@
+/**
+ *
+ */
+macroscript core_conversation__getConversationMessageList(
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+) {
+	/** Define range start and stop */
+	var start = room.id + '00000000000000000' + '000';
+	var stop = room.id + '90000000000000000' + '000';
+	trace('core_conversation__getConversationMessageList', { start, stop });
+	/** Retreive message for a specific range */
+	var { result: { content } } = zpServiceGda.range({
+		columns: [{
+			column: COLUMN_STORAGE_AUTHOR
+		}, {
+			column: COLUMN_STORAGE_TYPE
+		}, {
+			column: COLUMN_STORAGE_VALUE
+		}, {
+			column: COLUMN_STORAGE_CREATED_AT
+		}, {
+			column: COLUMN_STORAGE_METADATA
+		}, {
+			column: COLUMN_STORAGE_READERS
+		}, {
+			column: COLUMN_STORAGE_TARGETS
+		}],
+		start,
+		table: TABLE_CONVERSATION_STORAGE,
+		stop,
+		page
+	});
+	/** Format stored data */
+	var list = coll:map(content, usr:core_conversation__format_stored_message);
+} return {
+	room, list, page
+} on channel __selfName

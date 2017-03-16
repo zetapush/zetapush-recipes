@@ -14,7 +14,7 @@ macroscript core_notification__onNotifyUserCallback(
 	];
 	for medium in medias {
 		/** Execute all registered macros */
-		sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+		zpRecipeUtils::zpServiceTrigger.trigger({
 			event: EVENT__NOTIFICATION_DISPATCH + medium,
 			data: { id, user, createdAt, emitter, type, value }
 		});

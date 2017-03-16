@@ -1,10 +1,13 @@
-macroscript core_conversation__setConversationGrants(
-	@NotNull string id,
-	@NotNull service<groups> zpService
+/**
+ *
+ */
+macroscript core_conversation__setConversationPermissionsByService(
+	/** Valid conversation room id */@ValidConversationId string id,
+	/** Group service */ @NotNull service<groups> zpService
 ) {
 	/** Grant list and push to the group for the stack */
 	zpService.mgrant({
-		actions: [Verb_stack_list, Verb_stack_push],
+		actions: [Verb_gda_get, Verb_gda_getCells, Verb_gda_inc, Verb_gda_list, Verb_gda_put, Verb_gda_puts, Verb_gda_range],
 		group: id,
 		resource: str:join(':', zpServiceStack, __userKey, id)
 	});
@@ -27,4 +30,4 @@ macroscript core_conversation__setConversationGrants(
 		group: id,
 		resource: '*'
 	});
-}
+} on channel __selfName

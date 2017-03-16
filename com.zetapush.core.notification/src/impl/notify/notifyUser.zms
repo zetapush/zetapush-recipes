@@ -22,7 +22,7 @@ macroscript core_notification__notifyUser(
 	});
 	
 	/** Execute all registered macros */
-	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__NOTIFY_USER,
 		data: { id, user, createdAt, emitter, type, value }
 	});

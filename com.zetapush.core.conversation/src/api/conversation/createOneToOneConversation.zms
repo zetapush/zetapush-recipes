@@ -1,17 +1,14 @@
+/**
+ *
+ */
 macroscript createOneToOneConversation(
-	@NotNull string interlocutor
+	/** Conversation interlocutor */ @NotNull string interlocutor
 ) {
-	var response = null;
-
 	var members = [__userKey, interlocutor];
-	var id = zpRecipeUtils::reduce_array_to_hash(members, CONVERSATION_TABLE);
+	var id = zpRecipeUtils::reduce_array_to_hash(members, TABLE_CONVERSATION_HISTORY);
 	var name = str:join('.', 'I18N', 'ONE_TO_ONE_CONVERSATION');
-	var owner = zpRecipeUtils::GLOBAL_OWNER;
-
-	/** Create conversation */
-	var { result: { details, group, messages, unread } } = sudo owner call core_conversation__createConversation({ id, name, members, owner, groups: [] }) hardFail;
-
-	/** Create conversation */
-	var { result: { value: targets } } = sudo owner call zpRecipeUtils::getTargets({ id }) hardFail;
-	trace('createOneToOneConversation', owner, targets);
-} broadcast(targets) { details, group, messages, unread } on channel __selfName
+	/** Create conversation with specific id */
+	var { result: { room } } = sudo zpRecipeUtils::GLOBAL_OWNER call core_conversation__createConversationByService({ id, name, members, zpService: zpServiceGroups });
+} broadcast(room.resource) {
+	room
+} on channel __selfName

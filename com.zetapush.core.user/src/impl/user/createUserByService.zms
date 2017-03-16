@@ -25,7 +25,7 @@ macroscript core_user__createUserByService(
 	var user = response.result.user;
 	
 	/** Execute all registered macros */
-	sudo zpRecipeUtils::GLOBAL_OWNER zpRecipeUtils::zpServiceTrigger.trigger({
+	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_USER,
 		data: { userKey }
 	});

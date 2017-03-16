@@ -12,16 +12,16 @@ import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
 
 // Table
 
-const CONVERSATION_TABLE = 'conversation';
-const COLUMN_CONVERSATION_UNREAD = 'unread';
+const TABLE_CONVERSATION_STORAGE = 'storage';
+const COLUMN_STORAGE_AUTHOR = 'author';
+const COLUMN_STORAGE_TYPE = 'type';
+const COLUMN_STORAGE_VALUE = 'value';
+const COLUMN_STORAGE_CREATED_AT = 'createdAt';
+const COLUMN_STORAGE_METADATA = 'metadata';
+const COLUMN_STORAGE_READERS = 'readers';
+const COLUMN_STORAGE_TARGETS = 'targets';
 
-const HISTORY_TABLE = 'history';
-const COLUMN_HISTORY_OWNER = 'owner';
-const COLUMN_HISTORY_NAME = 'name';
-const COLUMN_HISTORY_CREATED_AT = 'createdAt';
-const COLUMN_HISTORY_LATEST = 'latest';
-const COLUMN_HISTORY_MEMBERS = 'members';
-const COLUMN_HISTORY_GROUPS = 'groups';
+const TABLE_CONVERSATION_HISTORY = 'history';
 const COLUMN_HISTORY_UNREAD = 'unread';
 
 // File System
@@ -42,6 +42,14 @@ const MESSAGE_TYPE_MARKUP = 'markup';
 const MESSAGE_TYPE_WIDGET = 'widget';
 const MESSAGE_TYPE_ACTION = 'action';
 
+const CONVERSATION_ID_ENTROPY = 10; // --> 15 chars
+const CONVERSATION_MESSAGE_ID_ENTROPY = 3; // --> 3 chars
+
+const NUMBER_OF_CHARS_IN_FULL_DATETIMEMS = 17; // Y(2017)m(01)D(01)H(00)M(00)S(00)M(000) ==> 17 characters
+const NUMBER_OF_CHARS_IN_CONVERSATION_ID = 15; // ==> 15 chars
+const NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX = 3; // ==> 3 chars
+const NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_ID = NUMBER_OF_CHARS_IN_CONVERSATION_ID + NUMBER_OF_CHARS_IN_FULL_DATETIMEMS + NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX; // ==> 35
+
 // Services declaration
 
 /**
@@ -60,10 +68,6 @@ service zpServiceGroups = groups('cr_cnvrst_groups').options({
 	groups_presence_group: true
 }).forbiddenVerbs(__all);
 /**
- * SQL Database service
- */
-service zpServiceDatabase = rdbms('cr_cnvrst_rdbms').forbiddenVerbs(__all);
-/**
  * NoSQL Dataservice
  */
 service zpServiceGda = gda('cr_cnvrst_gda').forbiddenVerbs(__all);
@@ -79,5 +83,5 @@ service zpServiceSearch = search('cr_cnvrst_search').forbiddenVerbs(__all);
  * File system service
  */
 service zpServiceFileSystem = zpfs_hdfs('cr_cnvrst_hdfs').options({
-	upload_thumbnails: "100,200"
+	upload_thumbnails: '100,200,300,400,500,600,700,800,900'
 }).forbiddenVerbs(__all);

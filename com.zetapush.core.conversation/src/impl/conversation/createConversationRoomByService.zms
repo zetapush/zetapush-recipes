@@ -1,0 +1,21 @@
+/**
+ *
+ */
+macroscript core_conversation__createConversationRoomByService(
+	/** Valid conversation room id */ @ValidConversationId string id,
+	/** Conversation room name */ @NotNull string name,
+	/** Conversation room members */ @NotNull array members,
+	/** Group service */@NotNull service<groups> zpService
+) {
+	/** Create group */
+	var { result: { group: room } } = call zpRecipeGroup::core_group__createGroupByService({
+		id, name, members, zpService
+	}) hardFail;
+	trace('zpRecipeGroup::core_group__createGroupByService', room);
+	/** Set correct room permissions */
+	call core_conversation__setConversationPermissionsByService({
+		id, zpService	
+	}) hardFail;
+} return {
+	room
+} on channel __selfName
