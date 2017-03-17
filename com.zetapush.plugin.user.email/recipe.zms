@@ -12,7 +12,7 @@ import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
 
 // Config
 
-const CONFIG__RESET_PASSWORD = 'ZetaPushConfig__PluginsUserEmail_ResetPassword';
+const PLUGIN_USER_EMAIL__RESET_PASSWORD = #PLUGIN_USER_EMAIL__RESET_PASSWORD;
 
 // Services declaration
 

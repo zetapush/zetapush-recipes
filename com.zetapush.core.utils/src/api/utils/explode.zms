@@ -5,7 +5,7 @@ function explode(value, size) {
 	var list = {};
 	if (size > 0) {
 		var length = str:len(value);
-		var iterations = math:round(math:floor(length / size));
+		var iterations = str:join('', math:round(math:floor(length / size)));
 		var i = 1;
 		var start = 0;
 		var rest = length - (i * size);

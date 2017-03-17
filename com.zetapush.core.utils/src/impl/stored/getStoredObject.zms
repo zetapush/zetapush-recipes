@@ -15,4 +15,4 @@ macroscript core_utils__getStoredObject(
 	var value = response.result[COLUMN_STORED_OBJECT_VALUE];
 	var revision = response.result[COLUMN_STORED_OBJECT_REVISION];
 	var update = response.result[COLUMN_STORED_OBJECT_UPDATE];
-} broadcast { id, value, revision, update } on channel __selfName
+} broadcast { id, value, revision, update, result: response.result } on channel __selfName

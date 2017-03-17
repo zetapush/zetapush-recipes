@@ -1,8 +1,8 @@
 zms_test test_core_conversation__create {
 	import zms_test_setup test_core_conversation__setup;
 
-	zms_add_handler(anonymous, getConversationList, (result, errors) => {
-		info('getMyConversationListByService', result, errors);
+	zms_add_handler(anonymous, getUserConversationList, (result, errors) => {
+		info('getUserConversationList', result, errors);
 
 		zms_test_success;
 	});
@@ -10,7 +10,7 @@ zms_test test_core_conversation__create {
 	zms_add_handler(anonymous, getConversationMessageList, (result, errors) => {
 		info('getConversationMessageList', result, errors);
 
-		sudo anonymous call getConversationList();
+		sudo anonymous call getUserConversationList();
 	});
 	
 	zms_add_handler(anonymous, addConversationMessage, (result, errors) => {

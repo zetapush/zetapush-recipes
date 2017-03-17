@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript getDefaultOrganization(
+
+) {
+	trace('getDefaultOrganization--name', @provisionning.core.organization.name);
+	var { result: { value } } = call zpRecipeConfig::getStringConfig({
+		id: CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION
+	}) hardFail;
+	trace('getDefaultOrganization--id', value);
+	var { result: { organization } } = call getOrganization({ id: value }) hardFail;
+	trace('getDefaultOrganization--object', organization);
+} return {
+	organization
+} on channel __selfName

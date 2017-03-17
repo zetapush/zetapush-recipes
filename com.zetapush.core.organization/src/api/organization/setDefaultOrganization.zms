@@ -1,0 +1,19 @@
+/**
+ *
+ */
+macroscript setDefaultOrganization(
+	@NotNull string name
+) {
+	trace('setDefaultOrganization', __parameters);
+	/** Create default organization */
+	var { result: { organization } } = call createOrganization({ name }) hardFail;
+	trace('setDefaultOrganization--organization', organization);
+	/** Store organization id */
+	call zpRecipeConfig::setStringConfig({
+		id: CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION,
+		value: organization.id
+	}) hardFail;
+} broadcast {
+	organization
+} on channel __selfName
+

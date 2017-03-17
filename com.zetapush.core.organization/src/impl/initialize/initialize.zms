@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript core_organization__initialize(
+
+) {
+	if (@provisionning.core.organization.name != null) {
+		call setDefaultOrganization({
+			name: @provisionning.core.organization.name
+		}) hardFail;
+	}
+}

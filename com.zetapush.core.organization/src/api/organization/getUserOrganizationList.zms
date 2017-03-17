@@ -1,0 +1,11 @@
+/**
+ *
+ */
+macroscript getUserOrganizationList(
+
+) {
+	var list = zpServiceGroupsOrganization.myGroups({});
+	var { result: { groups } } = call zpRecipeGroup::core_group__listGroupByService({ list, zpService: zpServiceGroupsOrganization }) hardFail;
+} return {
+	list: groups
+} on channel __selfName

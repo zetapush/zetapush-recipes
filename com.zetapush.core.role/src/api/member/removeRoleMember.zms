@@ -1,12 +1,20 @@
 macroscript removeRoleMember(
-	/** Role name */ @NotNull string name,
+	/** Optionnal role id */ string id,
+	/** Optionnal role name */ string name,
 	/** User key */ @NotNull string member
 ) {
-	var id = str:hex(str:md5(str:upper(name)));
+	assert id?? || name?? zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	/** Support optionnal parameter */
+	if (!(id??) && name??) {
+		id = str:hex(str:md5(str:upper(name)));
+	} 
 	/** Delegated remove user from a group */
 	sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__removeGroupMemberByService({
 		id,
 		member,
 		zpService: zpServiceGroupsRole
 	}) hardFail;
-} broadcast { id, member } on channel __selfName
+	/* TODO Broadcast to all group members */
+} broadcast {
+	id, member
+} on channel __selfName

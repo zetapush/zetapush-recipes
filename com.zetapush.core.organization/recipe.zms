@@ -11,7 +11,11 @@ import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
 import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
 import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
 
-// Context
+// Constants
+
+const CORE__GROUP_TYPE_ORGANIZATION = 'organization';
+
+const CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION = #CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION;
 
 // Services declaration
 
@@ -23,3 +27,10 @@ service zpServiceApiMacro = macro(__default) for 'src/api';
  * Private API (Server side only) macro service
  */
 service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * User group organization service
+ */
+service zpServiceGroupsOrganization = groups('cr_rgnztn_groups').options({
+	groups_presence_owner: true,
+	groups_presence_group: true
+}).forbiddenVerbs(__all);

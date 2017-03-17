@@ -1,0 +1,36 @@
+zms_test test_core_config__set_string_config {
+	zms_test_setup {
+		import zms_test_setup test_core_conversation__setup;
+		
+		var id  = CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION;
+		var value = 'quickstart';
+		
+		var revision = 0;
+		
+		info('test_core_config__set_string_config', { id, value });
+	}
+
+	zms_add_handler(anonymous, zpRecipeConfig::getStringConfig, (result, errors) => {
+		info('zpRecipeConfig::getStringConfig', result, errors);
+
+		assert id == result.id 'COMPARISON_FAILED';
+		assert value == result.value 'COMPARISON_FAILED';
+		assert revision == result.revision 'COMPARISON_FAILED';
+
+		zms_test_success;
+	});
+
+	zms_add_handler(anonymous, zpRecipeConfig::setStringConfig, (result, errors) => {
+		info('zpRecipeConfig::setStringConfig', result, errors);
+
+		assert id == result.id 'COMPARISON_FAILED';
+		assert value == result.value 'COMPARISON_FAILED';
+		assert revision < result.revision 'COMPARISON_FAILED';
+
+		revision = result.revision;
+
+		sudo anonymous call zpRecipeConfig::getStringConfig({ id });
+	});
+
+	sudo anonymous call zpRecipeConfig::setStringConfig({ id, value });
+}

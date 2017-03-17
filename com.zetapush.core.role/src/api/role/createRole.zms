@@ -5,14 +5,16 @@ macroscript createRole(
 	/** Create group based role */
 	var { result: { group: role } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__createGroupByService({
 		id,
-		name: str:join('.', 'ROLE', str:upper(name)),
+		name: str:upper(name),
 		members: [],
 		metadata: {
-			i18n: str:join('.', 'I18N', str:upper(name)),
+			i18n: str:join('.', 'I18N', str:upper(CORE__GROUP_TYPE_ROLE), str:upper(name)),
 			name,
 			type: CORE__GROUP_TYPE_ROLE
 		},
 		tags: [],
 		zpService: zpServiceGroupsRole
 	}) hardFail;
-} broadcast { role } on channel __selfName
+} broadcast {
+	role
+} on channel __selfName
