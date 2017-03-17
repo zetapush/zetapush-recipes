@@ -4,8 +4,8 @@
 macroscript getUserOrganizationList(
 
 ) {
-	var groups = zpServiceGroupsOrganization.myGroups({});
-	var { result: { groups: list } } = call zpRecipeGroup::core_group__listGroupByService({ list: groups, zpService: zpServiceGroupsOrganization }) hardFail;
+	var list = zpServiceGroupsOrganization.myGroups({});
+	var { result: { groups } } = call zpRecipeGroup::core_group__listGroupByService({ list, zpService: zpServiceGroupsOrganization }) hardFail;
 } return {
-	list
+	list: groups
 } on channel __selfName

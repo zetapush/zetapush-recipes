@@ -11,6 +11,6 @@ macroscript getDefaultOrganization(
 	trace('getDefaultOrganization--id', value);
 	var { result: { organization } } = call getOrganization({ id: value }) hardFail;
 	trace('getDefaultOrganization--object', organization);
-} broadcast {
+} return {
 	organization
 } on channel __selfName

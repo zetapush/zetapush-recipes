@@ -1,11 +1,11 @@
-macroscript getOrganizationList(
+macroscript getUserRoleList(
 ) {
 	/** Get group list from API */
-	var list = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGroupsOrganization.allGroups({});
+	var list = zpServiceGroupsRole.myGroups({});
 	/** Delegate get all user groups */
 	var { result: { groups } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__listGroupByService({
 		list,
-		zpService: zpServiceGroupsOrganization
+		zpService: zpServiceGroupsRole
 	}) hardFail;
 } return {
 	list: groups

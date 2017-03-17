@@ -12,4 +12,6 @@ macroscript getRole(
 		id,
 		zpService: zpServiceGroupsRole
 	}) hardFail;
-} broadcast { role } on channel __selfName
+} return {
+	role
+} on channel __selfName

@@ -13,6 +13,6 @@ macroscript getOrganization(
 		id,
 		zpService: zpServiceGroupsOrganization
 	}) hardFail;
-} broadcast {
+} return {
 	organization
 } on channel __selfName

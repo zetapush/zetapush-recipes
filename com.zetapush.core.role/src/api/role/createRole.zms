@@ -15,4 +15,6 @@ macroscript createRole(
 		tags: [],
 		zpService: zpServiceGroupsRole
 	}) hardFail;
-} broadcast { role } on channel __selfName
+} broadcast {
+	role
+} on channel __selfName

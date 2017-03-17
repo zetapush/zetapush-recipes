@@ -7,4 +7,6 @@ macroscript deleteRole(
 		id,
 		zpService: zpServiceGroupsRole
 	}) hardFail;
-} broadcast { id, name } on channel __selfName
+} broadcast {
+	id, name
+} on channel __selfName
