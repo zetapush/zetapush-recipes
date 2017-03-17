@@ -1,6 +1,9 @@
-macroscript addRoleMember(
-	/** Optionnal role id */ string id,
-	/** Optionnal role name */ string name,
+/**
+ *
+ */
+macroscript addOrganizationMember(
+	/** Optionnal organization id */ string id,
+	/** Optionnal organization name */ string name,
 	/** User key */ @NotNull string member
 ) {
 	assert id?? || name?? zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
@@ -12,9 +15,10 @@ macroscript addRoleMember(
 	var response = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__addGroupMemberByService({
 		id,
 		member,
-		zpService: zpServiceGroupsRole
+		zpService: zpServiceGroupsOrganization
 	}) hardFail;
 	/* TODO Broadcast to all group members */
 } broadcast {
 	id, name, member
 } on channel __selfName
+

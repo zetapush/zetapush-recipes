@@ -1,0 +1,64 @@
+zms_test test_core_organization__create {
+	zms_test_setup {
+		import zms_test_setup test_core_conversation__setup;
+		
+		var hash = str:rnd36(6);
+		var login = 'test.organization.' + hash;
+		var email = login + '@zetapush.com';
+		var password = hash;
+		
+		var organizations = [];
+	}
+
+	zms_add_handler(anonymous, zpRecipeUser::createUser, (result, errors) => {
+		info('zpRecipeUser::createUser', result, errors);
+
+		zms_test_user test = zpRecipeUser::zpServiceSimpleAuth({ login, password });
+
+		zms_add_handler(test, getDefaultOrganization, (result, errors) => {
+			info('getDefaultOrganization', result, errors);
+			
+			for organization in organizations {
+				if (organization.id == result.organization.id) {
+					zms_test_success;
+				}
+			}
+		});
+		
+		zms_add_handler(test, getUserOrganizationList, (result, errors) => {
+			info('getUserOrganizationList', result, errors);
+			
+			organizations = result.list;
+			
+			sudo test call getDefaultOrganization(); 
+		});
+		
+		sudo test call getUserOrganizationList();
+	});
+
+	sudo anonymous call zpRecipeUser::createUser({ login, password, email });
+}
+
+zms_test test_core_organization__list {
+	import zms_test_setup test_core_conversation__setup;
+
+	zms_add_handler(anonymous, getOrganizationList, (result, errors) => {
+		info('getOrganizationList', result, errors);
+
+		zms_test_success;
+	});
+
+	sudo anonymous call getOrganizationList();
+}
+
+zms_test test_core_organization__get_default {
+	import zms_test_setup test_core_conversation__setup;
+
+	zms_add_handler(anonymous, getDefaultOrganization, (result, errors) => {
+		info('getDefaultOrganization', result, errors);
+
+		zms_test_success;
+	});
+
+	sudo anonymous call getDefaultOrganization();
+}

@@ -1,0 +1,8 @@
+macroscript test_core_organization__initialize_string_config(
+
+) {
+	call zpRecipeConfig::setStringConfig({
+		id: CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION,
+		value: 'quickstart'
+	}) hardFail;
+}

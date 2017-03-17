@@ -1,6 +1,0 @@
-macroscript createOrganization(
-) {
-	// TODO : your code here
-} broadcast {
-
-} on channel __selfName
