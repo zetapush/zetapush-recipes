@@ -4,7 +4,7 @@ macroscript listObjectConfig(
 	/** List stored objects */
 	var { result } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__listStoredObject({
 		table: TABLE_OBJECT_CONFIG, page, zpService: zpServiceGda
-	});
+	}) hardFail;
 	/** Destructure result properties */
 	var content = coll:map(result.content, entry -> zpRecipeUtils::map_entry_key_value(entry));	
 	page = result.page;
