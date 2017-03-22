@@ -1,0 +1,38 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide filesystem management APIs
+ */
+recipe com.zetapush.core.filesystem 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
+
+// Context
+
+
+
+// Errors
+
+const EVENT__REQUEST_FILE_UPLOAD = 'ZetaPushEvent__Filesystem_RequestFileUpload';
+const EVENT__CONFIRM_FILE_UPLOAD = 'ZetaPushEvent__Filesystem_ConfirmFileUpload';
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * File System Storage service
+ */
+service zpServiceFileSystem = zpfs_hdfs('cr_flsstm_hdfs').forbiddenVerbs(__all);
+/**
+ * Scheduler service
+ */
+service zpServiceScheduler = cron(__default).forbiddenVerbs(__all);

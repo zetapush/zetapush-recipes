@@ -6,6 +6,7 @@ recipe com.zetapush.preset.core 2.0.0;
 
 import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
 import recipe com.zetapush.core.conversation 2.0.0 in zpRecipeConversation;
+import recipe com.zetapush.core.filesystem 2.0.0 in zpRecipeFilesystem;
 import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
 import recipe com.zetapush.core.notification 2.0.0 in zpRecipeNotification;
 import recipe com.zetapush.core.organization 2.0.0 in zpRecipeOrganization;

@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.zetapush.preset.core</name>
+	<name>com.zetapush.core.filesystem</name>
 	<comment></comment>
 	<projects>
 		<project>com.zetapush.core.config</project>
-		<project>com.zetapush.core.conversation</project>
-		<project>com.zetapush.core.filesystem</project>
-		<project>com.zetapush.core.group</project>
-		<project>com.zetapush.core.notification</project>
-		<project>com.zetapush.core.organization</project>
-		<project>com.zetapush.core.role</project>
-		<project>com.zetapush.core.user</project>
 		<project>com.zetapush.core.utils</project>
-		<project>com.zetapush.core.whiteboard</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+@RequestFileUploadListener()
+macroscript core_filesystem__onRequestFileUploadCallback(
+	@NotNull map upload,
+	@NotNull service<zpfs_hdfs> zpService
+) {
+
+}

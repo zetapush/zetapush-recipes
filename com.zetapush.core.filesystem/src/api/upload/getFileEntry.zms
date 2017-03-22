@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript getFileEntry(
+	@NotNull string path
+) {
+	trace(#getFileEntry, path);
+	/** Get file upload */
+	var { entry: { exists, entry } } = call core_filesystem__getFileEntryByService({ path, zpService: zpServiceFileSystem }) hardFail;
+} return { 
+	exists, entry
+} on channel __selfName

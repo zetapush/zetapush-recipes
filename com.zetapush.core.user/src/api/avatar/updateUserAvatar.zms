@@ -1,0 +1,24 @@
+/**
+ * Set avatar in user profile
+ */
+macroscript updateUserAvatar(
+	/** File path */ @NotNull string path
+) {
+	/** Get user profile */
+	var { result: { user } } = call core_user__getUserByUserKey({ userKey : __userKey });
+	/** Set avatar property */
+	user.avatar = path;
+	/** Update user profile */
+	call core_user__updateUserByService({ profile: user, zpService: zpServiceSimpleAuth });
+	/** Get full file object */
+	var { entry: avatar } = zpRecipeFilesystem::zpServiceFileSystem.stat({ path: user.avatar });
+	/** Set avatar property */
+	user.avatar = avatar;
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__UPDATE_USER,
+		data: { user }
+	});
+} broadcast { 
+	avatar
+} on channel __selfName
