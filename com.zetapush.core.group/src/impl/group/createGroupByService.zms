@@ -61,4 +61,6 @@ macroscript core_group__createGroupByService(
 		event: EVENT__CREATE_GROUP,
 		data: { group, userKey }
 	});
-} broadcast { group } on channel __selfName
+} broadcast {
+	group
+} on channel __selfName

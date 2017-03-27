@@ -29,4 +29,6 @@ macroscript core_group__deleteGroupByService(
 			data: { id, userKey }
 		});
 	}
-} broadcast { id } on channel __selfName
+} broadcast {
+	id
+} on channel __selfName

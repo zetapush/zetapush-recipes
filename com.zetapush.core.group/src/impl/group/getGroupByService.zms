@@ -6,11 +6,11 @@ macroscript core_group__getGroupByService(
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
 	var ApiObjectGroupUsers = zpService.groupUsers({ group: id });
-	var group = usr:get_group_from_api_object(zpService, ApiObjectGroupUsers);
+	var group = usr:core_group__get_group_from_api_object(zpService, ApiObjectGroupUsers);
 	if (coll:size(group.members) > 0) {
 		var userKeys = coll:set(group.members);
 		var ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
-		group.members = usr:list_user_from_api_object(ApiObjectUserInfos);	
+		group.members = usr:core_group__list_user_from_api_object(ApiObjectUserInfos);	
 	}
 	/** Get group metadata */
 	var metadata = call zpRecipeUtils::getMetadata({ id }) hardFail;
@@ -18,4 +18,6 @@ macroscript core_group__getGroupByService(
 	/** Get group tags */
 	var tags = call zpRecipeUtils::getTags({ id }) hardFail;
 	group.tags = tags.result.value;
-} broadcast { group } on channel __selfName
+} return { 
+	group
+} on channel __selfName

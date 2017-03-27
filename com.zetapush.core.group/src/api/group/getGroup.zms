@@ -5,4 +5,6 @@ macroscript getGroup(
 	/** Group id */ @NotNull string id
 ) {
 	var { result: { group } } = call core_group__getGroupByService({ id, zpService: zpServiceGroups }) hardFail;
-} broadcast { group } on channel __selfName
+} return {
+	group
+} on channel __selfName

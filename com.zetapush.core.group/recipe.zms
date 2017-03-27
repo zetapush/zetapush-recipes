@@ -17,6 +17,10 @@ const EVENT__DELETE_GROUP = 'ZetaPushEvent__DeleteGroup';
 
 const DEFAULT_GROUP_TYPE = 'group';
 
+const GROUP_ID_ENTROPY = 10; // --> 15 chars
+
+const NUMBER_OF_CHARS_IN_GROUP_ID = 15; // ==> 15 chars
+
 // Services declaration
 
 /**

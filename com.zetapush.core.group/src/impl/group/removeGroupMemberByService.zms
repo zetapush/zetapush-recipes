@@ -11,4 +11,6 @@ macroscript core_group__removeGroupMemberByService(
 		user: member,
 		group: id
 	});
-} broadcast { id, member } on channel __selfName
+} broadcast {
+	id, member
+} on channel __selfName

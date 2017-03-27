@@ -1,0 +1,13 @@
+/**
+ * Get all user groups
+ */
+macroscript getGroupList(
+	
+) {
+	/** Get group list from API */
+	var groups = zpServiceGroups.allGroups({});
+	/** Delegate get all user groups */
+	var { result: { list } } = call core_group__getGroupListByService({ groups, zpService: zpServiceGroups }) hardFail;
+} return {
+	list
+} on channel __selfName

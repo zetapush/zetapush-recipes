@@ -13,4 +13,6 @@ macroscript core_group__isMemberOfByService(
 		group: id,
 		owner: owner
 	});
-} broadcast { member } on channel __selfName
+} return {
+	member
+} on channel __selfName

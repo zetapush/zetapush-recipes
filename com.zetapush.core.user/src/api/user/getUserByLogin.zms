@@ -8,4 +8,4 @@ macroscript getUserByLogin(
 	}) hardFail;
 	/** Destructure response properties */
 	var user = response.result.user;
-} broadcast { user } on channel __selfName
+} return { user } on channel __selfName

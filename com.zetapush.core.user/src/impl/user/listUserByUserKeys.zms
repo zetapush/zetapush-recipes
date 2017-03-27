@@ -3,5 +3,5 @@ macroscript core_user__listUserByUserKeys(
 ) {
 	var ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
 	/** Destructure response properties */
-	var users = zpRecipeGroup::list_user_from_api_object(ApiObjectUserInfos);
+	var users = zpRecipeGroup::core_group__list_user_from_api_object(ApiObjectUserInfos);
 } broadcast { users } on channel __selfName
