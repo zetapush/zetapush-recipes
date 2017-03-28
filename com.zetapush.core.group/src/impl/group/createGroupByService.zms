@@ -9,6 +9,7 @@ macroscript core_group__createGroupByService(
 	/** Group tags */ array tags = [],
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
+	trace(#core_group__createGroupByService, { id, name, members, metadata, tags });
 	/** Merge metadata */
 	metadata += {
 		createdAt: time:now(),

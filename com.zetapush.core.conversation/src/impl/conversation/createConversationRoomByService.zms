@@ -7,15 +7,28 @@ macroscript core_conversation__createConversationRoomByService(
 	/** Conversation room members */ @NotNull array members,
 	/** Group service */@NotNull service<groups> zpService
 ) {
+	trace(#core_conversation__createConversationRoomByService, { id, name, members, userKey: __userKey });
+	/** Conversation attachments path */
+	var path = CONVERSATION_ATTACHMENTS_PATH + id;
+	/** Conversation metadata */
+	var metadata = {
+		type: CORE__CONVERSATION_TYPE_ROOM
+	};
 	/** Create group */
 	var { result: { group: room } } = call zpRecipeGroup::core_group__createGroupByService({
-		id, name, members, zpService
+		id, name, members, metadata, zpService
 	}) hardFail;
-	trace('zpRecipeGroup::core_group__createGroupByService', room);
+	trace(#core_conversation__createConversationRoomByService, room);
 	/** Set correct room permissions */
-	call core_conversation__setConversationPermissionsByService({
-		id, zpService	
+	call core_conversation__setConversationPermissionsByServices({
+		id, path,
+		zpServiceGroups: zpService,
+		zpServiceGda: zpServiceGda,
+		zpServiceFileSystem: zpServiceFileSystem
 	}) hardFail;
+	/** Extends room with grants list */
+	var { grants } = zpService.listGrants({ group: id });
+	room.grants = grants;
 } return {
 	room
 } on channel __selfName

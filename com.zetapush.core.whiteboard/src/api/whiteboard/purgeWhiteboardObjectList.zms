@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript purgeWhiteboardObjectList(
+	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
+	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard
+) {
+	/** Set defaut storage prefix as room id */
+	var container = whiteboard;
+	/** Add message in conversation */
+	call zpRecipeConversation::core_conversation__purgeConversationMessageListByService({ 
+		room, container, zpService: zpServiceGda
+	}) hardFail;
+} broadcast(room.resource) {
+	container, room, list: []
+} on channel __selfName

@@ -1,0 +1,61 @@
+/** Create whiteboard data structure */
+zpServiceGda.gda_createTable({
+	name: zpRecipeConversation::TABLE_CONVERSATION_STORAGE,
+	columns: [{
+		map: false,
+		name: zpRecipeConversation::COLUMN_STORAGE_AUTHOR,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: zpRecipeConversation::COLUMN_STORAGE_TYPE,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: zpRecipeConversation::COLUMN_STORAGE_VALUE,
+		type: GdaDataType_OBJECT
+	}, {
+		map: false,
+		name: zpRecipeConversation::COLUMN_STORAGE_CREATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: zpRecipeConversation::COLUMN_STORAGE_METADATA,
+		type: GdaDataType_OBJECT
+	}, {
+		map: true,
+		name: zpRecipeConversation::COLUMN_STORAGE_READERS,
+		type: GdaDataType_LONG
+	}, {
+		map: true,
+		name: zpRecipeConversation::COLUMN_STORAGE_TARGETS,
+		type: GdaDataType_STRING
+	}]
+});
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #core_whiteboard__onCreateWhiteboardCallback,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: EVENT__CREATE_WHITEBOARD,
+		name: #core_whiteboard__onCreateWhiteboardCallback
+	},
+	verb: Verb_macro_func,
+	'loud': true
+});
+/** Register triggers */
+zpRecipeUtils::zpServiceTrigger.trigger_addListener({
+	deploymentId: zpRecipeUtils::zpServiceImplMacro,
+	parameter : {
+		name: #core_whiteboard__onAddWhiteboardObject,
+		parameters: TriggerCallbackField_data
+	},
+	trigger : {
+		event: EVENT__ADD_WHITEBOARD_OBJECT,
+		name: #core_whiteboard__onAddWhiteboardObject
+	},
+	verb: Verb_macro_func,
+	'loud': true
+});

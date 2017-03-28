@@ -25,11 +25,19 @@ function core_conversation__format_stored_message(stored) return {
 /**
  * Generate a unique conversation message key
  */
-function core_conversation__message_key(id) {
+function core_conversation__message_key(container) {
 	var createdAt = time:now();
 	var now = time:fmt(createdAt, 'YMDHMSM');
-	var key = id + now + usr:core_conversation__message_suffix_id();
-} return { createdAt, now, key }
+	var key = container + now + usr:core_conversation__message_suffix_id();
+} return { container, createdAt, now, key }
+
+/**
+ * Generate range limits for conversation
+ */
+function core_conversation__range(container) {
+	var start = container + '00000000000000000' + '000';
+	var stop = container + '90000000000000000' + '000';
+} return { start, stop }
 
 /**
  * Collection contains polyfill

@@ -1,0 +1,36 @@
+/**
+ *
+ */
+macroscript core_conversation__setConversationPermissionsByServices(
+	/** Valid conversation room id */@ValidConversationId string id,
+	/** File storage path */ @NotNull string path,
+	/** Group service */ @NotNull service<groups> zpServiceGroups,
+	/** Storage service */ @NotNull service<gda> zpServiceGda,
+	/** Filesystem service */ @NotNull service<zpfs_hdfs> zpServiceFileSystem
+) {
+	trace(#core_conversation__setConversationPermissionsByServices, { id, path, userKey: __userKey });
+	/** Grant list and push to the group for the stack */
+	zpServiceGroups.mgrant({
+		actions: [Verb_gda_get, Verb_gda_getCells, Verb_gda_inc, Verb_gda_list, Verb_gda_put, Verb_gda_puts, Verb_gda_range, Verb_gda_removeRange],
+		group: id,
+		resource: str:join(':', zpServiceGda, __userKey, TABLE_CONVERSATION_STORAGE)
+	});
+	/** Grant grant to the group for the stack */
+	zpServiceGroups.mgrant({
+		actions: ['GRANT'],
+		group: id,
+		resource: str:join(':', __userKey, id)
+	});
+	/** Grant grant to the group for the stack */
+	zpServiceGroups.mgrant({
+		actions: [Verb_zpfs_hdfs_newUploadUrl],
+		group: id,
+		resource: str:join(':', zpServiceFileSystem, __userKey, path)
+	});
+	/** Grant grant to the group for the stack */
+	zpServiceGroups.grant({
+		action: Verb_zpfs_hdfs_newFile,
+		group: id,
+		resource: '*'
+	});
+} on channel __selfName

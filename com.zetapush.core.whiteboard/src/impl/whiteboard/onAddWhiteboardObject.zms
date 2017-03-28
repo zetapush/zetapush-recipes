@@ -1,0 +1,11 @@
+/**
+ *
+ */
+macroscript core_whiteboard__onAddWhiteboardObject(
+
+) {
+	// TODO : your code here
+} broadcast {
+
+} on channel __selfName
+

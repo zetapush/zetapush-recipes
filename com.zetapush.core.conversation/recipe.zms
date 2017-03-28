@@ -26,7 +26,11 @@ const COLUMN_HISTORY_UNREAD = 'unread';
 
 // File System
 
-const CONVERSATION_ATTACHMENTS_PATH = '/conversations/attachments/';
+const CONVERSATION_ATTACHMENTS_PATH = '/conversation/attachments/';
+
+// Constants
+
+const CORE__CONVERSATION_TYPE_ROOM = 'room';
 
 // Context
 
@@ -42,13 +46,13 @@ const MESSAGE_TYPE_MARKUP = 'markup';
 const MESSAGE_TYPE_WIDGET = 'widget';
 const MESSAGE_TYPE_ACTION = 'action';
 
-const CONVERSATION_ID_ENTROPY = 10; // --> 15 chars
+const CONVERSATION_ID_ENTROPY = 32; // --> 32 chars
 const CONVERSATION_MESSAGE_ID_ENTROPY = 3; // --> 3 chars
 
 const NUMBER_OF_CHARS_IN_FULL_DATETIMEMS = 17; // Y(2017)m(01)D(01)H(00)M(00)S(00)M(000) ==> 17 characters
-const NUMBER_OF_CHARS_IN_CONVERSATION_ID = 15; // ==> 15 chars
+const NUMBER_OF_CHARS_IN_CONVERSATION_ID = 32; // ==> 32 chars
 const NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX = 3; // ==> 3 chars
-const NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_ID = NUMBER_OF_CHARS_IN_CONVERSATION_ID + NUMBER_OF_CHARS_IN_FULL_DATETIMEMS + NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX; // ==> 35
+const NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_ID = NUMBER_OF_CHARS_IN_CONVERSATION_ID + NUMBER_OF_CHARS_IN_FULL_DATETIMEMS + NUMBER_OF_CHARS_IN_CONVERSATION_MESSAGE_SUFFIX; // ==> 52
 
 // Services declaration
 
@@ -75,10 +79,6 @@ service zpServiceGda = gda('cr_cnvrst_gda').forbiddenVerbs(__all);
  * Data Stack service
  */
 service zpServiceStack = stack('cr_cnvrst_stack').forbiddenVerbs(__all);
-/**
- * Elastic Search service
- */
-service zpServiceSearch = search('cr_cnvrst_search').forbiddenVerbs(__all);
 /**
  * File system service
  */

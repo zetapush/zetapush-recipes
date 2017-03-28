@@ -8,7 +8,9 @@ macroscript createConversation(
 	/** Add current user a conversation member */
 	members += __userKey;
 	/** Create conversation with generated id */
-	var { result: { room } } = call core_conversation__createConversationByService({ name, members, zpService: zpServiceGroups }) hardFail;
+	var { result: { room } } = call core_conversation__createConversationByService({ 
+		id: null, name, members, zpService: zpServiceGroups
+	}) hardFail;
 } broadcast(room.resource) {
 	room
 } on channel __selfName

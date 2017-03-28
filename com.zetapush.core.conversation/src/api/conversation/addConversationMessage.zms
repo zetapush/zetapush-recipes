@@ -7,7 +7,12 @@ macroscript addConversationMessage(
 	/** Message value*/ @NotNull map value,
 	/** Message metadata */ @NotNull map metadata
 ) {
-	var { result: { message } } = call core_conversation__addConversationMessage({ room, type, value, metadata }) hardFail;
+	/** Set defaut storage container as room id */
+	var container = room.id;
+	/** Add message in conversation */
+	var { result: { message } } = call core_conversation__addConversationMessageByService({ 
+		room, container, type, value, metadata, zpService: zpServiceGda
+	}) hardFail;
 } broadcast(room.resource) {
-	room, message
+	container, room, message
 } on channel __selfName

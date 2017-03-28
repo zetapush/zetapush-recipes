@@ -1,0 +1,15 @@
+/**
+ *
+ */
+macroscript purgeConversationMessageList(
+	@ValidConversationRoom map room
+) {
+	/** Set defaut storage container as room id */
+	var container = room.id;
+	/** Add message in conversation */
+	call core_conversation__purgeConversationMessageListByService({ 
+		room, container, zpService: zpServiceGda
+	}) hardFail;
+} broadcast(room.resource) {
+	container, room, list: []
+} on channel __selfName

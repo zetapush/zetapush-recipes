@@ -1,16 +1,17 @@
 /**
  *
  */
-macroscript core_conversation__getConversationMessageList(
+macroscript core_conversation__getConversationMessageListByService(
 	/** Conversation room object */ @ValidConversationRoom map room,
-	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+	/** Message storage container id */ @ValidConversationId string container,
+	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 },
+	/** Storage Service */ @NotNull service<gda> zpService
 ) {
 	/** Define range start and stop */
-	var start = room.id + '00000000000000000' + '000';
-	var stop = room.id + '90000000000000000' + '000';
-	trace('core_conversation__getConversationMessageList', { start, stop });
+	var { start, stop } = usr:core_conversation__range(container);
+	trace(#core_conversation__getConversationMessageListByService, { start, stop });
 	/** Retreive message for a specific range */
-	var { result: { content } } = zpServiceGda.range({
+	var { result: { content } } = zpService.range({
 		columns: [{
 			column: COLUMN_STORAGE_AUTHOR
 		}, {
@@ -29,10 +30,11 @@ macroscript core_conversation__getConversationMessageList(
 		start,
 		table: TABLE_CONVERSATION_STORAGE,
 		stop,
+		owner: room.owner,
 		page
 	});
 	/** Format stored data */
 	var list = coll:map(content, usr:core_conversation__format_stored_message);
 } return {
-	room, list, page
+	container, room, list, page
 } on channel __selfName

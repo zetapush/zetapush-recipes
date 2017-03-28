@@ -1,0 +1,29 @@
+/**
+ *
+ */
+macroscript createWhiteboard(
+	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room
+	) {
+	/** Generate uniq conversation id */
+	var id = zpRecipeConversation::core_conversation__id();
+	trace(#createWhiteboard, { room, id });
+	/** Conversation attachments path */
+	var path = WHITEBOARD_ATTACHMENTS_PATH + id;
+	/** Services */
+	var zpServiceGroups = zpRecipeConversation::zpServiceGroups;
+	var zpServiceFileSystem = zpRecipeConversation::zpServiceFileSystem;
+	/** Set correct room permissions */
+	sudo room.owner call zpRecipeConversation::core_conversation__setConversationPermissionsByServices({
+		id: room.id, path,
+		zpServiceGroups: zpRecipeConversation::zpServiceGroups,
+		zpServiceGda: zpServiceGda,
+		zpServiceFileSystem: zpRecipeConversation::zpServiceFileSystem
+	}) hardFail;
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CREATE_WHITEBOARD,
+		data: { room, id }
+	});
+} broadcast(room.resource) {
+	id, room
+} on channel __selfName

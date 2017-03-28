@@ -1,0 +1,40 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide whiteboards management APIs
+ */
+recipe com.zetapush.core.whiteboard 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
+import recipe com.zetapush.core.conversation 2.0.0 in zpRecipeConversation;
+import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
+
+// Table
+
+
+
+// File System
+
+const WHITEBOARD_ATTACHMENTS_PATH = '/whiteboard/attachments/';
+
+// Context
+
+const EVENT__ADD_WHITEBOARD_OBJECT = 'ZetaPushEvent__Whiteboard_AddWhiteboardObject';
+const EVENT__CREATE_WHITEBOARD = 'ZetaPushEvent__Whiteboard_CreateWhiteboard';
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * NoSQL Dataservice
+ */
+service zpServiceGda = gda('cr_whtbrd_gda').forbiddenVerbs(__all);

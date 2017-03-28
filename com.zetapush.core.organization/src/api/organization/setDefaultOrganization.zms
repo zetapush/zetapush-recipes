@@ -4,10 +4,10 @@
 macroscript setDefaultOrganization(
 	@NotNull string name
 ) {
-	trace('setDefaultOrganization', __parameters);
+	trace(#setDefaultOrganization, __parameters);
 	/** Create default organization */
 	var { result: { organization } } = call createOrganization({ name }) hardFail;
-	trace('setDefaultOrganization--organization', organization);
+	trace(#setDefaultOrganization, organization);
 	/** Store organization id */
 	call zpRecipeConfig::setStringConfig({
 		id: CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION,

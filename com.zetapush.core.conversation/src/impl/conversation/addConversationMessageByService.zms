@@ -1,15 +1,17 @@
 /**
  *
  */
-macroscript core_conversation__addConversationMessage(
+macroscript core_conversation__addConversationMessageByService(
 	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message storage container id */ @ValidConversationId string container,
 	/** Message type */ @ValidMessageType string type,
 	/** Message value*/ @NotNull map value,
-	/** Message metadata */ @NotNull map metadata
+	/** Message metadata */ @NotNull map metadata,
+	/** Storage Service */ @NotNull service<gda> zpService
 ) {
 	// TODO Check permissions?
 	/** Get message key */
-	var { createdAt, now, key } = usr:core_conversation__message_key(room.id);
+	var { createdAt, now, key } = usr:core_conversation__message_key(container);
 	/** Prepare data storage */
 	var targets = [];
 	var readers = {};
@@ -19,9 +21,9 @@ macroscript core_conversation__addConversationMessage(
 		readers[userKey] = 0;
 	}
 	/** Define message structure */
-	var message = { type, value, createdAt, metadata, readers, targets };
+	var message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
 	/** Store message */
-	zpServiceGda.puts({
+	zpService.puts({
 		rows: [{
 			key,
 			data: {
@@ -43,5 +45,5 @@ macroscript core_conversation__addConversationMessage(
 		data: { room, message }
 	});
 } return {
-	room, message
+	container, room, message
 } on channel __selfName
