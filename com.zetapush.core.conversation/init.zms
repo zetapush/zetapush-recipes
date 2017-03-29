@@ -19,6 +19,10 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_LONG
 	}, {
 		map: false,
+		name: COLUMN_STORAGE_UPDATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
 		name: COLUMN_STORAGE_METADATA,
 		type: GdaDataType_OBJECT
 	}, {

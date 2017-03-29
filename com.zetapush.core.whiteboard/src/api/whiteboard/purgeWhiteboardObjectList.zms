@@ -11,6 +11,13 @@ macroscript purgeWhiteboardObjectList(
 	call zpRecipeConversation::core_conversation__purgeConversationMessageListByService({ 
 		room, container, zpService: zpServiceGda
 	}) hardFail;
+	/** Set default list */
+	var list = [];
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__PURGE_WHITEBOARD,
+		data: { container, room, list }
+	});
 } broadcast(room.resource) {
-	container, room, list: []
+	container, room, list
 } on channel __selfName

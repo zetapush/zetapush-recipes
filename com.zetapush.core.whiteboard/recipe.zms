@@ -23,6 +23,8 @@ const WHITEBOARD_ATTACHMENTS_PATH = '/whiteboard/attachments/';
 
 const EVENT__ADD_WHITEBOARD_OBJECT = 'ZetaPushEvent__Whiteboard_AddWhiteboardObject';
 const EVENT__CREATE_WHITEBOARD = 'ZetaPushEvent__Whiteboard_CreateWhiteboard';
+const EVENT__PURGE_WHITEBOARD = 'ZetaPushEvent__Whiteboard_PurgeWhiteboard';
+const EVENT__UPDATE_WHITEBOARD_OBJECT = 'ZetaPushEvent__Whiteboard_UpdateWhiteboardObject';
 
 // Services declaration
 

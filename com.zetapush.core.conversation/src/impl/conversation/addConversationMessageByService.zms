@@ -42,7 +42,7 @@ macroscript core_conversation__addConversationMessageByService(
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__ADD_CONVERSATION_MESSAGE,
-		data: { room, message }
+		data: { container, room, message }
 	});
 } return {
 	container, room, message

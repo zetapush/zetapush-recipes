@@ -22,7 +22,7 @@ macroscript createWhiteboard(
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_WHITEBOARD,
-		data: { room, id }
+		data: { id, room }
 	});
 } broadcast(room.resource) {
 	id, room

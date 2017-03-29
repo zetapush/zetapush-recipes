@@ -17,6 +17,7 @@ const COLUMN_STORAGE_AUTHOR = 'author';
 const COLUMN_STORAGE_TYPE = 'type';
 const COLUMN_STORAGE_VALUE = 'value';
 const COLUMN_STORAGE_CREATED_AT = 'createdAt';
+const COLUMN_STORAGE_UPDATED_AT = 'updatedAt';
 const COLUMN_STORAGE_METADATA = 'metadata';
 const COLUMN_STORAGE_READERS = 'readers';
 const COLUMN_STORAGE_TARGETS = 'targets';
@@ -37,6 +38,8 @@ const CORE__CONVERSATION_TYPE_ROOM = 'room';
 const EVENT__ADD_CONVERSATION_MESSAGE = 'ZetaPushEvent__Conversation_AddConversationMessage';
 const EVENT__INC_CONVERSATION_UNREAD = 'ZetaPushEvent__Conversation_IncConversationUnread';
 const EVENT__CREATE_CONVERSATION = 'ZetaPushEvent__Conversation_CreateConversation';
+const EVENT__PURGE_CONVERSATION = 'ZetaPushEvent__Conversation_PurgeConversation';
+const EVENT__UPDATE_CONVERSATION_MESSAGE = 'ZetaPushEvent__Conversation_UPdateConversationMessage';
 
 // Conversation Content Type
 

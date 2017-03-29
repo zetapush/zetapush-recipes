@@ -1,22 +1,21 @@
 /**
  *
  */
-macroscript addWhiteboardObject(
+macroscript updateWhiteboardObject(
+	/** Whiteboard object id */ @zpRecipeConversation::ValidConversationMessageId string id,
 	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
 	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard,
-	/** Object type */ @zpRecipeConversation::ValidMessageType string type,
-	/** Object value*/ @NotNull map value,
-	/** Object metadata */ @NotNull map metadata
+	/** Object value*/ @NotNull map value
 ) {
 	/** Set defaut storage container as whiteboard id */
 	var container = whiteboard;
-	/** Add message in conversation */
-	var { result: { message } } = call zpRecipeConversation::core_conversation__addConversationMessageByService({ 
-		room, container, type, value, metadata, zpService: zpServiceGda
+	/** Update message in conversation */
+	var { result: { message } } = call zpRecipeConversation::core_conversation__updateConversationMessageByService({
+		id, room, container, value, zpService: zpServiceGda
 	}) hardFail;
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
-		event: EVENT__ADD_WHITEBOARD_OBJECT,
+		event: EVENT__UPDATE_WHITEBOARD_OBJECT,
 		data: { container, room, message }
 	});
 } broadcast(room.resource) {

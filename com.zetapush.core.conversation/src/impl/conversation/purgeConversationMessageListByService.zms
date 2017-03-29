@@ -20,6 +20,8 @@ macroscript core_conversation__purgeConversationMessageListByService(
 		}, {
 			column: COLUMN_STORAGE_CREATED_AT
 		}, {
+			column: COLUMN_STORAGE_UPDATED_AT
+		}, {
 			column: COLUMN_STORAGE_METADATA
 		}, {
 			column: COLUMN_STORAGE_READERS
@@ -30,6 +32,11 @@ macroscript core_conversation__purgeConversationMessageListByService(
 		table: TABLE_CONVERSATION_STORAGE,
 		stop,
 		owner: room.owner
+	});
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__PURGE_CONVERSATION,
+		data: { container, room }
 	});
 } return {
 	container, room

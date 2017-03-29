@@ -21,6 +21,8 @@ macroscript core_conversation__getConversationMessageListByService(
 		}, {
 			column: COLUMN_STORAGE_CREATED_AT
 		}, {
+			column: COLUMN_STORAGE_UPDATED_AT
+		}, {
 			column: COLUMN_STORAGE_METADATA
 		}, {
 			column: COLUMN_STORAGE_READERS
