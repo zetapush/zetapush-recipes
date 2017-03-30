@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript confirmFileUpload(
+	@NotNull string guid,
+	map actions = {},
+	map metadata = {},
+	array tags = []
+) {
+	trace(#confirmFileUpload, guid, actions, metadata, tags);
+	/** Confirm file upload */
+	var { result: { type, name, creation, url, owner} } = call core_filesystem__confirmFileUploadByService({ guid, actions, metadata, tags, zpService: zpServiceFile }) hardFail;
+} broadcast {
+	// Base fields
+	tags, type, name, metadata, creation, url, owner
+} on channel __selfName

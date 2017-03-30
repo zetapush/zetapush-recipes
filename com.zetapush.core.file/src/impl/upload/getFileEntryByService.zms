@@ -1,0 +1,15 @@
+/**
+ *
+ */
+macroscript core_filesystem__getFileEntryByService(
+	@NotNull string path,
+	@NotNull service<zpfs_hdfs> zpService
+) {
+	trace(#core_filesystem__getFileEntryByService, path);
+	/** List uploaded files */
+	var { entry } = zpService.stat({ path });
+	/** Test if file exists */
+	var exists = entry??;
+} return { 
+	exists, entry
+} on channel __selfName

@@ -8,11 +8,11 @@ recipe com.zetapush.core.user 2.0.0;
 
 import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
 import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
+import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
 import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
 
 // Context
 
-const EVENT__ADD_AVATAR = 'ZetaPushEvent__User_AddAvatar';
 const EVENT__CREATE_USER = 'ZetaPushEvent__User_Create';
 const EVENT__RESET_PASSWORD = 'ZetaPushEvent__User_ResetPassword';
 const EVENT__UPDATE_USER = 'ZetaPushEvent__User_Update';
@@ -25,10 +25,6 @@ const ERROR__USER_NOT_FOUND = #ERROR__USER_NOT_FOUND;
 // Groups
 
 const ACTIVE_USERS_GROUP = 'ZetaPushUserActiveUsersGroup';
-
-// User Profile
-
-const AVATAR_PATH = '/profile/avatar/';
 
 // Auth fields
 
@@ -63,7 +59,3 @@ service zpServiceSimpleAuth = simple(__default).options({
  * User Directory service
  */
 service zpServiceUserDirectory = userdir(__default).forbiddenVerbs(__all);
-/**
- * File System Storage service
- */
-service zpServiceFileSystem = zpfs_hdfs('cr_sr_hdfs').forbiddenVerbs(__all);

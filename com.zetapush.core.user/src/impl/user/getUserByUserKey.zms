@@ -6,6 +6,9 @@ macroscript core_user__getUserByUserKey(
 	});
 	/** Destructure response properties */
 	var user = users[userKey];
+	/** Confirm file upload */
+	var { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
 	/** Add computed property userKey */
+	user.avatar = avatar;
 	user.userKey = userKey;
 } broadcast { user } on channel __selfName

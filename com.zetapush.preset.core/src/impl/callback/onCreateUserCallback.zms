@@ -5,5 +5,5 @@ macroscript preset_core__onCreateUserCallback(
 	call zpRecipeRole::addRoleMember({
 		name: zpRecipeRole::CORE__ROLE_USER,
 		member: userKey
-	});
+	}) hardFail;
 } on channel __selfName

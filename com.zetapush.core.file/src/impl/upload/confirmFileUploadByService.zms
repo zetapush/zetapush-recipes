@@ -1,0 +1,22 @@
+/**
+ *
+ */
+macroscript core_filesystem__confirmFileUploadByService(
+	@NotNull string guid,
+	map actions = {},
+	map metadata = {},
+	array tags = [],
+  	@NotNull service<zpfs_hdfs> zpService
+) {
+	trace(#core_filesystem__confirmFileUploadByService, guid, actions);
+	/** Confirm file upload */
+	var { type, name, creation, url, owner } = zpService.newFile({ guid, metadata });
+	/** Trigger event */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CONFIRM_FILE_UPLOAD,
+		data: { zpService, actions, file: { tags, type, name, metadata, creation, url, owner } }
+	});
+} broadcast {
+	// Base fields
+	tags, type, name, metadata, creation, url, owner
+} on channel __selfName

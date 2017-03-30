@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript getFileEntryList(
+	@NotNull string folder
+) {
+	trace(#getFileEntryList, folder);
+	/** Get file upload list */
+	var { result: { exists, entries, owner } } = call core_filesystem__getFileEntryListByService({ folder, zpService: zpServiceFile }) hardFail;
+} return { 
+	exists, folder, entries, owner
+} on channel __selfName

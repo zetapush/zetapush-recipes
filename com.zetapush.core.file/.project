@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.zetapush.core.user</name>
+	<name>com.zetapush.core.file</name>
 	<comment></comment>
 	<projects>
 		<project>com.zetapush.core.config</project>
-		<project>com.zetapush.core.file</project>
-		<project>com.zetapush.core.filesystem</project>
-		<project>com.zetapush.core.group</project>
 		<project>com.zetapush.core.utils</project>
 	</projects>
 	<buildSpec>
