@@ -1,8 +1,8 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide filesystem management APIs
+ * Provide file management APIs
  */
-recipe com.zetapush.core.filesystem 2.0.0;
+recipe com.zetapush.core.file 2.0.0;
 
 // Import recipes
 
@@ -31,7 +31,7 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
 /**
  * File System Storage service
  */
-service zpServiceFileSystem = zpfs_hdfs('cr_flsstm_hdfs').forbiddenVerbs(__all);
+service zpServiceFile = zpfs_hdfs('cr_fl_hdfs').forbiddenVerbs(__all);
 /**
  * Scheduler service
  */

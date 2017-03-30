@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>com.zetapush.core.config</project>
+		<project>com.zetapush.core.file</project>
 		<project>com.zetapush.core.filesystem</project>
 		<project>com.zetapush.core.group</project>
 		<project>com.zetapush.core.utils</project>

@@ -7,7 +7,7 @@ macroscript requestFileUpload(
 ) {
 	trace(#requestFileUpload, contentType, folder);
 	/** Request file upload */
-	var { result: { httpMethod, guid, url, owner} } = call core_filesystem__requestFileUploadByService({	contentType, folder, zpService: zpServiceFileSystem }) hardFail;
+	var { result: { httpMethod, guid, url, owner} } = call core_filesystem__requestFileUploadByService({	contentType, folder, zpService: zpServiceFile }) hardFail;
 } broadcast { 
 	httpMethod, guid, url, owner
 } on channel __selfName

@@ -7,7 +7,7 @@ macroscript core_user__getUserByUserKey(
 	/** Destructure response properties */
 	var user = users[userKey];
 	/** Confirm file upload */
-	var { entry: avatar } = zpRecipeFilesystem::zpServiceFileSystem.stat({ path: user.avatar });
+	var { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
 	/** Add computed property userKey */
 	user.avatar = avatar;
 	user.userKey = userKey;

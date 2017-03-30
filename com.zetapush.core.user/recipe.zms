@@ -8,7 +8,7 @@ recipe com.zetapush.core.user 2.0.0;
 
 import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
 import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
-import recipe com.zetapush.core.filesystem 2.0.0 in zpRecipeFilesystem;
+import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
 import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
 
 // Context
