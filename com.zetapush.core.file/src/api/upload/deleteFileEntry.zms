@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript deleteFileEntry(
+	/***/ @NotNull string path
+) {
+	zpServiceFile.rm({
+		path
+	});
+} broadcast {
+	path
+} on channel __selfName
+
