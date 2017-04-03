@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript core_file__onThumbnailCallback(
+	map baseFile,
+	array failed,
+	array thumbnails
+) {
+	// TODO : your code here
+} broadcast {
+	baseFile, failed, thumbnails
+} on channel __selfName

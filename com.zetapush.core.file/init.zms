@@ -1,2 +1,17 @@
+zpRecipeUtils::zpServiceTrigger.trigger_addApiListener({
+	trigger: {
+		name: #core_file__onThumbnailCallback,
+		deploymentId: zpServiceFile,
+		verb: 'thumbnail'
+	},
+	parameter: {
+		name: #core_file__onThumbnailCallback,
+		parameters: TriggerCallbackField_data
+	},
+	deploymentId: zpServiceImplMacro,
+	verb: Verb_macro_func,
+	'loud': true
+});
+
 /** Initialize recipe */
 sudo zpRecipeUtils::GLOBAL_OWNER call core_filesystem__initializeRecipeAsGlobalOwner();

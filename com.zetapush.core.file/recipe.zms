@@ -31,7 +31,9 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
 /**
  * File System Storage service
  */
-service zpServiceFile = zpfs_hdfs('cr_fl_hdfs').forbiddenVerbs(__all);
+service zpServiceFile = zpfs_hdfs('cr_fl_hdfs').options({
+	upload_thumbnails: '100,200,300,400,500'
+}).forbiddenVerbs(__all);
 /**
  * Scheduler service
  */
