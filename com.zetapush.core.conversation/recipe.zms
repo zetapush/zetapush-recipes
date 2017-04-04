@@ -7,6 +7,7 @@ recipe com.zetapush.core.conversation 2.0.0;
 // Import recipes
 
 import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
 import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
 import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
 
@@ -27,7 +28,7 @@ const COLUMN_HISTORY_UNREAD = 'unread';
 
 // File System
 
-const CONVERSATION_ATTACHMENTS_PATH = '/conversation/attachments/';
+const CONVERSATION_ATTACHMENTS_PATH = 'conversation/attachments/';
 
 // Constants
 
@@ -82,9 +83,3 @@ service zpServiceGda = gda('cr_cnvrst_gda').forbiddenVerbs(__all);
  * Data Stack service
  */
 service zpServiceStack = stack('cr_cnvrst_stack').forbiddenVerbs(__all);
-/**
- * File system service
- */
-service zpServiceFileSystem = zpfs_hdfs('cr_cnvrst_hdfs').options({
-	upload_thumbnails: '100,200,300,400,500,600,700,800,900'
-}).forbiddenVerbs(__all);

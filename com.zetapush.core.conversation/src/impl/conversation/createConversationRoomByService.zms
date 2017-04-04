@@ -12,7 +12,8 @@ macroscript core_conversation__createConversationRoomByService(
 	var path = CONVERSATION_ATTACHMENTS_PATH + id;
 	/** Conversation metadata */
 	var metadata = {
-		type: CORE__CONVERSATION_TYPE_ROOM
+		type: CORE__CONVERSATION_TYPE_ROOM,
+		attachments: path
 	};
 	/** Create group */
 	var { result: { group: room } } = call zpRecipeGroup::core_group__createGroupByService({
@@ -24,7 +25,7 @@ macroscript core_conversation__createConversationRoomByService(
 		id, path,
 		zpServiceGroups: zpService,
 		zpServiceGda: zpServiceGda,
-		zpServiceFileSystem: zpServiceFileSystem
+		zpServiceFileSystem: zpRecipeFile::zpServiceFile
 	}) hardFail;
 	/** Extends room with grants list */
 	var { grants } = zpService.listGrants({ group: id });

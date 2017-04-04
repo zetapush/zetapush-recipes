@@ -2,12 +2,18 @@
  *
  */
 macroscript deleteFileEntry(
-	/***/ @NotNull string path
+	/** */ @NotNull string path,
+	/** */ string owner
 ) {
+	/** Manage default parameters */
+	owner = owner ?: __userKey;
+	trace(#deleteFileEntry, path, owner);
+	/** Remove file */
 	zpServiceFile.rm({
-		path
+		path,
+		owner
 	});
 } broadcast {
-	path
+	path, owner
 } on channel __selfName
 

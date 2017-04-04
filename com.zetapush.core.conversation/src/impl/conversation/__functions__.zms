@@ -1,6 +1,12 @@
 /**
  * Generate a unique conversation id
  */
+function core_conversation__pascalify(value) return str:upper(str:substr(value, 0, 1) + str:substr(value, 1, str:len(value)))
+
+
+/**
+ * Generate a unique conversation id
+ */
 function core_conversation__id() return str:substr(str:rnd36(CONVERSATION_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_CONVERSATION_ID)
 
 /**

@@ -3,11 +3,12 @@
  */
 macroscript core_filesystem__getFileEntryByService(
 	@NotNull string path,
+	@NotNull string owner, 
 	@NotNull service<zpfs_hdfs> zpService
 ) {
-	trace(#core_filesystem__getFileEntryByService, path);
+	trace(#core_filesystem__getFileEntryByService, path, owner);
 	/** List uploaded files */
-	var { entry } = zpService.stat({ path });
+	var { entry } = zpService.stat({ path, owner });
 	/** Test if file exists */
 	var exists = entry??;
 } return { 

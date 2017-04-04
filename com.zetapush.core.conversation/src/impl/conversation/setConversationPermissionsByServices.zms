@@ -21,6 +21,11 @@ macroscript core_conversation__setConversationPermissionsByServices(
 		group: id,
 		resource: str:join(':', __userKey, id)
 	});
+	/** Create file storage file path */
+	zpServiceFileSystem.mkdir({
+		parents: true,
+		folder: path
+	});
 	/** Grant grant to the group for the stack */
 	zpServiceGroups.mgrant({
 		actions: [Verb_zpfs_hdfs_newUploadUrl],

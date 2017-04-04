@@ -4,13 +4,12 @@
 macroscript core_filesystem__requestFileUploadByService(
 	@NotNull string contentType,
 	@NotNull string folder,
+	@NotNull string owner,
   	@NotNull service<zpfs_hdfs> zpService
 ) {
 	trace(#core_filesystem__requestFileUploadByService, contentType, folder);
-	/** Ensure folder is created */
-	zpService.mkdir({ folder, parents: true });
 	/** Request new upload url end point */
-	var { httpMethod, guid, url, owner } = zpService.newUploadUrl({ contentType, path: folder });
+	var { httpMethod, guid, url } = zpService.newUploadUrl({ contentType, owner, path: folder });
 	/** Trigger event */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__REQUEST_FILE_UPLOAD,

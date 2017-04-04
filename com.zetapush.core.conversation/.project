@@ -3,6 +3,7 @@
 	<name>com.zetapush.core.conversation</name>
 	<comment></comment>
 	<projects>
+		<project>com.zetapush.core.file</project>
 		<project>com.zetapush.core.group</project>
 		<project>com.zetapush.core.user</project>
 		<project>com.zetapush.core.utils</project>

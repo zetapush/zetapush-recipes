@@ -3,14 +3,15 @@
  */
 macroscript core_filesystem__confirmFileUploadByService(
 	@NotNull string guid,
+	@NotNull string owner,
 	map actions = {},
 	map metadata = {},
 	array tags = [],
   	@NotNull service<zpfs_hdfs> zpService
 ) {
-	trace(#core_filesystem__confirmFileUploadByService, guid, actions);
+	trace(#core_filesystem__confirmFileUploadByService, guid, owner, actions);
 	/** Confirm file upload */
-	var { type, name, creation, url, owner } = zpService.newFile({ guid, metadata });
+	var { type, name, creation, url } = zpService.newFile({ guid, owner, metadata });
 	/** Trigger event */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CONFIRM_FILE_UPLOAD,

@@ -3,13 +3,19 @@
  */
 macroscript confirmFileUpload(
 	@NotNull string guid,
+	string owner,
 	map actions = {},
 	map metadata = {},
 	array tags = []
 ) {
-	trace(#confirmFileUpload, guid, actions, metadata, tags);
+	/** Manage default parameters */
+	owner = owner ?: __userKey;
+	trace(#confirmFileUpload, guid, owner, actions, metadata, tags);
+	
+	trace('grant', str:join(':', zpServiceFile, owner, guid));
+	
 	/** Confirm file upload */
-	var { result: { type, name, creation, url, owner} } = call core_filesystem__confirmFileUploadByService({ guid, actions, metadata, tags, zpService: zpServiceFile }) hardFail;
+	var { result: { type, name, creation, url } } = call core_filesystem__confirmFileUploadByService({ guid, owner, actions, metadata, tags, zpService: zpServiceFile }) hardFail;
 } broadcast {
 	// Base fields
 	tags, type, name, metadata, creation, url, owner

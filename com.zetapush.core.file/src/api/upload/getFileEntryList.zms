@@ -2,11 +2,14 @@
  *
  */
 macroscript getFileEntryList(
-	@NotNull string folder
+	/** */ @NotNull string folder,
+	/** */ string owner
 ) {
-	trace(#getFileEntryList, folder);
+	/** Manage default parameters */
+	owner = owner ?: __userKey;
+	trace(#getFileEntryList, folder, owner);
 	/** Get file upload list */
-	var { result: { exists, entries, owner } } = call core_filesystem__getFileEntryListByService({ folder, zpService: zpServiceFile }) hardFail;
+	var { result: { exists, entries } } = call core_filesystem__getFileEntryListByService({ folder, owner, zpService: zpServiceFile }) hardFail;
 } return { 
 	exists, folder, entries, owner
 } on channel __selfName
