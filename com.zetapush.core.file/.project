@@ -3,7 +3,6 @@
 	<name>com.zetapush.core.file</name>
 	<comment></comment>
 	<projects>
-		<project>com.zetapush.core.config</project>
 		<project>com.zetapush.core.utils</project>
 	</projects>
 	<buildSpec>
