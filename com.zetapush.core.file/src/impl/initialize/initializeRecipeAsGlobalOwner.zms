@@ -1,7 +1,7 @@
 /**
  * Initialize user recipe
  */
-macroscript core_filesystem__initializeRecipeAsGlobalOwner(
+macroscript core_file__initializeRecipeAsGlobalOwner(
 
 ) {
 	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;

@@ -1,0 +1,3 @@
+macroscript_annotation HasPermission(default string permission) = @Before(macro = core_role__has, macroParams = { name: permission, zpService: zpServiceGroupsPermission });
+
+macroscript_annotation HasRole(default string role) = @Before(macro = core_role__has, macroParams = { name: role, zpService: zpServiceGroupsRole });

@@ -1,7 +1,7 @@
 /**
  *
  */
-macroscript core_filesystem__confirmFileUploadByService(
+macroscript core_file__confirmFileUploadByService(
 	@NotNull string guid,
 	@NotNull string owner,
 	map actions = {},
@@ -9,7 +9,7 @@ macroscript core_filesystem__confirmFileUploadByService(
 	array tags = [],
   	@NotNull service<zpfs_hdfs> zpService
 ) {
-	trace(#core_filesystem__confirmFileUploadByService, guid, owner, actions);
+	trace(#core_file__confirmFileUploadByService, guid, owner, actions);
 	/** Confirm file upload */
 	var { type, name, creation, url } = zpService.newFile({ guid, owner, metadata });
 	/** Trigger event */

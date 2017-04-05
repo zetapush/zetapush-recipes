@@ -1,3 +1,4 @@
+@HasPermission(permission = #createRole)
 macroscript createRole(
 	@NotNull string name
 ) {

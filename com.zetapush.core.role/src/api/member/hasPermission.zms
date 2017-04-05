@@ -1,4 +1,4 @@
-macroscript hasRole(
+macroscript hasPermission(
 	/** Optionnal role id */ string id,
 	/** Optionnal role name */ string name,
 	boolean assertion = false
@@ -13,6 +13,6 @@ macroscript hasRole(
 		id,
 		owner: zpRecipeUtils::GLOBAL_OWNER,
 		isHardFail: assertion,
-		zpService: zpServiceGroupsRole
+		zpService: zpServiceGroupsPermission
 	}) hardFail;
 } return { id, name, has } on channel __selfName

@@ -35,8 +35,8 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
  * User group service
  */
 service zpServiceGroups = groups('cr_grp_groups').options({
-	groups_presence_owner: true,
-	groups_presence_group: true
+	groups_presence_owner: false,
+	groups_presence_group: false
 }).forbiddenVerbs(__all);
 /**
  * Data Storage service

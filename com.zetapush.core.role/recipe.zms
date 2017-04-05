@@ -11,9 +11,14 @@ import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
 // Constants
 
 const CORE__GROUP_TYPE_ROLE = 'role';
+const CORE__GROUP_TYPE_PERMISSION = 'role';
 
 const CORE__ROLE_ADMIN = #CORE__ROLE_ADMIN;
 const CORE__ROLE_USER = #CORE__ROLE_USER;
+
+// Errors Code
+
+const ERROR__MISSING_GRANT = #ERROR__MISSING_GRANT;
 
 // Services declaration
 
@@ -22,9 +27,20 @@ const CORE__ROLE_USER = #CORE__ROLE_USER;
  */
 service zpServiceApiMacro = macro(__default) for 'src/api';
 /**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
  * User group role service
  */
 service zpServiceGroupsRole = groups('cr_rl_groups').options({
-	groups_presence_owner: true,
-	groups_presence_group: true
+	groups_presence_owner: false,
+	groups_presence_group: false
+}).forbiddenVerbs(__all);
+/**
+ * User group permission service
+ */
+service zpServiceGroupsPermission = groups('cr_prmssn_groups').options({
+	groups_presence_owner: false,
+	groups_presence_group: false
 }).forbiddenVerbs(__all);

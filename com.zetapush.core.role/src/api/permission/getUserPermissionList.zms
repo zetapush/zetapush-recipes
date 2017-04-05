@@ -1,12 +1,11 @@
-@HasPermission(permission = #getRoleList)
-macroscript getRoleList(
+macroscript getUserPermissionList(
 ) {
 	/** Get group list from API */
-	var groups = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGroupsRole.allGroups({});
+	var groups = zpServiceGroupsPermission.myGroups({});
 	/** Delegate get all user groups */
 	var { result: { list } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupListByService({
 		groups,
-		zpService: zpServiceGroupsRole
+		zpService: zpServiceGroupsPermission
 	}) hardFail;
 } return {
 	list

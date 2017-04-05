@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript core_role__initializeRecipeAsGlobalOwner(
+
+) {
+	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
+	/** Create core permissions */
+	call createPermission({ name: #createPermission });
+	call createPermission({ name: #deletePermission });
+	call createPermission({ name: #getPermissionList });
+
+	call createPermission({ name: #createRole });
+	call createPermission({ name: #deleteRole });
+	call createPermission({ name: #getRoleList });
+}

@@ -14,4 +14,4 @@ zpRecipeUtils::zpServiceTrigger.trigger_addApiListener({
 });
 
 /** Initialize recipe */
-sudo zpRecipeUtils::GLOBAL_OWNER call core_filesystem__initializeRecipeAsGlobalOwner();
+sudo zpRecipeUtils::GLOBAL_OWNER call core_file__initializeRecipeAsGlobalOwner();

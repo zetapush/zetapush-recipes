@@ -1,0 +1,28 @@
+/**
+ *
+ */
+macroscript core_role__has(
+	/** Optionnal role id */ string id,
+	/** Optionnal role name */ string name,
+	/** */ @NotNull service<groups> zpService 
+) {
+	assert id?? || name?? zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	/** Support exception for global owner */
+	if (__userKey != zpRecipeUtils::GLOBAL_OWNER) {
+		/** Support optionnal parameter */
+		if (!(id??) && name??) {
+			id = str:hex(str:md5(str:upper(name)));
+		} 
+		/** Is member of group role service */
+		var { errors } = call zpRecipeGroup::core_group__isMemberOfByService({
+			id,
+			owner: zpRecipeUtils::GLOBAL_OWNER,
+			isHardFail: true,
+			zpService
+		});
+		/** Handle errors */
+		if (coll:size(errors) > 0) {
+			fail ERROR__MISSING_GRANT 'Missing grant';
+		}
+	}
+}

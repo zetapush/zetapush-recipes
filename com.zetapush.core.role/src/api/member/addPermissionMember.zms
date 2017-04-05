@@ -1,0 +1,20 @@
+macroscript addPermissionMember(
+	/** Optionnal role id */ string id,
+	/** Optionnal role name */ string name,
+	/** User key */ @NotNull string member
+) {
+	assert id?? || name?? zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	/** Support optionnal parameter */
+	if (!(id??) && name??) {
+		id = str:hex(str:md5(str:upper(name)));
+	} 
+	/** Add user in group */
+	var response = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__addGroupMemberByService({
+		id,
+		member,
+		zpService: zpServiceGroupsPermission
+	}) hardFail;
+	/* TODO Broadcast to all group members */
+} broadcast {
+	id, name, member
+} on channel __selfName

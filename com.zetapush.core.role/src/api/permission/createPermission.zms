@@ -1,0 +1,21 @@
+@HasPermission(permission = #createPermission)
+macroscript createPermission(
+	@NotNull string name
+) {
+	var id = str:hex(str:md5(str:upper(name)));
+	/** Create group based role */
+	var { result: { group: permission } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__createGroupByService({
+		id,
+		name: str:upper(name),
+		members: [],
+		metadata: {
+			i18n: str:join('.', 'I18N', str:upper(CORE__GROUP_TYPE_PERMISSION), str:upper(name)),
+			name,
+			type: CORE__GROUP_TYPE_PERMISSION
+		},
+		tags: [],
+		zpService: zpServiceGroupsPermission
+	}) hardFail;
+} broadcast {
+	permission
+} on channel __selfName

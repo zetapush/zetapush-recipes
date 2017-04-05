@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>com.zetapush.core.group</project>
+		<project>com.zetapush.core.user</project>
 		<project>com.zetapush.core.utils</project>
 	</projects>
 	<buildSpec>

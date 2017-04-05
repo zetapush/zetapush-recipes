@@ -1,8 +1,7 @@
 /**
  * 
  */
-@ConfirmFileUploadListener()
-macroscript core_filesystem__onConfirmFileUploadCallback(
+macroscript core_file__onConfirmFileUploadCallback(
 	@NotNull map file,
 	@NotNull service<zpfs_hdfs> zpService
 ) {

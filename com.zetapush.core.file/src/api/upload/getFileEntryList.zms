@@ -9,7 +9,7 @@ macroscript getFileEntryList(
 	owner = owner ?: __userKey;
 	trace(#getFileEntryList, folder, owner);
 	/** Get file upload list */
-	var { result: { exists, entries } } = call core_filesystem__getFileEntryListByService({ folder, owner, zpService: zpServiceFile }) hardFail;
+	var { result: { exists, entries } } = call core_file__getFileEntryListByService({ folder, owner, zpService: zpServiceFile }) hardFail;
 } return { 
 	exists, folder, entries, owner
 } on channel __selfName
