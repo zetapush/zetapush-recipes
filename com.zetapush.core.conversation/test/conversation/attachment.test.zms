@@ -21,9 +21,14 @@ zms_test test_core_conversation__attachment {
 		zms_test_success;
 	});
 
+	zms_add_handler(caller, core_conversation__onConfirmFileUploadCallback, (result, errors) => {
+		info('core_conversation__onConfirmFileUploadCallback', result, errors);
+	});
+
 	zms_add_handler(caller, zpRecipeFile::confirmFileUpload, (result, errors) => {
 		info('zpRecipeFile::confirmFileUpload', result, errors);
 
+		/*
 		sudo caller call addConversationMessage({
 			room: room,
 			type: MESSAGE_TYPE_ATTACHMENT,
@@ -33,6 +38,7 @@ zms_test test_core_conversation__attachment {
 			},
 			metadata : {}
 		});
+		*/
 	});
 
 	zms_add_handler(caller, zpRecipeFile::requestFileUpload, (result, errors) => {
