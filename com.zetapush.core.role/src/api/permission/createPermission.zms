@@ -2,6 +2,8 @@
 macroscript createPermission(
 	@NotNull string name
 ) {
+	trace(#createPermission, name);
+	/** Get name based id */
 	var id = str:hex(str:md5(str:upper(name)));
 	/** Create group based role */
 	var { result: { group: permission } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__createGroupByService({

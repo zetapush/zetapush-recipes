@@ -4,9 +4,7 @@ macroscript getUser(
 	/** Manage optional userKey value */
 	userKey = userKey ?: __userKey;
 	/** Get user by user key */
-	var response = call core_user__getUserByUserKey({
+	var { result: { user } } = call core_user__getUserByUserKey({
 		userKey
 	}) hardFail;
-	/** Destructure response properties */
-	var user = response.result.user;
 } return { user } on channel __selfName

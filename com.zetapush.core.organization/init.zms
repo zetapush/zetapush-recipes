@@ -11,6 +11,5 @@ zpRecipeUtils::zpServiceTrigger.trigger_addListener({
 	},
 	verb: Verb_macro_func
 });
-
 /** Initialize recipe */
 sudo zpRecipeUtils::GLOBAL_OWNER call core_organization__initialize();

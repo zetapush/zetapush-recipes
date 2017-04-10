@@ -1,16 +1,24 @@
 /**
  *
  */
-macroscript core_role__initializeRecipeAsGlobalOwner(
+macroscript core_role__initialize(
 
 ) {
 	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
 	/** Create core permissions */
-	call createPermission({ name: #createPermission });
-	call createPermission({ name: #deletePermission });
-	call createPermission({ name: #getPermissionList });
-
-	call createPermission({ name: #createRole });
-	call createPermission({ name: #deleteRole });
-	call createPermission({ name: #getRoleList });
+	
+	// Member
+	call createPermission({ name: #addPermissionListMember }) hardFail;
+	call createPermission({ name: #addPermissionMember }) hardFail;
+	call createPermission({ name: #addRoleMember }) hardFail;
+	call createPermission({ name: #removePermissionMember }) hardFail;
+	call createPermission({ name: #removeRoleMember }) hardFail;
+	// Permission
+	call createPermission({ name: #createPermission }) hardFail;
+	call createPermission({ name: #deletePermission }) hardFail;
+	call createPermission({ name: #getPermissionList }) hardFail;
+	// Role
+	call createPermission({ name: #createRole }) hardFail;
+	call createPermission({ name: #deleteRole }) hardFail;
+	call createPermission({ name: #getRoleList }) hardFail;
 }

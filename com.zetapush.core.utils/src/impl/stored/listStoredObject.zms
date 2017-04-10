@@ -20,7 +20,7 @@ macroscript core_utils__listStoredObject(
 	/** Default page query object */
 	page = page ?: defaultPage;
 	/** Get stored config entry */
-	var response = zpService.list({ table, columns, page });
+	var { result } = zpService.list({ table, columns, page });
 	/** Destructure result properties */
-	var content = coll:map(response.result.content, entry -> usr:map_entry_key_value(entry));
+	var content = coll:map(result.content, entry -> usr:map_entry_key_value(entry));
 } broadcast { content, page } on channel __selfName

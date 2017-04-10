@@ -20,7 +20,7 @@ macroscript core_conversation__onConfirmFileUploadCallback(
 		});
 		trace(#core_conversation__onConfirmFileUploadCallback, { room });
 		/** Add attachment as conversation message */
-		var response = call addConversationMessage({
+		call addConversationMessage({
 			room,
 			type: MESSAGE_TYPE_ATTACHMENT,
 			value: {

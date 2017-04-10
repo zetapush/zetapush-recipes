@@ -3,10 +3,8 @@ macroscript createUser(
 	@NotNull string password 
 ) {
 	/** Create user in simple service */
-	var response = call core_user__createUserByService({
+	var { result: { user } } = call core_user__createUserByService({
 		profile: __parameters,
 		zpService: zpServiceSimpleAuth
 	}) hardFail;
-	/** Destructure response properties */
-	var user = response.result.user;
 } broadcast { user } on channel __selfName
