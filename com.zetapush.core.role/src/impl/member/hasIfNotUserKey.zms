@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript core_role__hasIfNotUserKey(
+	/** Optionnal role/permission name */ @NotNull string name,
+	/** Optionnal role/permission owner */ string userKey,
+	/** */ @NotNull service<groups> zpService 
+) {
+	if (userKey?? && userKey != __userKey) {
+		call core_role__has({ name, zpService }) hardFail;
+	}
+}

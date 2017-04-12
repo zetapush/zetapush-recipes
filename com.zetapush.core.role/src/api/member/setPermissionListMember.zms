@@ -1,9 +1,9 @@
-@HasPermission(permission = #addPermissionListMember)
-macroscript addPermissionListMember(
+@HasPermission(permission = #setPermissionListMember)
+macroscript setPermissionListMember(
 	/** Map of permissions */ @NotNull map permissions,
 	/** User key */ @NotNull string member
 ) {
-	trace(#addPermissionListMember, permissions, member);
+	trace(#setPermissionListMember, permissions, member);
 	var responses = [];
 	/** Map all permissions */
 	for entry in permissions {
@@ -16,7 +16,7 @@ macroscript addPermissionListMember(
 			},
 			name: method,
 			hardFail: true
-		});
+		}) loud;
 		responses += response;
 	}
 } broadcast {

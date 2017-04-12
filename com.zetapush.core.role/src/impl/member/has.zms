@@ -2,8 +2,8 @@
  *
  */
 macroscript core_role__has(
-	/** Optionnal role id */ string id,
-	/** Optionnal role name */ string name,
+	/** Optionnal role/permission id */ string id,
+	/** Optionnal role/permission name */ string name,
 	/** */ @NotNull service<groups> zpService 
 ) {
 	assert (id?? || name??) zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';

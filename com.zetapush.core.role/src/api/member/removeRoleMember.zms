@@ -16,6 +16,6 @@ macroscript removeRoleMember(
 		zpService: zpServiceGroupsRole
 	}) hardFail;
 	/* TODO Broadcast to all group members */
-} broadcast {
-	id, member
+} broadcast([__userKey, member]) {
+	id, name, member, has: false
 } on channel __selfName

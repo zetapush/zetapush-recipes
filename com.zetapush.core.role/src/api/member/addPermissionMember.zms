@@ -16,6 +16,6 @@ macroscript addPermissionMember(
 		zpService: zpServiceGroupsPermission
 	}) hardFail;
 	/* TODO Broadcast to all group members */
-} broadcast {
-	id, name, member
+} broadcast([__userKey, member]) {
+	id, name, member, has: true
 } on channel __selfName

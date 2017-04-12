@@ -1,7 +1,11 @@
+@HasRoleIfNotUserKey(role = #getUserRoleList, userKey = userKey)
 macroscript getUserRoleList(
+	string userKey
 ) {
+	/** Manage default parameters */
+	userKey = userKey ?: __userKey;
 	/** Get group list from API */
-	var groups = zpServiceGroupsRole.myGroups({});
+	var groups = sudo userKey zpServiceGroupsRole.myGroups({});
 	/** Delegate get all user groups */
 	var { result: { list } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupListByService({
 		groups,
