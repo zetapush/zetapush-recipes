@@ -39,3 +39,7 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
  * NoSQL Dataservice
  */
 service zpServiceGda = gda('cr_ntfctns_gda').forbiddenVerbs(__all);
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);

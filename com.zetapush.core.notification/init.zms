@@ -21,31 +21,3 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_OBJECT
 	}]
 });
-
-/** Register triggers */
-zpRecipeUtils::zpServiceTrigger.trigger_addListener({
-	deploymentId: zpRecipeUtils::zpServiceImplMacro,
-	parameter : {
-		name: #core_notification__onNotifyUserCallback,
-		parameters: TriggerCallbackField_data
-	},
-	trigger : {
-		event: EVENT__NOTIFY_USER,
-		name: #core_notification__onNotifyUserCallback
-	},
-	verb: Verb_macro_func
-});
-
-/** Register triggers for in app notification */
-zpRecipeUtils::zpServiceTrigger.trigger_addListener({
-	deploymentId: zpRecipeUtils::zpServiceImplMacro,
-	parameter : {
-		name: #core_notification__onDispatchNotificationInApp,
-		parameters: TriggerCallbackField_data
-	},
-	trigger : {
-		event: EVENT__NOTIFICATION_DISPATCH_IN_APP,
-		name: #core_notification__onDispatchNotificationInApp
-	},
-	verb: Verb_macro_func
-});

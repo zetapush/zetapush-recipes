@@ -1,4 +1,7 @@
-/** */
+/**
+ *
+ */
+@NotifyUserListener()
 macroscript core_notification__onNotifyUserCallback(
 	/** */ @NotNull string id,
 	/** */ @NotNull string user,
