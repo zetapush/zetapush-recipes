@@ -35,31 +35,3 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_STRING
 	}]
 });
-/** Register triggers */
-zpRecipeUtils::zpServiceTrigger.trigger_addListener({
-	deploymentId: zpRecipeUtils::zpServiceImplMacro,
-	parameter : {
-		name: #core_whiteboard__onCreateWhiteboardCallback,
-		parameters: TriggerCallbackField_data
-	},
-	trigger : {
-		event: EVENT__CREATE_WHITEBOARD,
-		name: #core_whiteboard__onCreateWhiteboardCallback
-	},
-	verb: Verb_macro_func,
-	'loud': true
-});
-/** Register triggers */
-zpRecipeUtils::zpServiceTrigger.trigger_addListener({
-	deploymentId: zpRecipeUtils::zpServiceImplMacro,
-	parameter : {
-		name: #core_whiteboard__onAddWhiteboardObject,
-		parameters: TriggerCallbackField_data
-	},
-	trigger : {
-		event: EVENT__ADD_WHITEBOARD_OBJECT,
-		name: #core_whiteboard__onAddWhiteboardObject
-	},
-	verb: Verb_macro_func,
-	'loud': true
-});

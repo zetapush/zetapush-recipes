@@ -1,6 +1,7 @@
 /**
  *
  */
+@AddWhiteboardObjectListener()
 macroscript core_whiteboard__onAddWhiteboardObject(
 
 ) {

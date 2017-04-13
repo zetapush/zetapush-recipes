@@ -1,2 +1,0 @@
-macroscript_annotation AddWhiteboardObjectEventListener = @EventListener(eventName = EVENT__ADD_WHITEBOARD_OBJECT);
-macroscript_annotation CreateWhiteboardEventListener = @EventListener(eventName = EVENT__CREATE_WHITEBOARD);

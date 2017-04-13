@@ -1,6 +1,7 @@
 /**
  *
  */
+@CreateWhiteboardListener()
 macroscript core_whiteboard__onCreateWhiteboardCallback(
 	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
 	/** Whiteboard id */ @NotNull string id
