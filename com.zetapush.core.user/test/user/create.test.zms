@@ -1,0 +1,26 @@
+zms_test core_user__create {
+	zms_test_setup {
+		zms_test_user anonymous = zpServiceWeakAuth({});
+		var value = 'user-test-' + str:rnd36(10);
+	}
+	zms_add_handler(anonymous, zpServiceApiMacro, 'error', (result, errors) => {
+		trace('zpServiceApiMacro::error');
+		zms_test_success;
+	});
+	zms_add_handler(anonymous, zpServiceImplMacro, 'error', (result, errors) => {
+		trace('zpServiceImplMacro::error');
+		zms_test_success;
+	});
+	zms_add_handler(anonymous, core_user__onCreateUserCallback, (result, errors) => {
+		trace(#core_user__onCreateUserCallback, result, errors);
+		zms_test_success;
+	});
+	zms_add_handler(anonymous, createUser, (result, errors) => {
+		trace(#createUser, anonymous, result, errors);
+	});
+	sudo anonymous call createUser({
+		login: value,
+		password: value,
+		email: value + '@yopmail.com'
+	});
+}

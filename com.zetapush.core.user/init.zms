@@ -9,7 +9,8 @@ zpRecipeUtils::zpServiceTrigger.trigger_addListener({
 		event: EVENT__CREATE_USER,
 		name: #core_user__onCreateUserCallback
 	},
-	verb: Verb_macro_func
+	verb: Verb_macro_func,
+	'loud': true
 });
 
 /** Initialize recipe */
