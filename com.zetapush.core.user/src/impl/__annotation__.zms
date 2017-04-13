@@ -1,0 +1,1 @@
+macroscript_annotation CreateUserListener = @EventListener(eventName = EVENT__CREATE_USER, triggerService = zpServiceTrigger);

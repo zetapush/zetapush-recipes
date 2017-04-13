@@ -1,3 +1,4 @@
+@zpRecipeUser::CreateUserListener()
 macroscript core_organization__onCreateUserCallback(
 	/** User key */ @NotNull string userKey
 ) {

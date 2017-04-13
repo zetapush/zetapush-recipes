@@ -1,3 +1,7 @@
+/**
+ *
+ */
+@zpRecipeUser::CreateUserListener()
 macroscript plugin_user_email__onCreateUserCallback(
 	/** User key */ @NotNull string userKey
 ) {

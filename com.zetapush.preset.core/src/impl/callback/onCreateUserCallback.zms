@@ -1,3 +1,7 @@
+/**
+ *
+ */
+@zpRecipeUser::CreateUserListener()
 macroscript preset_core__onCreateUserCallback(
 	/** User key */ @NotNull string userKey
 ) {

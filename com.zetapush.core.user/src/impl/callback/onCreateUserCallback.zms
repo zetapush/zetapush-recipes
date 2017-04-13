@@ -1,6 +1,7 @@
 /**
  * Callback executed after user created
  */
+@CreateUserListener()
 macroscript core_user__onCreateUserCallback(
 	/** User key */ @NotNull string userKey
 ) {
