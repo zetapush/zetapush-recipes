@@ -1,1 +1,3 @@
 macroscript_annotation CreateUserListener = @EventListener(eventName = EVENT__CREATE_USER, triggerService = zpServiceTrigger);
+
+macroscript_annotation ResetPasswordListener = @EventListener(eventName = EVENT__RESET_PASSWORD, triggerService = zpServiceTrigger);
