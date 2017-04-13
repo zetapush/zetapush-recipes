@@ -45,18 +45,3 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_LONG
 	}]
 });
-
-/** Register triggers */
-zpRecipeUtils::zpServiceTrigger.trigger_addListener({
-	deploymentId: zpRecipeUtils::zpServiceImplMacro,
-	parameter : {
-		name: #core_conversation__onConfirmFileUploadCallback,
-		parameters: TriggerCallbackField_data
-	},
-	trigger : {
-		event: zpRecipeFile::EVENT__CONFIRM_FILE_UPLOAD,
-		name: #core_conversation__onConfirmFileUploadCallback
-	},
-	verb: Verb_macro_func,
-	'loud': true
-});

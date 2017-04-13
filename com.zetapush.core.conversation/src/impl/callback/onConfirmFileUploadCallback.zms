@@ -1,6 +1,7 @@
 /**
  *
  */
+@zpRecipeFile::ConfirmFileUploadListener()
 macroscript core_conversation__onConfirmFileUploadCallback(
 	@NotNull map actions,
 	@NotNull map file,

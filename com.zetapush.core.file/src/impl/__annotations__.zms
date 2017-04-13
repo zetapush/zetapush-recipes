@@ -1,3 +1,3 @@
-macroscript_annotation ConfirmFileUploadListener = @EventListener(eventName = EVENT__CONFIRM_FILE_UPLOAD);
+macroscript_annotation ConfirmFileUploadListener = @EventListener(eventName = EVENT__CONFIRM_FILE_UPLOAD, triggerService = zpServiceTrigger);
 
-macroscript_annotation RequestFileUploadListener = @EventListener(eventName = EVENT__REQUEST_FILE_UPLOAD);
+macroscript_annotation RequestFileUploadListener = @EventListener(eventName = EVENT__REQUEST_FILE_UPLOAD, triggerService = zpServiceTrigger);
