@@ -5,6 +5,7 @@
 	<projects>
 		<project>com.zetapush.core.config</project>
 		<project>com.zetapush.core.conversation</project>
+		<project>com.zetapush.core.context</project>
 		<project>com.zetapush.core.file</project>
 		<project>com.zetapush.core.group</project>
 		<project>com.zetapush.core.notification</project>
@@ -13,6 +14,7 @@
 		<project>com.zetapush.core.user</project>
 		<project>com.zetapush.core.utils</project>
 		<project>com.zetapush.core.whiteboard</project>
+		<project>com.zetapush.core.workflow</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

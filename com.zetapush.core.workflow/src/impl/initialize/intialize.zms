@@ -1,0 +1,8 @@
+/**
+ *
+ */
+macroscript core_workflow__initialize(
+
+) {
+	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
+}
