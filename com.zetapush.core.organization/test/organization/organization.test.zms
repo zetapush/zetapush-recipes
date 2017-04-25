@@ -36,7 +36,7 @@ zms_test test_core_organization__create {
 		sudo test call getUserOrganizationList();
 	});
 
-	sudo anonymous call zpRecipeUser::createUser({ login, password, email });
+	sudo anonymous call zpRecipeUser::createUser({ login, password, fields: { email } });
 }
 
 zms_test test_core_organization__list {

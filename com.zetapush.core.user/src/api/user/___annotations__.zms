@@ -1,0 +1,12 @@
+/**
+ * Validate conversation room
+ */
+function core_user__validate_auth_mandatory_fields(parameter, configuration) {
+	var fields = str:split(AUTH_MANDATORY_FIELDS, ',');
+	var validity = true;
+	for field in fields {
+		validity = validity && parameter[field]??;
+	}
+} return validity ? null : ('Expected ' + AUTH_MANDATORY_FIELDS + ' fields')
+
+@NotNull type_validator AuthMandatoryFields() = usr:core_user__validate_auth_mandatory_fields;

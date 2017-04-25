@@ -21,6 +21,6 @@ zms_test core_user__create {
 	sudo anonymous call createUser({
 		login: value,
 		password: value,
-		email: value + '@yopmail.com'
+		fields: { email: value + '@yopmail.com' }
 	});
 }
