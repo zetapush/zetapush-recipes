@@ -9,7 +9,7 @@ macroscript getFileEntry(
 	owner = owner ?: __userKey;
 	trace(#getFileEntry, path);
 	/** Get file upload */
-	var { entry: { exists, entry } } = call core_file__getFileEntryByService({ path, owner, zpService: zpServiceFile }) hardFail;
+	var { result: { exists, entry } } = call core_file__getFileEntryByService({ path, owner, zpService: zpServiceFile }) hardFail;
 } return { 
 	exists, entry, owner
 } on channel __selfName
