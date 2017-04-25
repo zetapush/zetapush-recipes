@@ -33,6 +33,7 @@ macroscript core_conversation__onConfirmFileUploadCallback(
 			type: MESSAGE_TYPE_ATTACHMENT,
 			value: {
 				guid: url.guid,
+				owner,
 				path: str:join('/', room.metadata.attachments, url.guid)
 			},
 			metadata: {}
