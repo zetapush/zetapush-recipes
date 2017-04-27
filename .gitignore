@@ -1,0 +1,5 @@
+src-gen/
+target/
+.settings/
+
+*.zmapp
