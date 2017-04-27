@@ -1,0 +1,68 @@
+/** Entropy for generation of random context IDs*/
+const CTX_ID_ENTROPY = 6;
+const CONTEXT_CREATION_FAILED = #CONTEXT_CREATION_FAILED;
+/**
+* Creates a context from a template
+*/
+macroscript createContext(
+	/** Context template identifier */ @NotNull string contextTemplateId,
+	/** Fields */ map fields = null,
+	@Inject ContextManager manager
+) {
+	const {result : template} = call getContextTemplate({contextTemplateId}) hardFail;
+	const {result : errors} = call manager.validateFields({fields, template}) hardFail;
+	assert coll:size(errors) == 0 CONTEXT_CREATION_FAILED "Bad fields";
+	
+	const wf = sudo CONTEXT_TEMPLATES_VIRTUAL_USER workflow.create({
+		templateName : template.info.workflowTemplateName,
+		userData : {fields}// TODO store what here ?
+	});
+	const contextId = wf.workflow;
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER workflow.transition({
+		workflow : contextId,
+		to : template.info.defaultState
+	});
+	const context = new ContextInfo(contextId, time:now());
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.puts({
+		table : CONTEXTS_TABLE,
+		rows : [{
+			key : contextId,
+			data : {
+				info : context,
+				fields,
+				state : template.info.defaultState
+			}
+		}]
+	});
+	call initContextRights({contextId, userKey : __userKey});
+} broadcast(template.info.groups + __userKey) context on channel __selfName
+/** Returns the list of contexts that the current user can see */
+macroscript myContexts() {
+	const groups = groupsService.myGroups({});
+	trace("groups", groups);
+	const contexts = sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.mget({
+		table : CONTEXTS_TABLE,
+		keys : coll:map(groups, g -> g.owner)
+	});
+	trace("contexts", contexts);
+} return {
+	/** visible contexts */Context[] contexts : contexts.result
+} on channel __selfName
+/** Transitions a context */
+macroscript transitionContext(class ContextTransitionRequest request) {
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER workflow.transition({
+		workflow : request.contextId, to : request.newState
+	});
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.put({
+		table : CONTEXTS_TABLE,
+		key : request.contextId,
+		column : 'state',
+		data : request.newState
+	});
+} return request on channel __selfName
+/** Manages validation of contexts */
+@Injectable class ContextManager {	
+	@Inject ContextManager m;
+	/** Checks for fields validity */
+	macroscript validateFields(map fields, @NotNull ContextTemplate template){}return{map errors: null}
+}
