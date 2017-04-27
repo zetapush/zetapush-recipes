@@ -1,0 +1,19 @@
+
+/** Basic info of a context */
+class ContextInfo {
+	/** unique identifier */ string contextId;
+	/** creation timestamp */ number creation;
+}
+/** All information of a context */
+class Context {
+	/** basic info */ ContextInfo info;
+	/** fields */ map fields;
+	/** Current state */ string state;
+}
+
+
+/** Request to make a context transition from its current state to another */
+class ContextTransitionRequest {
+	/** Context identifier */string contextId;
+	/** New state*/ string newState;
+}

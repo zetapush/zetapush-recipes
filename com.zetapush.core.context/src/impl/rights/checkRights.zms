@@ -1,0 +1,16 @@
+/** Prevents non authorized users to manage context templates */
+macroscript_annotation ContextTemplateRights = @Before(macro = checkContextTemplateRights, macroParams = {});
+
+/** Check whether the user can manage context templates */
+macroscript checkContextTemplateRights() {
+	if (__userKey != CONTEXT_TEMPLATES_VIRTUAL_USER)
+		contextTemplateRights.memberOf({user : CONTEXT_TEMPLATES_VIRTUAL_USER, hardFail : true, group : CONTEXT_MANAGERS_GROUP});
+}
+
+/** Prevents non authorized users to manage contexts */
+macroscript_annotation ContextCreatorRights = @Before(macro = checkContextRights, macroParams = {});
+
+/** Check whether the user can manage contexts */
+macroscript checkContextRights() {
+	contextTemplateRights.memberOf({user : CONTEXT_TEMPLATES_VIRTUAL_USER, hardFail : true, group : CONTEXT_MANAGERS_GROUP});
+}

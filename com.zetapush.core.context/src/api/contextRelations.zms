@@ -1,0 +1,10 @@
+/** creates a conversation in a context */
+macroscript createContextConversation(/** context identifier */ string contextId, string roomName, string[] members) {
+	// TODOOOOOO
+	var { result: { room } } = call conversations::core_conversation__createConversationByService({ 
+		id: null, name:roomName, members, zpService: conversations::zpServiceGroups
+	}) hardFail;
+} broadcast(room.resource) {
+	string contextId,
+	map room
+} on channel __selfName

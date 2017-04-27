@@ -1,0 +1,95 @@
+/** Entropy for generation of random context template IDs*/
+const CTX_TMPL_ENTROPY = 4;
+const ALPHA_NUM_REGEX = "[a-zA-Z0-9_]+";
+
+/**
+* Creates a context template.
+*
+* A context template has a reference to a workflow template, and evolves with it.
+*/
+@ContextTemplateRights
+macroscript createContextTemplate(
+	/** Context template id. A random one will be created if you omit it. */ @Pattern(ALPHA_NUM_REGEX) string contextTemplateId,
+	/** Context template name. A new name you provide. */ @NotNull string contextTemplateName,
+	/** Workflow template name. Must match an existing workflow template */ @NotNull string workflowTemplateName,
+	/** Defined fields for the context */ @NotNull ContextTemplateField[] fields,
+	/** Groups/Users that will be notified of context creation */ @NotNull string[] groups,
+	/** Default state of an instantiated workflow */ string defaultWorkflowState
+) {
+	/** wf template lookup to check existence*/
+	var tmpl = workflow.getTemplate({templateName : workflowTemplateName});
+	var ctId = contextTemplateId?: str:rnd36(CTX_TMPL_ENTROPY);
+	var info = new ContextTemplateInfo(ctId, contextTemplateName, defaultWorkflowState, workflowTemplateName, groups);
+	/** store the template */
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.puts({
+		table : CONTEXT_TEMPLATES_TABLE,
+		rows : [{
+			key : ctId,
+			data : {
+				info,
+				fields : coll:toMap(fields, f->f.name, f->f)
+			}
+		}]
+	});
+} return info on channel __selfName
+
+/** Adds a new field or updates an existing field for the given context template */
+@ContextTemplateRights
+macroscript addContextTemplateField (
+	/** The ID of the context template */@NotNull string contextTemplateId,
+	/** The field to be added or updated */@NotNull ContextTemplateField field
+) {
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.put({
+		table : CONTEXT_TEMPLATES_TABLE,
+		data : field,
+		key : contextTemplateId,
+		key2 : field.name,
+		column : 'fields'
+	});
+} return {
+	/** The ID of the context template */contextTemplateId,
+	/** The added field info */ field
+} on channel __selfName
+
+/** Adds a new field or updates an existing field for the given context template */
+@ContextTemplateRights
+macroscript removeContextTemplateField(class ContextTemplateFieldRemoval removal) {
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.removeCell({
+		table : CONTEXT_TEMPLATES_TABLE,
+		key : removal.contextTemplateId,
+		key2 : removal.fieldName,
+		column : 'fields'
+	});
+} return removal on channel __selfName
+
+/** Completely removes the given context template */
+@ContextTemplateRights
+macroscript removeContextTemplate(class ContextTemplateKey removal) {
+	sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.removeRow({
+		table : CONTEXT_TEMPLATES_TABLE,
+		key : removal.contextTemplateId
+	});
+} return removal on channel __selfName
+
+/** Returns a context template */
+macroscript getContextTemplate (class ContextTemplateKey key) {
+	var template = sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.get({
+		table : CONTEXT_TEMPLATES_TABLE,
+		key : key.contextTemplateId
+	});
+	assert template != null "NOT_FOUND";
+	var contextTemplate = new ContextTemplate(
+		template.result.info,
+		coll:map(template.result.fields, f->f.value));
+} return contextTemplate on channel __selfName
+/** Returns a paginated list of the available context templates */
+macroscript listContextTemplates (class CtxPagination page) {
+	var templates = sudo CONTEXT_TEMPLATES_VIRTUAL_USER gda.list({
+		table : CONTEXT_TEMPLATES_TABLE,
+		page
+	});
+} return {
+	/** The available context templates */ContextTemplate[] templates:templates.result.content
+} on channel __selfName
+
+
