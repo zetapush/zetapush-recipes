@@ -1,0 +1,30 @@
+/** */
+macroscript core_notification__notifyUser(
+	/** */ string user,
+	/** */ string type,
+	/** */ map value
+) {
+	var id = zpRecipeUtils::uuid();
+	var createdAt = time:now();
+	var emitter = __userKey;
+	/** */
+	sudo user zpServiceGda.puts({
+		table: NOTIFICATION_TABLE,
+		rows:[{
+			key: id,
+			data: {
+				[COLUMN_NOTIFICATION_CREATED_AT]: createdAt,
+				[COLUMN_NOTIFICATION_EMITTER]: emitter,
+				[COLUMN_NOTIFICATION_TYPE]: type,
+				[COLUMN_NOTIFICATION_VALUE]: value
+			}
+		}]
+	});
+	
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__NOTIFY_USER,
+		data: { id, user, createdAt, emitter, type, value }
+	});
+
+} broadcast { id, user, createdAt, emitter, type, value } on channel __selfName

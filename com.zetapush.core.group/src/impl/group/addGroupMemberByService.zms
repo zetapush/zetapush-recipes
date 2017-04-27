@@ -1,0 +1,16 @@
+/**
+ * Add user in a group for a specific groups service
+ */
+macroscript core_group__addGroupMemberByService(
+	/** Group id */ @NotNull string id,
+	/** User key */ @NotNull string member,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	/** Add user in group */
+	zpService.addUser({
+		user: member,
+		group: id
+	});
+} broadcast {
+	id, member
+} on channel __selfName

@@ -1,15 +1,26 @@
-# ZetaPush Official Recipies
+# ZetaPush Official Recipes
 
-> This mono-repo contains all official recipies
+> This monorepo contains all official recipes
 
 ## Overview
 
-- Utils
+Core recipes
+
 - Config
-- Group
-- User
-- Role
-- Notification
 - Conversation
+- File
+- Group
+- Notification
+- Organization
+- Role
+- User
+- Utils
+- Whiteboard
+
+Plugin recipes
+
+- User Email
 
 ## Documentation
+
+Coming Soon

@@ -1,0 +1,8 @@
+macroscript_annotation AddWhiteboardObjectListener = @EventListener(eventName = EVENT__ADD_WHITEBOARD_OBJECT, triggerService = zpServiceTrigger);
+
+macroscript_annotation UpdateWhiteboardObjectListener = @EventListener(eventName = EVENT__UPDATE_WHITEBOARD_OBJECT, triggerService = zpServiceTrigger);
+
+macroscript_annotation CreateWhiteboardListener = @EventListener(eventName = EVENT__CREATE_WHITEBOARD, triggerService = zpServiceTrigger);
+
+macroscript_annotation PurgeWhiteboardListener = @EventListener(eventName = EVENT__PURGE_WHITEBOARD, triggerService = zpServiceTrigger);
+

@@ -1,0 +1,10 @@
+/**
+ * Get a group
+ */
+macroscript getGroup(
+	/** Group id */ @NotNull string id
+) {
+	var { result: { group } } = call core_group__getGroupByService({ id, zpService: zpServiceGroups }) hardFail;
+} return {
+	group
+} on channel __selfName

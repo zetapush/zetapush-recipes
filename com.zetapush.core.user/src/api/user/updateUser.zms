@@ -1,0 +1,15 @@
+/**
+ * Update user profile
+ */
+macroscript updateUser(
+	@NotNull string login,
+	@AuthMandatoryFields map fields	
+) {
+	var profile = { login };
+	profile += fields;
+	/** Get user infos */
+	var { result: { user } } = call core_user__updateUserByService({
+		profile: __parameters,
+		zpService: zpServiceSimpleAuth
+	}) hardFail;
+} broadcast { user } on channel __selfName

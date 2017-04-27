@@ -1,0 +1,18 @@
+/**
+ * Generic get for stored object api
+ */
+macroscript core_utils__getStoredObject(
+	/** Stored Object Id */ @NotNull string id,
+	/** Stored Table */ @NotNull string table,
+	/** Storage service */ @NotNull service<gda> zpService
+) {
+	/** Get stored config entry */
+	var { result } = zpService.get({
+		key: id,
+		table: table
+	});
+	/** Destructure result properties */
+	var value = result[COLUMN_STORED_OBJECT_VALUE];
+	var revision = result[COLUMN_STORED_OBJECT_REVISION];
+	var update = result[COLUMN_STORED_OBJECT_UPDATE];
+} broadcast { id, value, revision, update, result } on channel __selfName

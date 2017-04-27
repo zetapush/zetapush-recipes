@@ -1,0 +1,17 @@
+macroscript getPermission(
+	/** Optionnal role id */ string id,
+	/** Optionnal role name */ string name
+) {
+	assert (id?? || name??) zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	/** Support optionnal parameter */
+	if (!(id??) && name??) {
+		id = str:hex(str:md5(str:upper(name)));
+	} 
+	/** Get group based role */
+	var { result: { group: permission } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupByService({
+		id,
+		zpService: zpServiceGroupsPermission
+	}) hardFail;
+} return {
+	permission
+} on channel __selfName

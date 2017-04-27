@@ -1,0 +1,2 @@
+/** Initialize recipe */
+sudo zpRecipeUtils::GLOBAL_OWNER call plugin_user_email__initializeRecipeAsGlobalOwner();

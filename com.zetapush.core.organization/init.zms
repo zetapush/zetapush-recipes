@@ -1,0 +1,2 @@
+/** Initialize recipe */
+sudo zpRecipeUtils::GLOBAL_OWNER call core_organization__initialize();

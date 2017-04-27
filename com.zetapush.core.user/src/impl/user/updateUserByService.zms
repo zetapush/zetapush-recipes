@@ -1,0 +1,25 @@
+/**
+ * Update an existing user
+ */
+macroscript core_user__updateUserByService(
+	/** Account */ @NotNull map profile,
+	/** Authentication Service */ @NotNull service<simple> zpService
+) {
+	/** Check if account login is available */
+	var { result: { available } } = call core_user__isLoginAvailableByService({
+		login: profile.login,
+		zpAuthenticationService: zpService
+	}) hardFail;
+	/** Assert user exist */
+	assert !available ERROR__USER_NOT_FOUND; 
+	/** Create a new account */
+	var account = zpService.updateUser(profile);
+	var userKey = account.zetapushKey;
+	/** Get user infos */
+	var { result: { user } } = call core_user__getUserByUserKey({ userKey });
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__UPDATE_USER,
+		data: { user }
+	});
+} broadcast { user } on channel __selfName

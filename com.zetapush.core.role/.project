@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>com.zetapush.core.role</name>
+	<comment></comment>
+	<projects>
+		<project>com.zetapush.core.group</project>
+		<project>com.zetapush.core.utils</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+			<id>1477312844115</id>
+			<name></name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-true-false-target</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1477312844121</id>
+			<name></name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-true-false-com.zetapush.core.role-*.zmapp</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+</projectDescription>

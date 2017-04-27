@@ -1,0 +1,12 @@
+macroscript getOrganizationList(
+) {
+	/** Get group list from API */
+	var groups = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGroupsOrganization.allGroups({});
+	/** Delegate get all user groups */
+	var { result: { list } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupListByService({
+		groups,
+		zpService: zpServiceGroupsOrganization
+	}) hardFail;
+} return {
+	list
+} on channel __selfName

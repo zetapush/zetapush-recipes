@@ -1,0 +1,23 @@
+/**
+ *
+ */
+macroscript getUserContactList(
+
+) {
+	var map = {};
+	var { result: { list: organizations } } = call getUserOrganizationList();
+	for organization in organizations {
+		for member in organization.members {
+			map[member.userKey] = member;
+		}
+	}
+	// TODO Use utils functions via cross recipe function reference
+	var index = 0;
+	var list = [];
+	for item in map {
+		list += item.value;
+	} 
+} return {
+	list
+} on channel __selfName
+

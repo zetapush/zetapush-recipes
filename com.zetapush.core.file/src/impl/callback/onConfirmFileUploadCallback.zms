@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+@ConfirmFileUploadListener()
+macroscript core_file__onConfirmFileUploadCallback(
+	@NotNull map file,
+	@NotNull service<zpfs_hdfs> zpService
+) {
+
+}

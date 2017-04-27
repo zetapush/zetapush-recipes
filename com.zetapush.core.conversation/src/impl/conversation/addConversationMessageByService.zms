@@ -1,0 +1,49 @@
+/**
+ *
+ */
+macroscript core_conversation__addConversationMessageByService(
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message storage container id */ @ValidConversationId string container,
+	/** Message type */ @ValidMessageType string type,
+	/** Message value*/ @NotNull map value,
+	/** Message metadata */ @NotNull map metadata,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	// TODO Check permissions?
+	/** Get message key */
+	var { createdAt, now, key } = usr:core_conversation__message_key(container);
+	/** Prepare data storage */
+	var targets = [];
+	var readers = {};
+	for member in room.members {
+		var { userKey } = member;
+		targets += userKey;
+		readers[userKey] = 0;
+	}
+	/** Define message structure */
+	var message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
+	/** Store message */
+	zpService.puts({
+		rows: [{
+			key,
+			data: {
+				[COLUMN_STORAGE_AUTHOR]: __userKey,
+				[COLUMN_STORAGE_TYPE]: type,
+				[COLUMN_STORAGE_VALUE]: value,
+				[COLUMN_STORAGE_CREATED_AT]: createdAt,
+				[COLUMN_STORAGE_METADATA]: metadata,
+				[COLUMN_STORAGE_READERS]: readers,
+				[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_array_to_map(targets)
+			}
+		}],
+		table: TABLE_CONVERSATION_STORAGE,
+		owner: room.owner
+	});
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__ADD_CONVERSATION_MESSAGE,
+		data: { container, room, message }
+	});
+} return {
+	container, room, message
+} on channel __selfName

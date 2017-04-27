@@ -1,0 +1,18 @@
+/**
+ * Test membership for current user for a group id and owner
+ */
+macroscript core_group__isMemberOfByService(
+	/** Group id */ @NotNull string id,
+	/** Group owner */ @NotNull string owner,
+	/** Is hard fail mode */ @NotNull boolean isHardFail,
+	/** Group service */ @NotNull service<groups> zpService
+) {
+	/** Assert only admins can create execute macro */
+	var { member } = zpService.memberOf({
+		hardFail: isHardFail,
+		group: id,
+		owner: owner
+	});
+} return {
+	member
+} on channel __selfName

@@ -1,0 +1,64 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide user management APIs
+ */
+recipe com.zetapush.core.user 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
+import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
+
+// Context
+
+const EVENT__CREATE_USER = 'ZetaPushEvent__User_Create';
+const EVENT__RESET_PASSWORD = 'ZetaPushEvent__User_ResetPassword';
+const EVENT__UPDATE_USER = 'ZetaPushEvent__User_Update';
+
+// Errors
+
+const ERROR__USER_ALREADY_EXISTS = #ERROR__USER_ALREADY_EXISTS;
+const ERROR__USER_NOT_FOUND = #ERROR__USER_NOT_FOUND;
+
+// Groups
+
+const ACTIVE_USERS_GROUP = 'ZetaPushUserActiveUsersGroup';
+
+// Auth fields
+
+// TODO PABLOFIX https://trello.com/c/BKU8ZW0M/376-ajouter-la-possibilite-d-utiliser-l-operateur-elvis-dans-l-init-zms-sur-les-objet-literaux-et-les-constants
+//const AUTH_MANDATORY_FIELDS = @config.authentication.simple.mandatory_fields ?: '';
+//const AUTH_PUBLIC_FIELDS = @config.authentication.simple.public_fields ?: '';
+const AUTH_MANDATORY_FIELDS = 'email';
+const AUTH_PUBLIC_FIELDS = 'email,firstname,lastname,mobilenumber,phonenumber,birthday,avatar,biography';
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Weak Authentification service
+ */
+service zpServiceWeakAuth = weak(__default).forbiddenVerbs(__all);
+/**
+ * Simple Authentification service for Users
+ */
+service zpServiceSimpleAuth = simple(__default).options({
+	simpleauth_mandatoryFields: AUTH_MANDATORY_FIELDS,
+	simpleauth_publicFields: AUTH_PUBLIC_FIELDS
+}).forbiddenVerbs(__all);
+/**
+ * User Directory service
+ */
+service zpServiceUserDirectory = userdir(__default).forbiddenVerbs(__all);
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);

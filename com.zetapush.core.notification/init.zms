@@ -1,0 +1,23 @@
+// Provisionning
+
+/** Create conversation */
+zpServiceGda.gda_createTable({
+	name: NOTIFICATION_TABLE,
+	columns: [{
+		map: false,
+		name: COLUMN_NOTIFICATION_CREATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_NOTIFICATION_TYPE,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_NOTIFICATION_EMITTER,
+		type: GdaDataType_STRING
+	}, {
+		map: false,
+		name: COLUMN_NOTIFICATION_VALUE,
+		type: GdaDataType_OBJECT
+	}]
+});

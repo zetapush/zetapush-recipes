@@ -1,0 +1,19 @@
+/**
+ *
+ */
+macroscript deleteFileEntry(
+	/** */ @NotNull string path,
+	/** */ string owner
+) {
+	/** Manage default parameters */
+	owner = owner ?: __userKey;
+	trace(#deleteFileEntry, path, owner);
+	/** Remove file */
+	zpServiceFile.rm({
+		path,
+		owner
+	});
+} broadcast {
+	path, owner
+} on channel __selfName
+

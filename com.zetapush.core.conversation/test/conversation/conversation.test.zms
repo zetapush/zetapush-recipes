@@ -1,0 +1,106 @@
+zms_test test_core_conversation__create {
+	import zms_test_setup test_core_conversation__setup;
+
+	zms_add_handler(anonymous, getUserConversationList, (result, errors) => {
+		info('getUserConversationList', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		zms_test_success;
+	});
+	
+	zms_add_handler(anonymous, getConversationMessageList, (result, errors) => {
+		info('getConversationMessageList', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getUserConversationList();
+	});
+	
+	zms_add_handler(anonymous, addConversationMessage, (result, errors) => {
+		info('addConversationMessage', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getConversationMessageList({
+			room: result.room
+		});
+	});
+	
+	zms_add_handler(anonymous, createConversation, (result, errors) => {
+		info('createConversation', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call addConversationMessage({
+			room: result.room,
+			type: MESSAGE_TYPE_MARKUP,
+			value : {
+				text: 'Hello'
+			},
+			metadata: {
+				yo: 'bitch'
+			}
+		});
+	});
+
+	sudo anonymous call createConversation({
+		name: 'Conversation',
+		members: []
+	});
+}
+
+zms_test test_core_conversation__create_one_to_one {
+	zms_test_setup {
+		import zms_test_setup test_core_conversation__setup;
+		
+		zms_test_user interlocutor = zpRecipeUser::zpServiceWeakAuth({});	
+	}
+
+	zms_add_handler(anonymous, getUserConversationList, (result, errors) => {
+		info(#getUserConversationList, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		zms_test_success;
+	});
+	
+	zms_add_handler(anonymous, getConversationMessageList, (result, errors) => {
+		info(#getConversationMessageList, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getUserConversationList();
+	});
+	
+	zms_add_handler(anonymous, addConversationMessage, (result, errors) => {
+		info(#addConversationMessage, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getConversationMessageList({
+			room: result.room
+		});
+	});
+	
+	zms_add_handler(anonymous, createOneToOneConversation, (result, errors) => {
+		info(#createOneToOneConversation, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call addConversationMessage({
+			room: result.room,
+			type: MESSAGE_TYPE_MARKUP,
+			value : {
+				text: 'Hello'
+			},
+			metadata: {
+				yo: 'bitch'
+			}
+		});
+	});
+
+	sudo anonymous call createOneToOneConversation({
+		interlocutor: interlocutor.userKey
+	});
+}

@@ -1,0 +1,35 @@
+/**
+ * Shallow clone an api group object
+ */
+function core_group__get_group_from_api_object(deploymentId, ApiObjectGroupUsers) return {
+	id: ApiObjectGroupUsers.group,
+	deploymentId: deploymentId,
+	name: ApiObjectGroupUsers.groupName,
+	owner: ApiObjectGroupUsers.owner,
+	resource: str:join(':', deploymentId, ApiObjectGroupUsers.owner, ApiObjectGroupUsers.group),
+	members: ApiObjectGroupUsers.users,
+	metadata: {},
+	tags: []
+}
+
+/**
+ * List user from api object
+ */
+function core_group__list_user_from_api_object(ApiObjectUserInfos) {
+	var users = [];
+	for iterator in ApiObjectUserInfos.users {
+		users += usr:core_group__get_user_from_api_object(iterator.key, iterator.value);
+	}
+} return users
+
+/**
+ * Get user
+ */
+function core_group__get_user_from_api_object(userKey, user) {
+	user.userKey = userKey;
+} return user
+
+/**
+ * Generate a unique group id
+ */
+function core_group__id() return str:substr(str:rnd36(GROUP_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_GROUP_ID)

@@ -1,9 +1,0 @@
-macroscript getConversationUnreadMessages(
-	@NotNull string id
-) {
-	var table = CONVERSATION_TABLE;
-	var key = id;
-	var response = zpServiceGda.get({ key, table });
-	/** Destructure response properties */
-	var unread = response.result[COLUMN_CONVERSATION_UNREAD];
-} broadcast { unread } on channel __selfName

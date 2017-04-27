@@ -1,0 +1,77 @@
+zms_test test_core_conversation__attachment {
+	zms_test_setup {
+		zms_test_user caller = zpRecipeUser::zpServiceSimpleAuth({
+			login: 'ghoullier',
+			password: 'ghoullier'
+		});
+		zms_test_user callee = zpRecipeUser::zpServiceSimpleAuth({
+			login: 'mmorvan',
+			password: 'mmorvan'
+		});
+		
+		var contentType = 'image/png';
+		var room = null;
+	}
+
+	zms_add_handler(callee, addConversationMessage, (result, errors) => {
+		info('addConversationMessage', result, errors);
+
+		assert room.id == result.room.id 'COMPARISON_FAILED';
+
+		zms_test_success;
+	});
+
+	zms_add_handler(caller, core_conversation__onConfirmFileUploadCallback, (result, errors) => {
+		info('core_conversation__onConfirmFileUploadCallback', result, errors);
+	});
+
+	zms_add_handler(caller, zpRecipeFile::confirmFileUpload, (result, errors) => {
+		info('zpRecipeFile::confirmFileUpload', result, errors);
+
+		/*
+		sudo caller call addConversationMessage({
+			room: room,
+			type: MESSAGE_TYPE_ATTACHMENT,
+			value: {
+				guid: result.url.guid,
+				path: str:join('/', room.metadata.attachments, result.url.guid)
+			},
+			metadata : {}
+		});
+		*/
+	});
+
+	zms_add_handler(caller, zpRecipeFile::requestFileUpload, (result, errors) => {
+		info('zpRecipeFile::requestFileUpload', result, errors);
+
+		zms_test_http_request(result.url, result.httpMethod, { 'Content-Type': contentType }, 'test/conversation/assets/zetapush-logo.png');
+		
+		sudo caller call zpRecipeFile::confirmFileUpload({
+			guid: result.guid,
+			owner: result.owner,
+			actions: {},
+			metadata: {},
+			tags: []
+		});
+	});
+
+	zms_add_handler(caller, createOneToOneConversation, (result, errors) => {
+		info('createOneToOneConversation', result, errors);
+		
+		room = result.room;
+
+		info(#createOneToOneConversation, room.grants);
+		info(#createOneToOneConversation, room.metadata);
+		info(result.room.metadata.attachments);
+
+		sudo caller call zpRecipeFile::requestFileUpload({
+			contentType: 'image/png',
+			folder: result.room.metadata.attachments,
+			owner: result.room.owner
+		});		
+	});
+
+	sudo caller call createOneToOneConversation({
+		interlocutor: callee.userKey
+	});
+}

@@ -1,0 +1,21 @@
+macroscript_annotation HasPermission(default string permission) = @Before(macro = core_role__has, macroParams = {
+	name: permission,
+	zpService: zpServiceGroupsPermission
+});
+
+macroscript_annotation HasPermissionIfNotUserKey(string permission, string userKey) = @Before(macro = core_role__hasIfNotUserKey, macroParams = {
+	name: permission,
+	userKey: userKey,
+	zpService: zpServiceGroupsPermission
+});
+
+macroscript_annotation HasRole(default string role) = @Before(macro = core_role__has, macroParams = {
+	name: role,
+	zpService: zpServiceGroupsRole
+});
+
+macroscript_annotation HasRoleIfNotUserKey(string role, string userKey) = @Before(macro = core_role__hasIfNotUserKey, macroParams = {
+	name: role,
+	userKey: userKey,
+	zpService: zpServiceGroupsRole
+});

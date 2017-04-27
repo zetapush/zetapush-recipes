@@ -1,0 +1,23 @@
+/**
+ *
+ */
+macroscript getUserList(
+	/** List of userKey */ @NotNull array userKeys
+) {
+	/** Get user from directory */
+	var { users } = zpServiceUserDirectory.userInfo({ userKeys });
+	/** Map restult from map to list  */
+	var list = [];
+	/** Match not found result */
+	for userKey in userKeys {
+		var user = { userKey };
+		if (users[userKey]??) {
+			user += users[userKey];
+			list += { found: true, user };
+		} else {
+			list += { found: false, user };
+		}
+	}
+} return {
+	list
+} on channel __selfName

@@ -1,0 +1,8 @@
+macroscript setStringConfig(
+	/** Config Id */ @NotNull string id,
+	/** Config Value */ @NotNull string value
+) {
+	var { result: { revision, update } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__setStoredObject({
+		id, value: zpRecipeUtils::explode(value, CONFIG_VALUE_CELL_LIMIT), table: TABLE_STRING_CONFIG, zpService: zpServiceGda
+	}) hardFail;
+} broadcast { id, value, revision, update } on channel __selfName

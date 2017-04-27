@@ -1,0 +1,17 @@
+@zpRecipeUser::CreateUserListener()
+macroscript core_organization__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	/** Get default organization */
+	var { errors, result: { organization } } = call getDefaultOrganization();
+	trace(#core_organization__onCreateUserCallback, organization, errors);
+	trace(#core_organization__onCreateUserCallback, coll:size(errors) == 0 && organization??);
+	/** If default organization is defined */
+	if (coll:size(errors) == 0 && organization??) {
+		/** Add created user to default organization */
+		call addOrganizationMember({
+			id : organization.id,
+			member: userKey
+		}) hardFail;
+	}
+}

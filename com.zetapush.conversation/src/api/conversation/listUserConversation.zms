@@ -1,6 +1,0 @@
-macroscript listUserConversation(
-
-) {
-	/** List user conversation */
-	var conversations = @@(zpServiceDatabase) SELECT * FROM ${CONVERSATION_TABLE} WHERE owner = :{__userKey};
-} broadcast { conversations } on channel __selfName

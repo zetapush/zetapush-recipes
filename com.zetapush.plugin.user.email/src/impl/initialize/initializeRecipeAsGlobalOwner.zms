@@ -1,0 +1,15 @@
+/**
+ * Initialize user recipe
+ */
+macroscript plugin_user_email__initializeRecipeAsGlobalOwner(
+
+) {
+	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
+
+	/** Set reset password config */
+	call setConfigResetPassword({
+		subject: @config.plugin.user.mail.reset_password.subject,
+		template: @config.plugin.user.mail.reset_password.template,
+		url: @config.plugin.user.mail.reset_password.url
+	}) hardFail;
+}

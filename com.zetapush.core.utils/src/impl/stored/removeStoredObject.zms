@@ -1,0 +1,14 @@
+/**
+ * Generic remove for stored object api
+ */
+macroscript core_utils__removeStoredObject(
+	/** Stored Object Id */ @NotNull string id,
+	/** Stored Table */ @NotNull string table,
+	/** Storage service */ @NotNull service<gda> zpService
+) {
+	/** Get stored config entry */
+	zpService.removeRow({
+		key: id,
+		table: table
+	});
+} broadcast { id } on channel __selfName

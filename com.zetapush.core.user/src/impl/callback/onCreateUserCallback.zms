@@ -1,0 +1,13 @@
+/**
+ * Callback executed after user created
+ */
+@CreateUserListener()
+macroscript core_user__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	trace(#core_user__onCreateUserCallback, __userKey, userKey);
+	/** Add created user in active users group */
+	sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({ member: userKey, id: ACTIVE_USERS_GROUP }) hardFail;
+} broadcast {
+	userKey
+} on channel __selfName

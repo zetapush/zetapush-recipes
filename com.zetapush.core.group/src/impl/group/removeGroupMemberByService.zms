@@ -1,0 +1,16 @@
+/**
+ * Remove user from a group for a specific groups service
+ */
+macroscript core_group__removeGroupMemberByService(
+	/** Group id */ @NotNull string id,
+	/** Member user key */ @NotNull string member,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	/** Remove user from a group */
+	zpService.delUser({
+		user: member,
+		group: id
+	});
+} broadcast {
+	id, member
+} on channel __selfName

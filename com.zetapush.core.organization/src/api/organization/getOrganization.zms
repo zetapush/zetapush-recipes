@@ -1,0 +1,18 @@
+macroscript getOrganization(
+	/** Optionnal organization id */ string id,
+	/** Optionnal organization name */ string name
+) {
+	assert (id?? || name??) zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	/** Support optionnal parameter */
+	if (!(id??) && name??) {
+		id = str:hex(str:md5(str:upper(name)));
+	} 
+	trace(#getOrganization, id, name);
+	/** Get group based organization */
+	var { result: { group: organization } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupByService({
+		id,
+		zpService: zpServiceGroupsOrganization
+	}) hardFail;
+} return {
+	organization
+} on channel __selfName

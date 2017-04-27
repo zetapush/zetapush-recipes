@@ -1,0 +1,21 @@
+/**
+ * Get all user groups for a specific groups service
+ */
+macroscript core_group__getGroupListByService(
+	/** Group list */ @NotNull array groups,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	var list = [];
+	/** Format result */
+	for item in groups {
+		/** Delegate get group */
+		var { result: { group } } = sudo item.owner call core_group__getGroupByService({
+			id: item.group,
+			zpService: zpService
+		}) hardFail;
+		/** Push result in groups list */
+		list += group;
+	}
+} return {
+	list
+} on channel __selfName

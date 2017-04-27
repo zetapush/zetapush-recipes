@@ -1,0 +1,30 @@
+/**
+ * Generic set for stored object api
+ */
+macroscript core_utils__setStoredObject(
+	/** Stored Object Id */ @NotNull string id,
+	/** Stored Object Value */ @NotNull value,
+	/** Stored Object Table */ @NotNull string table,
+	/** Storage service */ @NotNull service<gda> zpService
+) {
+	/** Stored value */
+	zpService.puts({
+		table,
+		rows:[{
+			key: id,
+			data: {
+				[COLUMN_STORED_OBJECT_VALUE]: value,
+				[COLUMN_STORED_OBJECT_UPDATE]: time:now()
+			}
+		}]
+	});
+	/** Set new revision */
+	zpService.inc({
+		table,
+		column: COLUMN_STORED_OBJECT_REVISION,
+		data: 1,
+		key: id
+	});
+	/** Get created config */
+	var { result: { revision, update } } = call core_utils__getStoredObject({ id, table, zpService }) hardFail;
+} broadcast { id, value, revision, update } on channel __selfName

@@ -1,0 +1,18 @@
+/**
+ *
+ */
+macroscript core_file__requestFileUploadByService(
+	@NotNull string contentType,
+	@NotNull string folder,
+	@NotNull string owner,
+  	@NotNull service<zpfs_hdfs> zpService
+) {
+	trace(#core_file__requestFileUploadByService, contentType, folder);
+	/** Request new upload url end point */
+	var { httpMethod, guid, url } = zpService.newUploadUrl({ contentType, owner, path: folder });
+	/** Trigger event */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__REQUEST_FILE_UPLOAD,
+		data: { zpService, upload: { httpMethod, guid, url, owner } }
+	});
+} broadcast { httpMethod, guid, url, owner } on channel __selfName

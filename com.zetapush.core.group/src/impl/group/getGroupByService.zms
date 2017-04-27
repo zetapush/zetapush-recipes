@@ -1,0 +1,23 @@
+/**
+ * Get a group for a specific groups service
+ */
+macroscript core_group__getGroupByService(
+	/** Group id */ @NotNull string id,
+	/** Group service implementation */ @NotNull service<groups> zpService
+) {
+	var ApiObjectGroupUsers = zpService.groupUsers({ group: id });
+	var group = usr:core_group__get_group_from_api_object(zpService, ApiObjectGroupUsers);
+	if (coll:size(group.members) > 0) {
+		var userKeys = coll:set(group.members);
+		var ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
+		group.members = usr:core_group__list_user_from_api_object(ApiObjectUserInfos);	
+	}
+	/** Get group metadata */
+	var metadata = call zpRecipeUtils::getMetadata({ id }) hardFail;
+	group.metadata = metadata.result.value;
+	/** Get group tags */
+	var tags = call zpRecipeUtils::getTags({ id }) hardFail;
+	group.tags = tags.result.value;
+} return { 
+	group
+} on channel __selfName

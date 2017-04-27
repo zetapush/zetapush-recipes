@@ -1,0 +1,25 @@
+@HasPermission(permission = #setPermissionListMember)
+macroscript setPermissionListMember(
+	/** Map of permissions */ @NotNull map permissions,
+	/** User key */ @NotNull string member
+) {
+	trace(#setPermissionListMember, permissions, member);
+	var responses = [];
+	/** Map all permissions */
+	for entry in permissions {
+		var permission = entry.key;
+		var status = entry.value;
+		var method = status ? #addPermissionMember : #removePermissionMember;
+		var response = zpServiceApiMacro.func({
+			parameters: {
+				name: permission, member
+			},
+			name: method,
+			hardFail: true
+		}) loud;
+		responses += response;
+	}
+} broadcast {
+	permissions, member,
+	responses
+} on channel __selfName

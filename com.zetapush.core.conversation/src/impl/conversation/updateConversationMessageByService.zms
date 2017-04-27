@@ -1,0 +1,38 @@
+/**
+ *
+ */
+macroscript core_conversation__updateConversationMessageByService(
+	/** Conversation message id */ @ValidConversationMessageId string id,
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message storage container id */ @ValidConversationId string container,
+	/** Message value*/ @NotNull map value,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	var updatedAt = time:now();
+	/** Store message */
+	zpService.puts({
+		rows: [{
+			key: id,
+			data: {
+				[COLUMN_STORAGE_VALUE]: value,
+				[COLUMN_STORAGE_UPDATED_AT]: updatedAt
+			}
+		}],
+		table: TABLE_CONVERSATION_STORAGE,
+		owner: room.owner
+	});
+	/** Get updated message */
+	var { result: stored } = zpService.get({
+		key: id,
+		table: TABLE_CONVERSATION_STORAGE,
+		owner: room.owner
+	});
+	var message = usr:core_conversation__format_stored_message(stored);
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__UPDATE_CONVERSATION_MESSAGE,
+		data: { container, room, message }
+	});
+} broadcast {
+	container, room, message
+} on channel __selfName

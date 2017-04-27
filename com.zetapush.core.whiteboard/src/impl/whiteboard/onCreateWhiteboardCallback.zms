@@ -1,0 +1,24 @@
+/**
+ *
+ */
+@CreateWhiteboardListener()
+macroscript core_whiteboard__onCreateWhiteboardCallback(
+	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
+	/** Whiteboard id */ @NotNull string id
+) {
+	/** Add event in conversation to notify whoteboard creation */
+	call zpRecipeConversation::addConversationMessage({
+		room,
+		type: zpRecipeConversation::MESSAGE_TYPE_EVENT,
+		value: { 
+			event: #EVENT__CREATE_WHITEBOARD,
+			whiteboard: id
+		},
+		metadata: {
+			whiteboard: id
+		}
+	}) hardFail loud;
+} broadcast {
+	
+} on channel __selfName
+

@@ -1,0 +1,10 @@
+/**
+ *
+ */
+@zpRecipeUser::CreateUserListener()
+macroscript plugin_user_email__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	// TODO Reset created user
+	// TODO Notify reseted user by email
+} on channel __selfName

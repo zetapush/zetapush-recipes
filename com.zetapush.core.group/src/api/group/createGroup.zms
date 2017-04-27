@@ -1,0 +1,17 @@
+/**
+ * Create a group
+ */
+macroscript createGroup(
+	/** Optionnal group id */ string id,
+	/** Mandatory group name */ @NotNull string name,
+	/** Optionnal group members */ array members = [],
+	/** Optionnal group metadata */ map metadata = {},
+	/** Optionnal group tags */ array tags = []
+) {
+	/** Manage default group id */
+	id = id ?: str:hex(str:md5(name));
+	/** */
+	var { result: { group } } = call core_group__createGroupByService({ id, name, members, metadata, tags, zpService: zpServiceGroups }) hardFail;
+} broadcast {
+	group
+} on channel __selfName

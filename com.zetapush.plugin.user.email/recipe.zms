@@ -1,0 +1,43 @@
+/**
+ * ZetaPush Official Plugin Recipe
+ * Provide plugin for user management APIs
+ */
+recipe com.zetapush.plugin.user.email 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.config 2.0.0 in zpRecipeConfig;
+import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+
+// Config
+
+const PLUGIN_USER_EMAIL__RESET_PASSWORD = #PLUGIN_USER_EMAIL__RESET_PASSWORD;
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Mail Sender Service
+ */
+service zpServiceMailSender = sendmail('plg_sr_sendmail').options({
+	sendmail_username: @config.plugin.user.mail.sendmail.username,
+	sendmail_password: @config.plugin.user.mail.sendmail.password,
+	sendmail_host: @config.plugin.user.mail.sendmail.host,
+	sendmail_port: @config.plugin.user.mail.sendmail.port,
+	sendmail_from: @config.plugin.user.mail.sendmail.from,
+	sendmail_replyTo: @config.plugin.user.mail.sendmail.replyTo,
+	sendmail_ssl: @config.plugin.user.mail.sendmail.ssl,
+	sendmail_starttls: @config.plugin.user.mail.sendmail.starttls
+}).forbiddenVerbs(__all);
+/**
+ * Template Engine Service
+ */
+service zpServiceTemplateEngine = template('plg_sr_template').forbiddenVerbs(__all);

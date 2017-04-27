@@ -1,0 +1,43 @@
+/**
+ *
+ */
+macroscript core_conversation__purgeConversationMessageListByService(
+	/** Conversation room object */ @ValidConversationRoom map room,
+	/** Message storage container id */ @ValidConversationId string container,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	/** Define range start and stop */
+	var { start, stop } = usr:core_conversation__range(container);
+	trace(#core_conversation__purgeConversationMessageListByService, { start, stop });
+	/** Retreive message for a specific range */
+	zpService.removeRange({
+		columns: [{
+			column: COLUMN_STORAGE_AUTHOR
+		}, {
+			column: COLUMN_STORAGE_TYPE
+		}, {
+			column: COLUMN_STORAGE_VALUE
+		}, {
+			column: COLUMN_STORAGE_CREATED_AT
+		}, {
+			column: COLUMN_STORAGE_UPDATED_AT
+		}, {
+			column: COLUMN_STORAGE_METADATA
+		}, {
+			column: COLUMN_STORAGE_READERS
+		}, {
+			column: COLUMN_STORAGE_TARGETS
+		}],
+		start,
+		table: TABLE_CONVERSATION_STORAGE,
+		stop,
+		owner: room.owner
+	});
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__PURGE_CONVERSATION,
+		data: { container, room }
+	});
+} return {
+	container, room
+} on channel __selfName

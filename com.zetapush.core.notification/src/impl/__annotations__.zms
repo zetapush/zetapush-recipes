@@ -1,0 +1,1 @@
+macroscript_annotation NotifyUserListener = @EventListener(eventName = EVENT__NOTIFY_USER, triggerService = zpServiceTrigger);

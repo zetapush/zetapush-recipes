@@ -1,0 +1,22 @@
+/**
+ *
+ */
+macroscript confirmFileUpload(
+	@NotNull string guid,
+	string owner,
+	map actions = {},
+	map metadata = {},
+	array tags = []
+) {
+	/** Manage default parameters */
+	owner = owner ?: __userKey;
+	trace(#confirmFileUpload, guid, owner, actions, metadata, tags);
+	
+	trace('grant', str:join(':', zpServiceFile, owner, guid));
+	
+	/** Confirm file upload */
+	var { result: { type, name, creation, url } } = call core_file__confirmFileUploadByService({ guid, owner, actions, metadata, tags, zpService: zpServiceFile }) hardFail;
+} broadcast {
+	// Base fields
+	tags, type, name, metadata, creation, url, owner
+} on channel __selfName
