@@ -1,0 +1,21 @@
+/**
+* Recipe com.zetapush.core.context.tests
+* Created on Thu Mar 30 16:27:20 CEST 2017 by pablo
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.core.context.tests 1.0.0;
+
+import recipe com.zetapush.core.context 1.0.0 in contexts;
+
+/** Welcome message read from configuration */
+const WELCOME_MESSAGE = @com.zetapush.core.context.tests.welcomeMessage;
+
+/** a simple authentication service */
+service auth = simple(__default);
+
+service code = new macro(contexts::API_DID);
+/** our code is run by this service */
+service impl = new macro(contexts::IMPL_DID).forbiddenVerbs(__all) for 'src';
+
+service workflow = new workflow(contexts::WORKFLOW_DID).forbiddenVerbs(__all);
+
