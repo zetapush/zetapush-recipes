@@ -1,0 +1,26 @@
+
+const TEMPLATE_CTX_VENTES = 'ventes';
+const TEMPLATE_WF_VENTES = TEMPLATE_CTX_VENTES; // could be different values, we can create several CTX per WF
+
+const VENTES_STATE_CREATED = 'CREATED';
+const VENTES_STATE_PUBLISHED = 'PUBLISHED';
+const VENTES_STATE_SOLD = 'SOLD';
+macroscript_annotation Ventes(string state, array transitions) = @Workflow(template = TEMPLATE_WF_VENTES,
+stateId = state, targetStates = transitions);
+
+
+@Ventes(state = VENTES_STATE_CREATED, transitions = [VENTES_STATE_PUBLISHED])
+macroscript ventes_created(string workflow, string state, map data) {
+	trace("ventes_created params", __parameters);
+	trace("ventes_created", workflow, state, data);
+} //return {transition : 'failed', message : "ayayayaye"}
+
+@Ventes(state = VENTES_STATE_PUBLISHED, transitions = [VENTES_STATE_SOLD])
+macroscript ventes_published(string workflow, string state, map data) {
+	trace("ventes_published", workflow, state, data);
+}
+
+@Ventes(state = VENTES_STATE_SOLD, transitions = [VENTES_STATE_PUBLISHED])
+macroscript ventes_sold(string workflow, string state, map data) {
+	trace("ventes_sold", workflow, state, data);
+}
