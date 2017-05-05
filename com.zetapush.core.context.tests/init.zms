@@ -1,11 +1,3 @@
-// create a test user, to be able to run/debug macros from the eclipse UI
-auth.memauth_createUser({
-	login:@zms.test.login,
-	password:@zms.test.password,
-	email:@com.zetapush.core.context.tests.test.user.email
-});
-
-
 sudo contexts::CONTEXT_TEMPLATES_VIRTUAL_USER call contexts::createContextTemplate({
 	contextTemplateId : TEMPLATE_CTX_VENTES,
 	contextTemplateName : 'Ventes immobilières',
