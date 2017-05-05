@@ -36,6 +36,7 @@ macroscript createContext(
 	});
 	call initContextRights({contextId, userKey : __userKey});
 } broadcast(template.info.groups + __userKey) context on channel __selfName
+
 /** Returns the list of contexts that the current user can see */
 macroscript myContexts() {
 	const groups = groupsService.myGroups({});
@@ -48,6 +49,7 @@ macroscript myContexts() {
 } return {
 	/** visible contexts */Context[] contexts : contexts.result
 } on channel __selfName
+
 /** Transitions a context */
 macroscript transitionContext(class ContextTransitionRequest request) {
 	sudo CONTEXT_TEMPLATES_VIRTUAL_USER workflow.transition({
@@ -59,10 +61,10 @@ macroscript transitionContext(class ContextTransitionRequest request) {
 		column : 'state',
 		data : request.newState
 	});
-} return request on channel __selfName
+} broadcast request on channel __selfName
+
 /** Manages validation of contexts */
-@Injectable class ContextManager {	
-	@Inject ContextManager m;
+@Injectable class ContextManager {
 	/** Checks for fields validity */
 	macroscript validateFields(map fields, @NotNull ContextTemplate template){}return{map errors: null}
 }

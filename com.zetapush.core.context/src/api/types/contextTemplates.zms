@@ -12,8 +12,9 @@ class ContextTemplateField {
 }
 /** Context template full information */
 class ContextTemplate {
-	/** General information */ContextTemplateInfo info;
-	/** Configured fields */ ContextTemplateField[] fields;
+	/** General information */ @NotNull ContextTemplateInfo info;
+	/** Configured fields */ @NotNull  ContextTemplateField[] fields;
+	/** Workflow template */ @NotNull WorkflowTemplate template;
 }
 /** Context template information */
 class ContextTemplateInfo extends ContextTemplateKey {
@@ -33,4 +34,28 @@ class ContextTemplateFieldRemoval extends ContextTemplateKey {
 class CtxPagination {
 	/** page size */@Min(1) @Max(50) number pageSize = 10;
 	/** page number */@Min(0) number pageNumber = 0;
+}
+
+class WorkflowTemplate {
+	/** All the possible states of this workflow */ @NotNull WorkflowStateDefinition[] states;
+	/**	Unique template name */ @NotNull string templateName;
+	/** All the transitions of this workflow */ @NotNull WorkflowTransitionDefinition[] transitions;
+}
+
+class ServiceVerbCall {
+	/** Parameter that will be passed to the target verb when called. The format is the format accepted by the target. */ map parameter;
+	/** DeploymentId of the target service. */ string deploymentId;
+	/** Verb to be called within the target service. */ string verb;
+	/** Specifies whether this call should generate all expected direct user notifications (primary outputs). Does not affect side-effects (other outputs). Defaults to false */ boolean loud;
+}
+
+class WorkflowStateDefinition {
+	/** Called on the workflow when this state is about to be reached. If the call is a macro, it has the possibility to prevent the transition by returning {'transition':'failed', 'message':'optional error message'}. */ ServiceVerbCall call;
+	/** ID of the state */	string stateId;
+	/** State name */ string stateName;
+}
+
+class WorkflowTransitionDefinition {
+	/** Starting state */ string from;
+	/** Destination state */ string to;
 }
