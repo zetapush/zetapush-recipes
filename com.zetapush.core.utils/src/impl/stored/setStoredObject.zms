@@ -26,5 +26,5 @@ macroscript core_utils__setStoredObject(
 		key: id
 	});
 	/** Get created config */
-	var { result: { revision, update } } = call core_utils__getStoredObject({ id, table, zpService }) hardFail;
-} broadcast { id, value, revision, update } on channel __selfName
+	const stored = await core_utils__getStoredObject({ id, table, zpService });
+} broadcast stored on channel __selfName

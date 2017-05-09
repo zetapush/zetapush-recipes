@@ -11,4 +11,4 @@ macroscript core_utils__removeStoredObject(
 		key: id,
 		table: table
 	});
-} broadcast { id } on channel __selfName
+} broadcast { string id } on channel __selfName

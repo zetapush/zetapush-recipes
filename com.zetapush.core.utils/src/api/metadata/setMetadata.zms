@@ -2,11 +2,11 @@
  * Set metadata
  */
 macroscript setMetadata(
-	@NotNull string id,
-	@NotNull map metadata
+	/** Metadata id */ @NotNull string id,
+	/** Metadata value */ @NotNull map metadata
 ) {
 	/** Store metadata */
-	var { result: { revision, update, value } } = call core_utils__setStoredObject({
+	const { revision, update, value } = await core_utils__setStoredObject({
 		id, value: metadata, table: TABLE_METADATA, zpService: zpServiceGda
-	}) hardFail;
-} broadcast { id, value, revision, update } on channel __selfName
+	});
+} return new Metadata(id, revision, update, value) on channel __selfName

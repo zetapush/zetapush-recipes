@@ -2,13 +2,13 @@
  *
  */
 macroscript setTags(
-	@NotNull string id,
-	@NotNull array tags
+	/** Tags id */ @NotNull string id,
+	/** tags value*/ @NotNull string[] tags
 ) {
 	/** Store tags */
-	var { result: { revision, update, value } } = call core_utils__setStoredObject({
+	const { revision, update, value } = await core_utils__setStoredObject({
 		id, value: usr:reduce_array_to_map(tags), table: TABLE_TAGS, zpService: zpServiceGda
-	}) hardFail;
+	});
 	/** Destructure result properties */
 	value = usr:reduce_map_to_array(value);
-} broadcast { id, value, revision, update } on channel __selfName
+} broadcast new Tags(id, revision, update, value) on channel __selfName
