@@ -1,16 +1,16 @@
 /**
  * Shallow clone an api group object
  */
-function core_group__get_group_from_api_object(deploymentId, ApiObjectGroupUsers) return {
-	id: ApiObjectGroupUsers.group,
-	deploymentId: deploymentId,
-	name: ApiObjectGroupUsers.groupName,
-	owner: ApiObjectGroupUsers.owner,
-	resource: str:join(':', deploymentId, ApiObjectGroupUsers.owner, ApiObjectGroupUsers.group),
-	members: ApiObjectGroupUsers.users,
-	metadata: {},
-	tags: []
-}
+function core_group__get_group_from_api_object(deploymentId, ApiObjectGroupUsers) return new Group(
+	ApiObjectGroupUsers.group,
+	deploymentId,
+	ApiObjectGroupUsers.groupName,
+	ApiObjectGroupUsers.owner,
+	str:join(':', deploymentId, ApiObjectGroupUsers.owner, ApiObjectGroupUsers.group),
+	ApiObjectGroupUsers.users,
+	{},
+	[]
+)
 
 /**
  * List user from api object

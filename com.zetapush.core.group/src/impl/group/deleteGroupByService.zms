@@ -5,8 +5,8 @@ macroscript core_group__deleteGroupByService(
 	/** Group id */ @NotNull string id,
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
-	var userKey = __userKey;
-	var existence = zpService.exists({
+	const userKey = __userKey;
+	const existence = zpService.exists({
 		group: id
 	});
 
@@ -18,10 +18,10 @@ macroscript core_group__deleteGroupByService(
 		});
 		
 		/** Delete stored metadata */
-		call zpRecipeUtils::removeMetadata({ id }) hardFail;
+		await zpRecipeUtils::removeMetadata({ id });
 		
 		/** Delete stored tags */
-		call zpRecipeUtils::removeTags({ id }) hardFail;
+		await zpRecipeUtils::removeTags({ id });
 		
 		/** Execute all registered macros */
 		zpRecipeUtils::zpServiceTrigger.trigger({
@@ -30,5 +30,5 @@ macroscript core_group__deleteGroupByService(
 		});
 	}
 } broadcast {
-	id
+	string id
 } on channel __selfName

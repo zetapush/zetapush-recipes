@@ -6,5 +6,5 @@ macroscript addGroupMember(
 	/** User key */ @NotNull string member
 ) {
 	/** Delegated add user in group */
-	call core_group__addGroupMemberByService({ id, member, zpService: zpServiceGroups }) hardFail;
-} broadcast { id, member } on channel __selfName
+	const response = await core_group__addGroupMemberByService({ id, member, zpService: zpServiceGroups });
+} broadcast response on channel __selfName
