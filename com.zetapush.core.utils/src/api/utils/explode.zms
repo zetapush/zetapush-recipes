@@ -2,10 +2,10 @@
  * Explode a string to an numeric indexed map
  */
 function explode(value, size) {
-	var list = {};
+	const list = {};
 	if (size > 0) {
-		var length = str:len(value);
-		var iterations = str:join('', math:round(math:floor(length / size)));
+		const length = str:len(value);
+		const iterations = str:join('', math:round(math:floor(length / size)));
 		var i = 1;
 		var start = 0;
 		var rest = length - (i * size);
