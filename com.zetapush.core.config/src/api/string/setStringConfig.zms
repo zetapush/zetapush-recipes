@@ -2,7 +2,8 @@ macroscript setStringConfig(
 	/** Config Id */ @NotNull string id,
 	/** Config Value */ @NotNull string value
 ) {
-	var { result: { revision, update } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__setStoredObject({
+	/** Set stored config entry */
+	const stored = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeUtils::core_utils__setStoredObject({
 		id, value: zpRecipeUtils::explode(value, CONFIG_VALUE_CELL_LIMIT), table: TABLE_STRING_CONFIG, zpService: zpServiceGda
-	}) hardFail;
-} broadcast { id, value, revision, update } on channel __selfName
+	});
+} broadcast new StringConfig(stored.id, stored.revision, stored.update, zpRecipeUtils::implode(stored.value)) on channel __selfName
