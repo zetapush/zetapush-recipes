@@ -2,7 +2,7 @@ macroscript getObjectConfig(
 	/** Config id */ @NotNull string id
 ) {
 	/** Get stored config entry */
-	var { result: { revision, update, value: { value } } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__getStoredObject({
+	const stored = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeUtils::core_utils__getStoredObject({
 		id, table: TABLE_OBJECT_CONFIG, zpService: zpServiceGda
-	}) hardFail;
-} broadcast { id, value, revision, update } on channel __selfName
+	});
+} broadcast new ObjectConfig(stored.id, stored.revision, stored.update, stored.value.wrapper) on channel __selfName

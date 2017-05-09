@@ -1,11 +1,8 @@
 macroscript listObjectConfig(
-	/** Pagination query */ map page
+	class zpRecipeUtils::Pagination page
 ) {
 	/** List stored objects */
-	var { result } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__listStoredObject({
+	const list = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeUtils::core_utils__listStoredObject({
 		table: TABLE_OBJECT_CONFIG, page, zpService: zpServiceGda
-	}) hardFail;
-	/** Destructure result properties */
-	var content = coll:map(result.content, entry -> zpRecipeUtils::map_entry_key_value(entry));	
-	page = result.page;
-} broadcast { content, page } on channel __selfName
+	});	
+} broadcast new ObjectConfigPaginatedList(list.page, list.content) on channel __selfName
