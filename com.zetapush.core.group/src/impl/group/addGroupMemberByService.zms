@@ -11,6 +11,4 @@ macroscript core_group__addGroupMemberByService(
 		user: member,
 		group: id
 	});
-} broadcast {
-	id, member
-} on channel __selfName
+} broadcast new GroupMember(id, member) on channel __selfName

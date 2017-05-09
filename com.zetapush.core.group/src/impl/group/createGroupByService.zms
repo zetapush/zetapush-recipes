@@ -16,11 +16,11 @@ macroscript core_group__createGroupByService(
 		type: metadata.type ?: DEFAULT_GROUP_TYPE
 	};
 
-	var existence = zpService.exists({
+	const existence = zpService.exists({
 		group: id
 	});
 
-	var resource = str:join(':', __userKey, id);
+	const resource = str:join(':', __userKey, id);
 
 	/** Avoid error if group already exist */
 	if (!existence.exists) {
@@ -44,18 +44,15 @@ macroscript core_group__createGroupByService(
 		});
 
 		/** Set group metadata */
-		call zpRecipeUtils::setMetadata({ id, metadata }) hardFail;
+		await zpRecipeUtils::setMetadata({ id, metadata });
 		
 		/** Set group tags */
-		call zpRecipeUtils::setTags({ id, tags }) hardFail;
+		await zpRecipeUtils::setTags({ id, tags });
 	}
 	/** Get the created group */
-	var { result: { group } } = call core_group__getGroupByService({
-		id: id,
-		zpService: zpService
-	}) hardFail;
+	const { group } = await core_group__getGroupByService({ id, zpService });
 
-	var userKey = __userKey;
+	const userKey = __userKey;
 
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
@@ -63,5 +60,5 @@ macroscript core_group__createGroupByService(
 		data: { group, userKey }
 	});
 } broadcast {
-	group
+	Group group
 } on channel __selfName

@@ -6,5 +6,5 @@ macroscript isMemberOf(
 	/** Group owner */ @NotNull string owner,
 	/** Is hard fail mode */ @NotNull boolean isHardFail
 ) {
-	call core_group__isMemberOfByService({ id, owner, isHardFail, zpService: zpServiceGroups }) hardFail;
-} on channel __selfName
+	const response = await core_group__isMemberOfByService({ id, owner, isHardFail, zpService: zpServiceGroups });
+} return response on channel __selfName
