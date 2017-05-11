@@ -8,9 +8,9 @@ macroscript core_file__getFileEntryByService(
 ) {
 	trace(#core_file__getFileEntryByService, path, owner);
 	/** List uploaded files */
-	var { entry } = zpService.stat({ path, owner });
+	const { entry } = zpService.stat({ path, owner });
 	/** Test if file exists */
-	var exists = entry??;
-} return { 
-	exists, entry
-} on channel __selfName
+	const exists = entry??;
+	/** Get file entry */
+	const file = new FileEntryInfo(entry.name, entry.type, entry.url, entry.creation, entry.metadata, entry.tags, entry.owner);
+} return new FileEntry(exists, file) on channel __selfName

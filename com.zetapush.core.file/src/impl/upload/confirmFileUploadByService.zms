@@ -11,13 +11,12 @@ macroscript core_file__confirmFileUploadByService(
 ) {
 	trace(#core_file__confirmFileUploadByService, guid, owner, actions);
 	/** Confirm file upload */
-	var { type, name, creation, url } = zpService.newFile({ guid, owner, metadata });
+	const { type, name, creation, url } = zpService.newFile({ guid, owner, metadata });
+	/** Get file entry */
+	const file = new FileEntryInfo(name, type, url, creation, metadata, tags, owner);
 	/** Trigger event */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CONFIRM_FILE_UPLOAD,
-		data: { zpService, actions, file: { tags, type, name, metadata, creation, url, owner } }
+		data: { zpService, actions, file }
 	});
-} broadcast {
-	// Base fields
-	tags, type, name, metadata, creation, url, owner
-} on channel __selfName
+} return file on channel __selfName
