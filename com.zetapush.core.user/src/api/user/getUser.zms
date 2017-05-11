@@ -4,7 +4,7 @@ macroscript getUser(
 	/** Manage optional userKey value */
 	userKey = userKey ?: __userKey;
 	/** Get user by user key */
-	var { result: { user } } = call core_user__getUserByUserKey({
+	const response = await core_user__getUserByUserKey({
 		userKey
-	}) hardFail;
-} return { user } on channel __selfName
+	});
+} return response on channel __selfName

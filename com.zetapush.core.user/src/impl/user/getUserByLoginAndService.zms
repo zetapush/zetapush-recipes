@@ -3,7 +3,7 @@ macroscript core_user__getUserByLoginAndService(
 	@NotNull service<simple> zpService
 	
 ) {
-	var user = zpService.checkUser({
+	const user = zpService.checkUser({
 		key: login,
 		softFail: true
 	});
@@ -11,5 +11,4 @@ macroscript core_user__getUserByLoginAndService(
 	user.userKey = user.zetapushKey;
 	/** Update user data structure */
 	user.zetapushKey = null;
-
 } broadcast { user } on channel __selfName

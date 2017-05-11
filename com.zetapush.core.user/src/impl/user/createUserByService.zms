@@ -6,16 +6,16 @@ macroscript core_user__createUserByService(
 	/** Authentication Service */ @NotNull service<simple> zpService
 ) {
 	/** Check if account login is available */
-	var { result: { available } } = call core_user__isLoginAvailableByService({
+	const { available } = await core_user__isLoginAvailableByService({
 		login: profile.login,
 		zpAuthenticationService: zpService
-	}) hardFail;
+	});
 	/** Assert login is available */
 	assert available ERROR__USER_ALREADY_EXISTS; 
 	/** Create a new account */
-	var { zetapushKey: userKey } = zpService.createUser(profile);
+	const { zetapushKey: userKey } = zpService.createUser(profile);
 	/** Get user infos */
-	var { result: { user } } = call core_user__getUserByUserKey({ userKey });
+	const { user } = call core_user__getUserByUserKey({ userKey });
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_USER,
