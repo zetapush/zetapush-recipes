@@ -1,13 +1,13 @@
 macroscript core_user__getUserByUserKey(
 	@NotNull string userKey
 ) {
-	var { users } = zpServiceUserDirectory.userInfo({
+	const { users } = zpServiceUserDirectory.userInfo({
 		userKeys : [userKey]
 	});
 	/** Destructure response properties */
-	var user = users[userKey];
+	const user = users[userKey];
 	/** Confirm file upload */
-	var { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
+	const { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
 	/** Add computed property userKey */
 	user.avatar = avatar;
 	user.userKey = userKey;

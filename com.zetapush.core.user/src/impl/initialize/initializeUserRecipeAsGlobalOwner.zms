@@ -7,11 +7,11 @@ macroscript core_user__initializeRecipeAsGlobalOwner(
 	assert (__userKey == zpRecipeUtils::GLOBAL_OWNER) zpRecipeUtils::ERROR__INVALID_GRANT;
 
 	/** Create users group */
-	call zpRecipeGroup::createGroup({
+	await zpRecipeGroup::createGroup({
 	  id: ACTIVE_USERS_GROUP,
 	  name: str:join('.', 'I18N', #ACTIVE_USERS_GROUP),
 	  members: [],
 	  metadata: {},
 	  tags: []
-	}) hardFail;
+	});
 }

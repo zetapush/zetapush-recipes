@@ -6,9 +6,9 @@ macroscript core_user__isLoginAvailableByService(
 	/** Group service implementation */ @NotNull service<simple> zpAuthenticationService
 ) {
 	/** Check user existence */
-	var user = zpAuthenticationService.checkUser({
+	const user = zpAuthenticationService.checkUser({
 		key: login,
 		softFail: true
 	});
-	var available = !(user.login ??);
-} broadcast { available, user } on channel __selfName
+	const available = !(user.login ??);
+} broadcast new LoginAvailability(available, login, user) on channel __selfName

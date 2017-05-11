@@ -27,11 +27,8 @@ const ACTIVE_USERS_GROUP = 'ZetaPushUserActiveUsersGroup';
 
 // Auth fields
 
-// TODO PABLOFIX https://trello.com/c/BKU8ZW0M/376-ajouter-la-possibilite-d-utiliser-l-operateur-elvis-dans-l-init-zms-sur-les-objet-literaux-et-les-constants
-//const AUTH_MANDATORY_FIELDS = @config.authentication.simple.mandatory_fields ?: '';
-//const AUTH_PUBLIC_FIELDS = @config.authentication.simple.public_fields ?: '';
-const AUTH_MANDATORY_FIELDS = 'email';
-const AUTH_PUBLIC_FIELDS = 'email,firstname,lastname,mobilenumber,phonenumber,birthday,avatar,biography';
+const AUTH_MANDATORY_FIELDS = @config.authentication.simple.mandatory_fields ?: 'email';
+const AUTH_PUBLIC_FIELDS = @config.authentication.simple.public_fields ?: 'email,firstname,lastname,mobilenumber,phonenumber,birthday,avatar,biography';
 
 // Services declaration
 

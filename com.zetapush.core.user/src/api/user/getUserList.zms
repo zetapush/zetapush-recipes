@@ -5,7 +5,7 @@ macroscript getUserList(
 	/** List of userKey */ @NotNull array userKeys
 ) {
 	/** Get user from directory */
-	var { users } = zpServiceUserDirectory.userInfo({ userKeys });
+	const { users } = zpServiceUserDirectory.userInfo({ userKeys });
 	/** Map restult from map to list  */
 	var list = [];
 	/** Match not found result */

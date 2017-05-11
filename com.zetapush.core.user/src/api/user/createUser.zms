@@ -6,8 +6,8 @@ macroscript createUser(
 	var profile = { login, password };
 	profile += fields;
 	/** Create user in simple service */
-	var { result: { user } } = call core_user__createUserByService({
+	const response = await core_user__createUserByService({
 		profile,
 		zpService: zpServiceSimpleAuth
-	}) hardFail;
-} broadcast { user } on channel __selfName
+	});
+} broadcast response on channel __selfName

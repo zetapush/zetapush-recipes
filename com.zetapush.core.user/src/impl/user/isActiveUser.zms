@@ -4,9 +4,9 @@
 macroscript core_user__isActiveUser(
 	
 ) {
-	call zpRecipeGroup::isMemberOf({
+	await zpRecipeGroup::isMemberOf({
 		id: ACTIVE_USERS_GROUP,
 		owner: zpRecipeUtils::GLOBAL_OWNER,
 		isHardFail: true
-	}) hardFail;
+	});
 }
