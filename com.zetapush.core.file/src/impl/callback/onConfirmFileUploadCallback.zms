@@ -3,7 +3,7 @@
  */
 @ConfirmFileUploadListener()
 macroscript core_file__onConfirmFileUploadCallback(
-	@NotNull map file,
+	@NotNull FileEntryInfo file,
 	@NotNull service<zpfs_hdfs> zpService
 ) {
 

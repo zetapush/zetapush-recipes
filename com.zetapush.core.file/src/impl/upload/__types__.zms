@@ -1,0 +1,32 @@
+class FileUrl extends zetapush::UploadedFile {
+	
+}
+
+class FileEntryInfo {
+	string name;
+	string type;
+	FileUrl file;
+	number creation;
+	map metadata;
+	string[] tags;
+	string owner;
+}
+
+class FileEntry {
+	boolean exists;
+	FileEntryInfo entry;
+}
+
+class FileEntryList {
+	boolean exists;
+	string folder;
+	FileEntryInfo[] entries;
+	string owner;
+}
+
+class FileUploadRequest {
+	string httpMethod;
+	string guid;
+	string url;
+	string owner;
+}
