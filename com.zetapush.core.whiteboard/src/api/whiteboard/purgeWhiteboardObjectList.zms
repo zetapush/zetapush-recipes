@@ -6,18 +6,20 @@ macroscript purgeWhiteboardObjectList(
 	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard
 ) {
 	/** Set defaut storage prefix as room id */
-	var container = whiteboard;
+	const container = whiteboard;
 	/** Add message in conversation */
-	call zpRecipeConversation::core_conversation__purgeConversationMessageListByService({ 
+	await zpRecipeConversation::core_conversation__purgeConversationMessageListByService({ 
 		room, container, zpService: zpServiceGda
-	}) hardFail;
+	});
 	/** Set default list */
-	var list = [];
+	const list = [];
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__PURGE_WHITEBOARD,
 		data: { container, room, list }
 	});
 } broadcast(room.resource) {
-	container, room, list
+	string container,
+	zpRecipeConversation::Room room,
+	zpRecipeConversation::Message[] list
 } on channel __selfName
