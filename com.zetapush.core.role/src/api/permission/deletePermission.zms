@@ -2,12 +2,13 @@
 macroscript deletePermission(
 	@NotNull string name
 ) {
-	var id = str:hex(str:md5(str:upper(name)));
+	const id = str:hex(str:md5(str:upper(name)));
 	/** Delete role based group */
-	sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__deleteGroupByService({
+	sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__deleteGroupByService({
 		id,
 		zpService: zpServiceGroupsPermission
-	}) hardFail;
+	});
 } broadcast {
-	id, name
+	string id,
+	string name
 } on channel __selfName

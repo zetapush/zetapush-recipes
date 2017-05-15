@@ -4,22 +4,19 @@ macroscript setPermissionListMember(
 	/** User key */ @NotNull string member
 ) {
 	trace(#setPermissionListMember, permissions, member);
-	var responses = [];
 	/** Map all permissions */
 	for entry in permissions {
-		var permission = entry.key;
-		var status = entry.value;
-		var method = status ? #addPermissionMember : #removePermissionMember;
-		var response = zpServiceApiMacro.func({
+		const permission = entry.key;
+		const status = entry.value;
+		const method = status ? #addPermissionMember : #removePermissionMember;
+		const response = zpServiceApiMacro.func({
 			parameters: {
 				name: permission, member
 			},
 			name: method,
 			hardFail: true
 		}) loud;
-		responses += response;
 	}
 } broadcast {
-	permissions, member,
-	responses
+	permissions, member
 } on channel __selfName
