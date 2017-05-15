@@ -4,8 +4,8 @@
 macroscript getUserContactList(
 
 ) {
-	var map = {};
-	var { result: { list: organizations } } = call getUserOrganizationList();
+	const map = {};
+	const { list: organizations } = await getUserOrganizationList();
 	for organization in organizations {
 		for member in organization.members {
 			map[member.userKey] = member;
@@ -18,6 +18,6 @@ macroscript getUserContactList(
 		list += item.value;
 	} 
 } return {
-	list
+	zpRecipeUser::User[] list
 } on channel __selfName
 

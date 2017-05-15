@@ -4,10 +4,11 @@
 macroscript core_file__getFileEntryListByService(
 	/** Path folder */ @NotNull string folder,
 	/** Path folder owner */ @NotNull string owner,
-	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 },
+	/** Pagination object */ zpRecipeUtils::Pagination page,
 	/** Filesystem service */ @NotNull service<zpfs_hdfs> zpService
 ) {
 	trace(#core_file__getFileEntryListByService, folder, owner);
 	/** List uploaded files */
-	var { exists, entries } = zpService.ls({ folder, owner, page });
-} return { exists, folder, entries, owner } on channel __selfName
+	const { exists, entries } = zpService.ls({ folder, owner, page });
+	const list = coll:map(entries.content, (entry) => new FileEntryInfo(entry.name, entry.type, entry.url, entry.creation, entry.metadata, entry.tags, entry.owner));
+} return new FileEntryList(exists, folder, list, owner) on channel __selfName

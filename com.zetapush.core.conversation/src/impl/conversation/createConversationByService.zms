@@ -12,9 +12,9 @@ macroscript core_conversation__createConversationByService(
 	id = id ?: usr:core_conversation__id();
 	trace(#core_conversation__createConversationByService, id);
 	/** Create conversation room */
-	var { result: { room } } = call core_conversation__createConversationRoomByService({
+	const { room } = await core_conversation__createConversationRoomByService({
 		id, name, members, zpService
-	}) hardFail;
+	});
 	trace(#core_conversation__createConversationByService, room);
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
@@ -22,5 +22,6 @@ macroscript core_conversation__createConversationByService(
 		data: { room }
 	});
 } return {
-	container: id, room
+	string container: id,
+	Room room
 } on channel __selfName

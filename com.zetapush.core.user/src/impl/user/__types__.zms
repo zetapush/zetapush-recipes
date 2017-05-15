@@ -1,0 +1,18 @@
+class LoginAvailability {
+	/** Login availability */ @NotNull() boolean available;
+	/** Login value */ @NotNull() string login;
+	/** Optionnal user profile value*/ map user;
+}
+
+class User {
+	string userKey;
+	string login;
+	string email;
+	string firstname;
+	string lastname;
+	string mobilenumber;
+	string phonenumber;
+	string birthday;
+	string avatar;
+	string biography;
+}

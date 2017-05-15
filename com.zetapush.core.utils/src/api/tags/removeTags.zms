@@ -2,10 +2,10 @@
  * Remove tags
  */
 macroscript removeTags(
-	/** */ string id
+	/** Tags id */ @NotNull string id
 ) {
 	/** Remove stored object */
-	call core_utils__removeStoredObject({
+	await core_utils__removeStoredObject({
 		id, table: TABLE_TAGS, zpService: zpServiceGda
-	}) hardFail;
-} broadcast { id } on channel __selfName
+	});
+} broadcast { string id } on channel __selfName

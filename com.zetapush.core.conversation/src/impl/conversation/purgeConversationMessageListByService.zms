@@ -7,7 +7,7 @@ macroscript core_conversation__purgeConversationMessageListByService(
 	/** Storage Service */ @NotNull service<gda> zpService
 ) {
 	/** Define range start and stop */
-	var { start, stop } = usr:core_conversation__range(container);
+	const { start, stop } = usr:core_conversation__range(container);
 	trace(#core_conversation__purgeConversationMessageListByService, { start, stop });
 	/** Retreive message for a specific range */
 	zpService.removeRange({

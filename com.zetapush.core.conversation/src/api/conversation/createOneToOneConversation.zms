@@ -4,16 +4,16 @@
 macroscript createOneToOneConversation(
 	/** Conversation interlocutor */ @NotNull string interlocutor
 ) {
-	var members = [__userKey, interlocutor];
-	var hash = zpRecipeUtils::reduce_array_to_hash(members, TABLE_CONVERSATION_HISTORY) + usr:core_conversation__id();
-	var id = str:substr(hash, 0, NUMBER_OF_CHARS_IN_CONVERSATION_ID);
-	var name = str:join('.', 'I18N', 'ONE_TO_ONE_CONVERSATION');
+	const members = [__userKey, interlocutor];
+	const hash = zpRecipeUtils::reduce_array_to_hash(members, TABLE_CONVERSATION_HISTORY) + usr:core_conversation__id();
+	const id = str:substr(hash, 0, NUMBER_OF_CHARS_IN_CONVERSATION_ID);
+	const name = str:join('.', 'I18N', 'ONE_TO_ONE_CONVERSATION');
 	trace(#createOneToOneConversation, { id, name, members });
 	/** Create conversation with specific id */
-	var { result: { room } } = sudo zpRecipeUtils::GLOBAL_OWNER call core_conversation__createConversationByService({ 
+	const { room } = sudo zpRecipeUtils::GLOBAL_OWNER await core_conversation__createConversationByService({ 
 		id, name, members, zpService: zpServiceGroups
-	}) hardFail;
+	});
 	trace(#createOneToOneConversation, { room });
 } broadcast(room.resource) {
-	room
+	Room room
 } on channel __selfName

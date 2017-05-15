@@ -2,11 +2,11 @@
  *
  */
 macroscript getUserConversationList(
-	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+	/** Pagination object */ zpRecipeUtils::Pagination page
 ) {
-	var { result: { list } } = call core_conversation__getUserConversationListByService({ 
+	const { list } = await core_conversation__getUserConversationListByService({ 
 		page, zpService: zpServiceGroups
-	}) hardFail;
+	});
 } broadcast {
-	list
+	map[] list
 } on channel __selfName

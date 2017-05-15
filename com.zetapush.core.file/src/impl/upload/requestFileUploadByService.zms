@@ -9,10 +9,12 @@ macroscript core_file__requestFileUploadByService(
 ) {
 	trace(#core_file__requestFileUploadByService, contentType, folder);
 	/** Request new upload url end point */
-	var { httpMethod, guid, url } = zpService.newUploadUrl({ contentType, owner, path: folder });
+	const { httpMethod, guid, url } = zpService.newUploadUrl({ contentType, owner, path: folder });
+	/** File upload request */
+	const request = new FileUploadRequest(httpMethod, guid, url, owner);
 	/** Trigger event */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__REQUEST_FILE_UPLOAD,
-		data: { zpService, upload: { httpMethod, guid, url, owner } }
+		data: { zpService, upload: request }
 	});
-} broadcast { httpMethod, guid, url, owner } on channel __selfName
+} return request on channel __selfName

@@ -8,8 +8,8 @@ macroscript updateUser(
 	var profile = { login };
 	profile += fields;
 	/** Get user infos */
-	var { result: { user } } = call core_user__updateUserByService({
+	const response = await core_user__updateUserByService({
 		profile: __parameters,
 		zpService: zpServiceSimpleAuth
-	}) hardFail;
-} broadcast { user } on channel __selfName
+	});
+} broadcast response on channel __selfName

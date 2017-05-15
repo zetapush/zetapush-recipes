@@ -2,7 +2,7 @@ macroscript setObjectConfig(
 	/** Config Id */ @NotNull string id,
 	/** Config Value */ @NotNull value
 ) {
-	var { result: { revision, update } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeUtils::core_utils__setStoredObject({
-		id, value: { value }, table: TABLE_OBJECT_CONFIG, zpService: zpServiceGda
-	}) hardFail;
-} broadcast { id, value, revision, update } on channel __selfName
+	const stored = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeUtils::core_utils__setStoredObject({
+		id, value: { wrapper: value }, table: TABLE_OBJECT_CONFIG, zpService: zpServiceGda
+	});
+} broadcast new ObjectConfig(stored.id, stored.revision, stored.update, stored.value.wrapper) on channel __selfName

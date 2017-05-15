@@ -9,10 +9,10 @@ macroscript getOrganization(
 	} 
 	trace(#getOrganization, id, name);
 	/** Get group based organization */
-	var { result: { group: organization } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupByService({
+	const { group: organization } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__getGroupByService({
 		id,
 		zpService: zpServiceGroupsOrganization
-	}) hardFail;
+	});
 } return {
-	organization
+	Organization organization
 } on channel __selfName

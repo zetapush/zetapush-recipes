@@ -1,0 +1,13 @@
+class HasUserPermission {
+	string id;
+	string name;
+	string member;
+	boolean has;
+}
+
+class HasUserRole {
+	string id;
+	string name;
+	string member;
+	boolean has;
+}

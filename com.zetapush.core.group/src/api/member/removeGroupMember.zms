@@ -6,5 +6,5 @@ macroscript removeGroupMember(
 	/** User key */ @NotNull string member
 ) {
 	/** Delegated remove user from a group */
-	call core_group__removeGroupMemberByService({ id, member, zpService: zpServiceGroups }) hardFail;
-} broadcast { id, member } on channel __selfName
+	const response = await core_group__removeGroupMemberByService({ id, member, zpService: zpServiceGroups });
+} broadcast response on channel __selfName

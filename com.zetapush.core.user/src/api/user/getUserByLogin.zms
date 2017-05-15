@@ -2,8 +2,8 @@
 macroscript getUserByLogin(
 	@NotNull string login
 ) {
-	var { result: { user } } = call core_user__getUserByLoginAndService({
+	const response = await core_user__getUserByLoginAndService({
 		login,
 		zpService: zpServiceSimpleAuth
-	}) hardFail;
-} return { user } on channel __selfName
+	});
+} return response on channel __selfName

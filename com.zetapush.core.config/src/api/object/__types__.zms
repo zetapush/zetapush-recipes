@@ -1,0 +1,7 @@
+class ObjectConfigPaginatedList extends zpRecipeUtils::PaginatedList {
+	ObjectConfig[] content;
+}
+
+class ObjectConfig extends zpRecipeUtils::Storable {
+	/** Value */ map value;
+}

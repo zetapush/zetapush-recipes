@@ -10,7 +10,5 @@ macroscript requestFileUpload(
 	owner = owner ?: __userKey;
 	trace(#requestFileUpload, contentType, folder, owner);
 	/** Request file upload */
-	var { result: { httpMethod, guid, url } } = call core_file__requestFileUploadByService({ contentType, folder, owner, zpService: zpServiceFile }) hardFail;
-} broadcast { 
-	httpMethod, guid, url, owner
-} on channel __selfName
+	const response = await core_file__requestFileUploadByService({ contentType, folder, owner, zpService: zpServiceFile });
+} broadcast response on channel __selfName

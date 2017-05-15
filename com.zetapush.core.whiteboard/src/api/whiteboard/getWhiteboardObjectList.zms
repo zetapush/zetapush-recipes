@@ -7,11 +7,14 @@ macroscript getWhiteboardObjectList(
 	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
 ) {
 	/** Set defaut storage container as room id */
-	var container = whiteboard;
+	const container = whiteboard;
 	/** Add message in conversation */
-	var { result: { list } } = call zpRecipeConversation::core_conversation__getConversationMessageListByService({ 
+	const { list } = await zpRecipeConversation::core_conversation__getConversationMessageListByService({ 
 		room, container, page, zpService: zpServiceGda
-	}) hardFail;
+	});
 } return {
-	container, room, list, page
+	string container,
+	zpRecipeConversation::Room room,
+	zpRecipeConversation::Message[] list,
+	zpRecipeUtils::Pagination page
 } on channel __selfName

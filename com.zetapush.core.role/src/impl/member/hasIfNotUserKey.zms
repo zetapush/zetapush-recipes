@@ -7,6 +7,6 @@ macroscript core_role__hasIfNotUserKey(
 	/** */ @NotNull service<groups> zpService 
 ) {
 	if (userKey?? && userKey != __userKey) {
-		call core_role__has({ name, zpService }) hardFail;
+		await core_role__has({ name, zpService });
 	}
 }

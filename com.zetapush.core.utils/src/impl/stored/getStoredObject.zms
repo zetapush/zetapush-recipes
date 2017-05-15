@@ -7,12 +7,12 @@ macroscript core_utils__getStoredObject(
 	/** Storage service */ @NotNull service<gda> zpService
 ) {
 	/** Get stored config entry */
-	var { result } = zpService.get({
+	const { result } = zpService.get({
 		key: id,
 		table: table
 	});
 	/** Destructure result properties */
-	var value = result[COLUMN_STORED_OBJECT_VALUE];
-	var revision = result[COLUMN_STORED_OBJECT_REVISION];
-	var update = result[COLUMN_STORED_OBJECT_UPDATE];
-} broadcast { id, value, revision, update, result } on channel __selfName
+	const value = result[COLUMN_STORED_OBJECT_VALUE];
+	const revision = result[COLUMN_STORED_OBJECT_REVISION];
+	const update = result[COLUMN_STORED_OBJECT_UPDATE];
+} return new StoredObject(id, revision, update, value) on channel __selfName

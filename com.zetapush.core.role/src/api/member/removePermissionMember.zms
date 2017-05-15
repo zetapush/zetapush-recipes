@@ -16,6 +16,4 @@ macroscript removePermissionMember(
 		zpService: zpServiceGroupsPermission
 	}) hardFail;
 	/* TODO Broadcast to all group members */
-} broadcast([__userKey, member]) {
-	id, name, member, has: false
-} on channel __selfName
+} broadcast([__userKey, member]) new HasUserPermission(id, name, member, false)  on channel __selfName

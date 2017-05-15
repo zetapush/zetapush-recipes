@@ -2,12 +2,12 @@
  *
  */
 macroscript getTargets(
-	@NotNull string id
+	/** Targets id */ @NotNull string id
 ) {
 	/** Get Stored Object */
-	var { result: { revision, update, value } } = call core_utils__getStoredObject({
+	const { revision, update, value } = await core_utils__getStoredObject({
 		id, table: TABLE_TARGETS, zpService: zpServiceGda
-	}) hardFail;
+	});
 	/** Destructure result properties */
 	value = usr:reduce_map_to_array(value);
-} broadcast { id, value, revision, update } on channel __selfName
+} return new Targets(id, revision, update, value) on channel __selfName
