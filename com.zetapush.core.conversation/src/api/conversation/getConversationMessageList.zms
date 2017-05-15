@@ -3,7 +3,7 @@
  */
 macroscript getConversationMessageList(
 	/** Conversation room object */ @ValidConversationRoom map room,
-	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+	/** Pagination object */ zpRecipeUtils::Pagination page
 ) {
 	/** Set defaut storage container as room id */
 	var container = room.id;
@@ -12,5 +12,8 @@ macroscript getConversationMessageList(
 		room, container, page, zpService: zpServiceGda
 	}) hardFail;
 } return {
-	container, room, list, page
+	string container,
+	Room room,
+	Message[] list,
+	zpRecipeUtils::Pagination page
 } on channel __selfName

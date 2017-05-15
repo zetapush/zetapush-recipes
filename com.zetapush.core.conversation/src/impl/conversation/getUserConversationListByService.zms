@@ -5,9 +5,9 @@ macroscript core_conversation__getUserConversationListByService(
 	/** Group service */ @NotNull service<groups> zpService,
 	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
 ) {
-	var groups = zpService.myGroups({});
-	var { result: { list: rooms } } = call zpRecipeGroup::core_group__getGroupListByService({ groups, zpService });
-	var list = coll:map(rooms, (room) => { room });
+	const groups = zpService.myGroups({});
+	const { list: rooms } = await zpRecipeGroup::core_group__getGroupListByService({ groups, zpService });
+	const list = coll:map(rooms, (room) => { room });
 } broadcast {
 	list
 } on channel __selfName

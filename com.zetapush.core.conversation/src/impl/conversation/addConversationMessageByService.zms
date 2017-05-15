@@ -11,17 +11,17 @@ macroscript core_conversation__addConversationMessageByService(
 ) {
 	// TODO Check permissions?
 	/** Get message key */
-	var { createdAt, now, key } = usr:core_conversation__message_key(container);
+	const { createdAt, now, key } = usr:core_conversation__message_key(container);
 	/** Prepare data storage */
 	var targets = [];
-	var readers = {};
+	const readers = {};
 	for member in room.members {
-		var { userKey } = member;
+		const { userKey } = member;
 		targets += userKey;
 		readers[userKey] = 0;
 	}
 	/** Define message structure */
-	var message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
+	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
 	/** Store message */
 	zpService.puts({
 		rows: [{
@@ -45,5 +45,7 @@ macroscript core_conversation__addConversationMessageByService(
 		data: { container, room, message }
 	});
 } return {
-	container, room, message
+	string container,
+	Room room,
+	Message message
 } on channel __selfName
