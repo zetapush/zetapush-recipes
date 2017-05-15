@@ -8,16 +8,18 @@ macroscript updateWhiteboardObject(
 	/** Object value*/ @NotNull map value
 ) {
 	/** Set defaut storage container as whiteboard id */
-	var container = whiteboard;
+	const container = whiteboard;
 	/** Update message in conversation */
-	var { result: { message } } = call zpRecipeConversation::core_conversation__updateConversationMessageByService({
+	const { message } = await zpRecipeConversation::core_conversation__updateConversationMessageByService({
 		id, room, container, value, zpService: zpServiceGda
-	}) hardFail;
+	});
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__UPDATE_WHITEBOARD_OBJECT,
 		data: { container, room, message }
 	});
 } broadcast(room.resource) {
-	container, room, message
+	string container,
+	zpRecipeConversation::Room room,
+	zpRecipeConversation::Message message
 } on channel __selfName

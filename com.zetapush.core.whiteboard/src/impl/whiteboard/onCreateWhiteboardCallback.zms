@@ -7,7 +7,7 @@ macroscript core_whiteboard__onCreateWhiteboardCallback(
 	/** Whiteboard id */ @NotNull string id
 ) {
 	/** Add event in conversation to notify whoteboard creation */
-	call zpRecipeConversation::addConversationMessage({
+	await zpRecipeConversation::addConversationMessage({
 		room,
 		type: zpRecipeConversation::MESSAGE_TYPE_EVENT,
 		value: { 
@@ -17,7 +17,7 @@ macroscript core_whiteboard__onCreateWhiteboardCallback(
 		metadata: {
 			whiteboard: id
 		}
-	}) hardFail loud;
+	}) loud;
 } broadcast {
 	
 } on channel __selfName
