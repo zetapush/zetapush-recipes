@@ -1,5 +1,5 @@
 class Pagination {
-	/** page size */@Min(1) @Max(100) number pageSize = 20;
+	/** page size */@Min(1) @Max(200) number pageSize = 100;
 	/** page number */@Min(0) number pageNumber = 0;
 	/** page direction*/ string direction = 'ASC';
 }

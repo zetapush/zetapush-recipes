@@ -7,11 +7,13 @@ macroscript getConversation(
 ) {
 	trace(#getConversation, { id, owner });
 	/** Get conversation room */
-	var { result: { room } } = sudo owner call core_conversation__getConversationRoomByService({ 
+	const { room } = sudo owner await core_conversation__getConversationRoomByService({ 
 		id, owner, zpService: zpServiceGroups
 	});
 	/** Get conversation message list */
-	var { result: { list: messages, page} } = call getConversationMessageList({ room });
+	const { list: messages, page } = await getConversationMessageList({ room });
 } return {
-	room, messages, page
+	Room room,
+	map[] messages,
+	zpRecipeUtils::Pagination page
 } on channel __selfName

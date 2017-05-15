@@ -7,9 +7,9 @@ macroscript core_conversation__addConversationMessageCallback(
 	@NotNull map message
 ) {
 	/** Get pascalified message type */
-	var type = usr:core_conversation__pascalify(message.type);
+	const type = usr:core_conversation__pascalify(message.type);
 	/** Get computed macro name */
-	var name = 'core_conversation__addConversation' + type + 'MessageCallback';
+	const name = 'core_conversation__addConversation' + type + 'MessageCallback';
 	/** Dynamic conversation message callback */
 	zpServiceImplMacro.func({
 		parameters: __parameters,

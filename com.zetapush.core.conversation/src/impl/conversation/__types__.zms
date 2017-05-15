@@ -1,0 +1,25 @@
+class Room extends zpRecipeGroup::Group {
+	string[] grants;	
+}
+
+class Message {
+	/** Message uniq id */ string id;
+	/** Message author */ string author;
+	/** Message type*/ @ValidMessageType() string type;
+	/** Message value */ map value;
+	/** Message created date */ number createdAt;
+	/** Message metadata */ map metadata;
+	/** Message readers */ string[] readers;
+	/** Merssage targets */ string targets;
+}
+
+class ConversationMessage {
+	/** Conversation container id */ string container;
+	/** Conversation message */ Message message;
+	/** Conversation room */ Room room;
+}
+
+class Conversation {
+	/** Conversation id */ string container;
+	/** Conversation room */ Room room;
+}
