@@ -15,4 +15,4 @@ macroscript hasPermission(
 		isHardFail: assertion,
 		zpService: zpServiceGroupsPermission
 	}) hardFail;
-} return { id, name, has } on channel __selfName
+} return new HasUserPermission(id, name, __userKey, true) on channel __selfName

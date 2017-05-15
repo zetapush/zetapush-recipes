@@ -16,6 +16,4 @@ macroscript addRoleMember(
 		zpService: zpServiceGroupsRole
 	}) hardFail;
 	/* TODO Broadcast to all group members */
-} broadcast([__userKey, member]) {
-	id, name, member, has: true
-} on channel __selfName
+} broadcast([__userKey, member]) new HasUserRole(id, name, member, true)  on channel __selfName

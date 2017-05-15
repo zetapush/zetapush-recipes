@@ -5,12 +5,12 @@ macroscript getUserPermissionList(
 	/** Manage default parameters */
 	userKey = userKey ?: __userKey;
 	/** Get group list from API */
-	var groups = sudo userKey zpServiceGroupsPermission.myGroups({});
+	const groups = sudo userKey zpServiceGroupsPermission.myGroups({});
 	/** Delegate get all user groups */
-	var { result: { list } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__getGroupListByService({
+	const { list } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__getGroupListByService({
 		groups,
 		zpService: zpServiceGroupsPermission
-	}) hardFail;
+	});
 } return {
-	list
+	Permission[] list
 } on channel __selfName
