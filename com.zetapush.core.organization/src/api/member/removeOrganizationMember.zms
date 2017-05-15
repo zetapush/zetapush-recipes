@@ -9,12 +9,10 @@ macroscript removeOrganizationMember(
 		id = str:hex(str:md5(str:upper(name)));
 	} 
 	/** Delegated remove user from a group */
-	sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__removeGroupMemberByService({
+	sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__removeGroupMemberByService({
 		id,
 		member,
 		zpService: zpServiceGroupsOrganization
-	}) hardFail;
+	});
 	/* TODO Broadcast to all group members */
-} broadcast {
-	id, member
-} on channel __selfName
+} broadcast new OrganizationMember(id, member, name) on channel __selfName
