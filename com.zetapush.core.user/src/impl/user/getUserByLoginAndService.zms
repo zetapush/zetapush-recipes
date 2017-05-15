@@ -19,4 +19,4 @@ macroscript core_user__getUserByLoginAndService(
 		fields.avatar,
 		fields.biography
 	);
-} return user on channel __selfName
+} return { User user } on channel __selfName

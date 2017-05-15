@@ -5,7 +5,19 @@ macroscript core_user__getUserByUserKey(
 		userKeys : [userKey]
 	});
 	/** Destructure response properties */
-	const user = users[userKey];
+	const fields = users[userKey];
+	const user = new User(
+		fields.zetapushKey,
+		fields.login,
+		fields.email,
+		fields.firstname,
+		fields.lastname,
+		fields.mobilenumber,
+		fields.phonenumber,
+		fields.birthday,
+		fields.avatar,
+		fields.biography
+	);
 	/** Confirm file upload */
 	const { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
 	/** Add computed property userKey */
