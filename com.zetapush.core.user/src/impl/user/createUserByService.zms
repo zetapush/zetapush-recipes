@@ -15,7 +15,7 @@ macroscript core_user__createUserByService(
 	/** Create a new account */
 	const { zetapushKey: userKey } = zpService.createUser(profile);
 	/** Get user infos */
-	const { user } = call core_user__getUserByUserKey({ userKey });
+	const { user } = await core_user__getUserByUserKey({ userKey });
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_USER,
