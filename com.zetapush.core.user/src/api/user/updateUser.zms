@@ -7,9 +7,14 @@ macroscript updateUser(
 ) {
 	var profile = { login };
 	profile += fields;
-	/** Get user infos */
-	const response = await core_user__updateUserByService({
-		profile: __parameters,
+	/** Get user infos*/
+	await core_user__updateUserByService({
+		profile,
+		zpService: zpServiceSimpleAuth
+	});
+	/** Get updated user */
+	const response = await core_user__getUserByLoginAndService({
+		login,
 		zpService: zpServiceSimpleAuth
 	});
 } broadcast response on channel __selfName
