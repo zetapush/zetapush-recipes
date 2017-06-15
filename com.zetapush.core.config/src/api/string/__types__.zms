@@ -3,5 +3,5 @@ class StringConfigPaginatedList extends zpRecipeUtils::PaginatedList {
 }
 
 class StringConfig extends zpRecipeUtils::Storable {
-	/** Value */ map value;
+	/** Value */ string value;
 }
