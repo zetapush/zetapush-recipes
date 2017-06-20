@@ -1,7 +1,7 @@
 /**
  *
  */
-macroscript addRoomMemberMessage(
+macroscript sendRoomMessageToMember(
 	/** Room room object */ @NotNull Room room,
 	/** Room member user key */ string member,
 	/** Message type */ @ValidMessageType string type,

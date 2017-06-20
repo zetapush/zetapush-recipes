@@ -1,0 +1,31 @@
+/**
+ *
+ */
+macroscript core_room__createInvitationByService(
+	/** Room */ @NotNull Room room,
+	/** User key to invite */ string guest,
+	/** Invitation metadata */ map metadata = {},
+	/** Invitation expiry */ number expiry = 0,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	/** */
+	const owner = __userKey;
+	const createdAt = time:now();
+	const key = str:join('--', CORE__ROOM_TYPE_INVITATION, room.id);
+	const invitation = new Invitation(key, owner, null, expiry, createdAt, metadata);
+	/** Store message */
+	zpService.puts({
+		rows: [{
+			key,
+			data: {
+				[COLUMN_INVITATION_ROOM]: room.id,
+				[COLUMN_INVITATION_GUEST]: guest,
+				[COLUMN_INVITATION_EXPIRY]: expiry,
+				[COLUMN_INVITATION_CREATED_AT]: createdAt,
+				[COLUMN_INVITATION_METADATA]: metadata
+			}
+		}],
+		table: TABLE_ROOM_INVITATION,
+		owner: room.owner
+	});
+} return invitation on channel __selfName
