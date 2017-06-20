@@ -29,19 +29,6 @@ macroscript core_group__createGroupByService(
 			group: id,
 			groupName: name
 		});
-	
-		/** Allow members to list members */
-		zpService.grant({
-			action: 'LIST',
-			group: id,
-			resource: resource
-		});
-		
-		/** Add initial users to the group */
-		zpService.addUsers({
-			group: id,
-			users: members
-		});
 
 		/** Set group metadata */
 		await zpRecipeUtils::setMetadata({ id, metadata });
@@ -49,6 +36,19 @@ macroscript core_group__createGroupByService(
 		/** Set group tags */
 		await zpRecipeUtils::setTags({ id, tags });
 	}
+	/** Allow members to list members */
+	zpService.grant({
+		action: 'LIST',
+		group: id,
+		resource: resource
+	});
+	
+	/** Add initial users to the group */
+	zpService.addUsers({
+		group: id,
+		users: members
+	});
+
 	/** Get the created group */
 	const { group } = await core_group__getGroupByService({ id, zpService });
 

@@ -1,0 +1,15 @@
+/* ROOM LISTENERS */
+
+macroscript_annotation CreateRoomListener = @EventListener(eventName = EVENT__CREATE_ROOM, triggerService = zpServiceTrigger);
+
+macroscript_annotation PurgeRoomListener = @EventListener(eventName = EVENT__PURGE_ROOM, triggerService = zpServiceTrigger);
+
+/* ROOM MESSAGES LISTENERS */
+
+macroscript_annotation AddRoomMessageListener = @EventListener(eventName = EVENT__ADD_ROOM_MESSAGE, triggerService = zpServiceTrigger);
+
+macroscript_annotation UpdateRoomMessageListener = @EventListener(eventName = EVENT__UPDATE_ROOM_MESSAGE, triggerService = zpServiceTrigger);
+
+/* ROOM MEMBER MESSAGES LISTENERS */
+
+macroscript_annotation AddRoomMemberMessageListener = @EventListener(eventName = EVENT__ADD_ROOM_MEMBER_MESSAGE, triggerService = zpServiceTrigger);

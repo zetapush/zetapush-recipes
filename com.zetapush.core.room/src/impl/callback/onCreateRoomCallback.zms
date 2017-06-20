@@ -1,0 +1,26 @@
+/**
+ *
+ */
+@CreateRoomListener()
+macroscript onCreateRoomCallback(
+	@NotNull Room room
+) {
+	const owner = __userKey;
+	const id = str:join('--', CORE__ROOM_TYPE_INVITATION, room.id);
+	const members = [];
+	const name = 'Invitation (' + room.name + ')';
+	/** Room metadata */
+	const metadata = {
+		type: CORE__ROOM_TYPE_INVITATION
+	};
+	/** Create group */
+	const { group } = sudo room.owner await zpRecipeGroup::core_group__createGroupByService({
+		id, name, members, metadata, zpService: zpServiceGroups
+	});
+	/** Grant addMe to the group for the stack */
+	zpServiceGroups.mgrant({
+		actions: [Verb_groups_addMe],
+		group: id,
+		resource: room.resource
+	});
+}

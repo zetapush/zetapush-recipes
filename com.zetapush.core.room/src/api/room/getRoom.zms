@@ -2,7 +2,7 @@
  *
  */
 macroscript getRoom(
-	/** Room room id */ @NotNull string id,
+	/** Room room id */ @ValidRoomId string id,
 	/** Room room owner */ @NotNull string owner
 ) {
 	trace(#getRoom, { id, owner });

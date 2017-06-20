@@ -27,6 +27,8 @@ const TABLE_ROOM_INVITATION = 'invitation';
 const COLUMN_INVITATION_ROOM = 'room';
 const COLUMN_INVITATION_GUEST = 'guest';
 const COLUMN_INVITATION_EXPIRY = 'expiry';
+const COLUMN_INVITATION_CREATED_AT = 'createdAt';
+const COLUMN_INVITATION_METADATA = 'metadata';
 
 // File System
 
@@ -35,12 +37,14 @@ const ROOM_ATTACHMENTS_PATH = 'room/attachments/';
 // Constants
 
 const CORE__ROOM_TYPE_ROOM = 'room';
+const CORE__ROOM_TYPE_INVITATION = 'invitation';
 
 // Context
 
 const EVENT__ADD_ROOM_MESSAGE = 'ZetaPushEvent__Room_AddRoomMessage';
 const EVENT__ADD_ROOM_MEMBER_MESSAGE = 'ZetaPushEvent__Room_AddRoomMemberMessage';
-const EVENT__CREATE_ROOM_INVITATION = 'ZetaPushEvent__Room_CreateInvitation';
+const EVENT__CREATE_ROOM_INVITATION = 'ZetaPushEvent__Room_CreateRoomInvitation';
+const EVENT__CREATE_ROOM_MEMBER_INVITATION = 'ZetaPushEvent__Room_CreateRoomMemberInvitation';
 const EVENT__INC_ROOM_UNREAD = 'ZetaPushEvent__Room_IncRoomUnread';
 const EVENT__CREATE_ROOM = 'ZetaPushEvent__Room_CreateRoom';
 const EVENT__PURGE_ROOM = 'ZetaPushEvent__Room_PurgeRoom';
@@ -88,3 +92,7 @@ service zpServiceGda = gda('cr_cnvrst_gda').forbiddenVerbs(__all);
  * Data Stack service
  */
 service zpServiceStack = stack('cr_cnvrst_stack').forbiddenVerbs(__all);
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);
