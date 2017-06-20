@@ -48,6 +48,7 @@ const MESSAGE_TYPE_EVENT = 'event';
 const MESSAGE_TYPE_MARKUP = 'markup';
 const MESSAGE_TYPE_WIDGET = 'widget';
 const MESSAGE_TYPE_ACTION = 'action';
+const MESSAGE_TYPE_DATA = 'data';
 
 const ROOM_ID_ENTROPY = 32; // --> 32 chars
 const ROOM_MESSAGE_ID_ENTROPY = 3; // --> 3 chars
