@@ -2,14 +2,14 @@
  * ZetaPush Official Core Recipe
  * Provide whiteboards management APIs
  */
-recipe com.zetapush.core.whiteboard 2.0.0;
+recipe com.zetapush.core.whiteboard 1.0.0;
 
 // Import recipes
 
-import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
-import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
-import recipe com.zetapush.core.room 2.0.0 in zpRecipeRoom;
-import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.file 1.0.0 in zpRecipeFile;
+import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
+import recipe com.zetapush.core.user 1.0.0 in zpRecipeUser;
 
 // Table
 
