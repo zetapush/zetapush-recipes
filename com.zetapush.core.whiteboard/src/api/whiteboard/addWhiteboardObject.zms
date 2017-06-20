@@ -2,16 +2,16 @@
  *
  */
 macroscript addWhiteboardObject(
-	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
-	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard,
-	/** Object type */ @zpRecipeConversation::ValidMessageType string type,
+	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room,
+	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard,
+	/** Object type */ @zpRecipeRoom::ValidMessageType string type,
 	/** Object value*/ @NotNull map value,
 	/** Object metadata */ @NotNull map metadata
 ) {
 	/** Set defaut storage container as whiteboard id */
 	const container = whiteboard;
-	/** Add message in conversation */
-	const { message } = await zpRecipeConversation::core_conversation__addConversationMessageByService({ 
+	/** Add message in room */
+	const { message } = await zpRecipeRoom::core_room__addRoomMessageByService({ 
 		room, container, type, value, metadata, zpService: zpServiceGda
 	});
 	/** Execute all registered macros */
@@ -21,6 +21,6 @@ macroscript addWhiteboardObject(
 	});
 } broadcast(room.resource) {
 	string container,
-	zpRecipeConversation::Room room,
-	zpRecipeConversation::Message message
+	zpRecipeRoom::Room room,
+	zpRecipeRoom::Message message
 } on channel __selfName

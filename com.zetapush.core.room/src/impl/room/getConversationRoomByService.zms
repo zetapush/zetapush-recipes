@@ -1,0 +1,17 @@
+/**
+ *
+ */
+macroscript core_room__getRoomRoomByService(
+	/** Valid room room id */ @ValidRoomId string id,
+	/** Room room owner */ @NotNull string owner,
+	/** Group service */ @NotNull service<groups> zpService
+) {
+	const { group: room } = await zpRecipeGroup::core_group__getGroupByService({
+		id, zpService
+	});
+	/** Extends room with grants list */
+	const { grants } = zpService.listGrants({ group: id });
+	room.grants = grants;
+} return {
+	Room room
+} on channel __selfName

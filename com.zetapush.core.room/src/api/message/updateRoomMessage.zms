@@ -1,0 +1,19 @@
+/**
+ *
+ */
+macroscript updateRoomMessageByService(
+	/** Room message id */ @ValidRoomMessageId string id,
+	/** Room room object */ @ValidRoomRoom map room,
+	/** Message value*/ @NotNull map value
+) {
+	/** Set defaut storage container as room id */
+	const container = room.id;
+	/** Add message in room */
+	const { message } = await core_room__updateRoomMessageByService({
+		id, room, container, value, zpService: zpServiceGda
+	});
+} broadcast(room.resource) {
+	string container,
+	Room room,
+	Message message
+} on channel __selfName

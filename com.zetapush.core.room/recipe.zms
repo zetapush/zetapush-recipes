@@ -1,0 +1,84 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provide room management APIs
+ */
+recipe com.zetapush.core.room 2.0.0;
+
+// Import recipes
+
+import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.file 2.0.0 in zpRecipeFile;
+import recipe com.zetapush.core.group 2.0.0 in zpRecipeGroup;
+import recipe com.zetapush.core.user 2.0.0 in zpRecipeUser;
+
+// Table
+
+const TABLE_ROOM_STORAGE = 'storage';
+const COLUMN_STORAGE_AUTHOR = 'author';
+const COLUMN_STORAGE_TYPE = 'type';
+const COLUMN_STORAGE_VALUE = 'value';
+const COLUMN_STORAGE_CREATED_AT = 'createdAt';
+const COLUMN_STORAGE_UPDATED_AT = 'updatedAt';
+
+const COLUMN_STORAGE_METADATA = 'metadata';
+const COLUMN_STORAGE_READERS = 'readers';
+const COLUMN_STORAGE_TARGETS = 'targets';
+
+// File System
+
+const ROOM_ATTACHMENTS_PATH = 'room/attachments/';
+
+// Constants
+
+const CORE__ROOM_TYPE_ROOM = 'room';
+
+// Context
+
+const EVENT__ADD_ROOM_MESSAGE = 'ZetaPushEvent__Room_AddRoomMessage';
+const EVENT__ADD_ROOM_MEMBER_MESSAGE = 'ZetaPushEvent__Room_AddRoomMemberMessage';
+const EVENT__INC_ROOM_UNREAD = 'ZetaPushEvent__Room_IncRoomUnread';
+const EVENT__CREATE_ROOM = 'ZetaPushEvent__Room_CreateRoom';
+const EVENT__PURGE_ROOM = 'ZetaPushEvent__Room_PurgeRoom';
+const EVENT__UPDATE_ROOM_MESSAGE = 'ZetaPushEvent__Room_UPdateRoomMessage';
+
+// Room Content Type
+
+const MESSAGE_TYPE_ATTACHMENT = 'attachment';
+const MESSAGE_TYPE_EVENT = 'event';
+const MESSAGE_TYPE_MARKUP = 'markup';
+const MESSAGE_TYPE_WIDGET = 'widget';
+const MESSAGE_TYPE_ACTION = 'action';
+
+const ROOM_ID_ENTROPY = 32; // --> 32 chars
+const ROOM_MESSAGE_ID_ENTROPY = 3; // --> 3 chars
+
+const NUMBER_OF_CHARS_IN_FULL_DATETIMEMS = 17; // Y(2017)m(01)D(01)H(00)M(00)S(00)M(000) ==> 17 characters
+const NUMBER_OF_CHARS_IN_ROOM_ID = 32; // ==> 32 chars
+const NUMBER_OF_CHARS_IN_ROOM_MESSAGE_SUFFIX = 3; // ==> 3 chars
+const NUMBER_OF_CHARS_IN_ROOM_MESSAGE_ID = NUMBER_OF_CHARS_IN_ROOM_ID + NUMBER_OF_CHARS_IN_FULL_DATETIMEMS + NUMBER_OF_CHARS_IN_ROOM_MESSAGE_SUFFIX; // ==> 52
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Room group service
+ */
+service zpServiceGroups = groups('cr_cnvrst_groups').options({
+	groups_presence_owner: false,
+	groups_presence_group: false
+}).forbiddenVerbs(__all);
+/**
+ * NoSQL Dataservice
+ */
+service zpServiceGda = gda('cr_cnvrst_gda').forbiddenVerbs(__all);
+/**
+ * Data Stack service
+ */
+service zpServiceStack = stack('cr_cnvrst_stack').forbiddenVerbs(__all);

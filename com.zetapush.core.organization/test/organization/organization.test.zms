@@ -1,6 +1,6 @@
 zms_test test_core_organization__create {
 	zms_test_setup {
-		import zms_test_setup test_core_conversation__setup;
+		import zms_test_setup test_core_room__setup;
 		
 		var hash = str:rnd36(6);
 		var login = 'test.organization.' + hash;
@@ -40,7 +40,7 @@ zms_test test_core_organization__create {
 }
 
 zms_test test_core_organization__list {
-	import zms_test_setup test_core_conversation__setup;
+	import zms_test_setup test_core_room__setup;
 
 	zms_add_handler(anonymous, getOrganizationList, (result, errors) => {
 		info('getOrganizationList', result, errors);
@@ -52,7 +52,7 @@ zms_test test_core_organization__list {
 }
 
 zms_test test_core_organization__get_default {
-	import zms_test_setup test_core_conversation__setup;
+	import zms_test_setup test_core_room__setup;
 
 	zms_add_handler(anonymous, getDefaultOrganization, (result, errors) => {
 		info('getDefaultOrganization', result, errors);

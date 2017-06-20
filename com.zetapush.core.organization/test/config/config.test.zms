@@ -1,6 +1,6 @@
 zms_test test_core_config__set_string_config {
 	zms_test_setup {
-		import zms_test_setup test_core_conversation__setup;
+		import zms_test_setup test_core_room__setup;
 		
 		var id  = CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION;
 		var value = 'quickstart';

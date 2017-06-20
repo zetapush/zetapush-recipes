@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript core_room__getUserRoomListByService(
+	/** Group service */ @NotNull service<groups> zpService,
+	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
+) {
+	const groups = zpService.myGroups({});
+	const { list: rooms } = await zpRecipeGroup::core_group__getGroupListByService({ groups, zpService });
+	const list = coll:map(rooms, (room) => { room });
+} broadcast {
+	list
+} on channel __selfName

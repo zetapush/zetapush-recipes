@@ -1,0 +1,32 @@
+/**
+ * Validate employee type
+ */
+function core_room__validate_message_type(parameter, configuration) {
+	/** Advanced type validation */
+	var VALID_TYPES = [MESSAGE_TYPE_ATTACHMENT, MESSAGE_TYPE_EVENT, MESSAGE_TYPE_MARKUP, MESSAGE_TYPE_WIDGET, MESSAGE_TYPE_ACTION];
+} return usr:core_room__contains(VALID_TYPES, parameter) ? null : ('Expected ' + str:join(', ', VALID_TYPES) + ' but got ' + parameter)
+
+@NotNull type_validator ValidMessageType() = usr:core_room__validate_message_type;
+
+/**
+ * Validate string length
+ */
+function core_room__validate_string_length(parameter, configuration) {
+	var size = str:len(parameter);
+	var validity = configuration.size == size;
+} return validity ? null : ('Expected ' + configuration.size + ' chars but got ' + size)
+
+/**
+ * Validate room room
+ */
+function core_room__validate_room_room(parameter, configuration) {
+
+} return usr:core_room__validate_string_length(parameter.id, {
+	size: NUMBER_OF_CHARS_IN_ROOM_ID
+})
+
+@NotNull type_validator ValidRoomRoom() = usr:core_room__validate_room_room;
+
+@NotNull @Size(min = NUMBER_OF_CHARS_IN_ROOM_ID, max = NUMBER_OF_CHARS_IN_ROOM_ID) type_validator ValidRoomId;
+
+@NotNull @Size(min = NUMBER_OF_CHARS_IN_ROOM_MESSAGE_ID, max = NUMBER_OF_CHARS_IN_ROOM_MESSAGE_ID) type_validator ValidRoomMessageId;
