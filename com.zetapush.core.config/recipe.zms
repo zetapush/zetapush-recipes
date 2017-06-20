@@ -2,9 +2,9 @@
  * ZetaPush Official Core Recipe
  * Provide config APIs
  */
-recipe com.zetapush.core.config 2.0.0;
+recipe com.zetapush.core.config 1.0.0;
 
-import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
 
 // Constants
 
