@@ -6,5 +6,5 @@ A Context has or contains
 
  * an identifier
  * a status
- * 1 to n conversations 
+ * 1 to n rooms 
   

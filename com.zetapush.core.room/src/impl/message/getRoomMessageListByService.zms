@@ -1,0 +1,45 @@
+/**
+ *
+ */
+macroscript core_room__getRoomMessageListByService(
+	/** Room room object */ @ValidRoomRoom map room,
+	/** Message storage container id */ @ValidRoomId string container,
+	/** Pagination object */ zpRecipeUtils::Pagination page,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	/** Define range start and stop */
+	const { start, stop } = usr:core_room__range(container);
+	trace(#core_room__getRoomMessageListByService, { start, stop });
+	/** Retreive message for a specific range */
+	const { result: { content } } = zpService.range({
+		columns: [{
+			column: COLUMN_STORAGE_AUTHOR
+		}, {
+			column: COLUMN_STORAGE_TYPE
+		}, {
+			column: COLUMN_STORAGE_VALUE
+		}, {
+			column: COLUMN_STORAGE_CREATED_AT
+		}, {
+			column: COLUMN_STORAGE_UPDATED_AT
+		}, {
+			column: COLUMN_STORAGE_METADATA
+		}, {
+			column: COLUMN_STORAGE_READERS
+		}, {
+			column: COLUMN_STORAGE_TARGETS
+		}],
+		start,
+		table: TABLE_ROOM_STORAGE,
+		stop,
+		owner: room.owner,
+		page
+	});
+	/** Format stored data */
+	const list = coll:map(content, usr:core_room__format_stored_message);
+} return {
+	string container,
+	Room room,
+	Message[] list,
+	zpRecipeUtils::Pagination page
+} on channel __selfName

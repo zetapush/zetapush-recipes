@@ -1,0 +1,27 @@
+/**
+ *
+ */
+macroscript core_room__createRoomByService(
+	/** Optionnal room id */ string id,
+	/** Room room name */ @NotNull string name,
+	/** Room room members */ @NotNull array members,
+	/** Group service */@NotNull service<groups> zpService
+) {
+	trace(#core_room__createRoomByService, { id, name, members, userKey: __userKey });
+	/** Generate uniq room id */
+	id = id ?: usr:core_room__id();
+	trace(#core_room__createRoomByService, id);
+	/** Create room room */
+	const { room } = await core_room__createRoomRoomByService({
+		id, name, members, zpService
+	});
+	trace(#core_room__createRoomByService, room);
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CREATE_ROOM,
+		data: { room }
+	});
+} return {
+	string container: id,
+	Room room
+} on channel __selfName

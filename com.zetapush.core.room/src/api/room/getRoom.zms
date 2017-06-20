@@ -1,0 +1,19 @@
+/**
+ *
+ */
+macroscript getRoom(
+	/** Room room id */ @NotNull string id,
+	/** Room room owner */ @NotNull string owner
+) {
+	trace(#getRoom, { id, owner });
+	/** Get room room */
+	const { room } = sudo owner await core_room__getRoomRoomByService({ 
+		id, owner, zpService: zpServiceGroups
+	});
+	/** Get room message list */
+	const { list: messages, page } = await getRoomMessageList({ room });
+} return {
+	Room room,
+	map[] messages,
+	zpRecipeUtils::Pagination page
+} on channel __selfName

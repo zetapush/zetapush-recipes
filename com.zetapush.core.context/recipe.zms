@@ -3,7 +3,7 @@
 */
 recipe com.zetapush.core.context 1.0.0;
 
-import recipe com.zetapush.core.conversation 2.0.0 in conversations;
+import recipe com.zetapush.core.room 2.0.0 in rooms;
 
 /** Deployment ID for the API macros*/
 const API_DID = @com.zetapush.core.context.macro.api.did ?: "macro_0";

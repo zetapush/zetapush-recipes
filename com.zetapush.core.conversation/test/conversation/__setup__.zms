@@ -1,3 +1,0 @@
-zms_test_setup test_core_conversation__setup {
-	zms_test_user anonymous = zpRecipeUser::zpServiceWeakAuth({});
-}

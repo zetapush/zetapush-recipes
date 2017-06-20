@@ -3,13 +3,13 @@
  */
 @CreateWhiteboardListener()
 macroscript core_whiteboard__onCreateWhiteboardCallback(
-	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
+	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room,
 	/** Whiteboard id */ @NotNull string id
 ) {
-	/** Add event in conversation to notify whoteboard creation */
-	await zpRecipeConversation::addConversationMessage({
+	/** Add event in room to notify whoteboard creation */
+	await zpRecipeRoom::addRoomMessage({
 		room,
-		type: zpRecipeConversation::MESSAGE_TYPE_EVENT,
+		type: zpRecipeRoom::MESSAGE_TYPE_EVENT,
 		value: { 
 			event: #EVENT__CREATE_WHITEBOARD,
 			whiteboard: id

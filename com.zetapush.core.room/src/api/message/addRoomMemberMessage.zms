@@ -1,0 +1,26 @@
+/**
+ *
+ */
+macroscript addRoomMemberMessage(
+	/** Room room object */ @ValidRoomRoom map room,
+	/** Room member user key */ string member,
+	/** Message type */ @ValidMessageType string type,
+	/** Message value*/ @NotNull map value,
+	/** Message metadata */ @NotNull map metadata
+) {
+	/** Set defaut storage container as room id */
+	const container = room.id;
+	/** Get message key */
+	const { createdAt, now, key } = usr:core_room__message_key(container);
+	/** Define message structure */
+	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers: [], targets: [ member ] };
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__ADD_ROOM_MEMBER_MESSAGE,
+		data: { container, room, message }
+	});
+} broadcast(member) {
+	string container,
+	Room room,
+	Message message
+} on channel __selfName

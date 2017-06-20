@@ -9,8 +9,8 @@ zms_test core_whiteboard__create {
 			password: 'pfillon'
 		});
 	}
-	zms_add_handler(francois, zpRecipeConversation::addConversationMessage, (result, errors) => {
-		trace('zpRecipeConversation::addConversationMessage', result, errors);
+	zms_add_handler(francois, zpRecipeRoom::addRoomMessage, (result, errors) => {
+		trace('zpRecipeRoom::addRoomMessage', result, errors);
 
 		zms_test_success;
 	});
@@ -26,15 +26,15 @@ zms_test core_whiteboard__create {
 	zms_add_handler(penelope, createWhiteboard, (result, errors) => {
 		trace(#createWhiteboard, result, errors);
 	});
-	zms_add_handler(francois, zpRecipeConversation::createOneToOneConversation, (result, errors) => {
-		trace('zpRecipeConversation::createOneToOneConversation', result, errors);
+	zms_add_handler(francois, zpRecipeRoom::createOneToOneRoom, (result, errors) => {
+		trace('zpRecipeRoom::createOneToOneRoom', result, errors);
 	});
-	zms_add_handler(penelope, zpRecipeConversation::createOneToOneConversation, (result, errors) => {
-		trace('zpRecipeConversation::createOneToOneConversation', result, errors);
+	zms_add_handler(penelope, zpRecipeRoom::createOneToOneRoom, (result, errors) => {
+		trace('zpRecipeRoom::createOneToOneRoom', result, errors);
 		
 		sudo penelope call createWhiteboard({ room: result.room });
 	});
-	sudo francois call zpRecipeConversation::createOneToOneConversation({
+	sudo francois call zpRecipeRoom::createOneToOneRoom({
 		interlocutor : penelope.userKey
 	});
 }

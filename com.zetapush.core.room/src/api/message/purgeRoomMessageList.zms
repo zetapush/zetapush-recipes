@@ -1,0 +1,17 @@
+/**
+ *
+ */
+macroscript purgeRoomMessageList(
+	@ValidRoomRoom map room
+) {
+	/** Set defaut storage container as room id */
+	const container = room.id;
+	/** Add message in room */
+	await core_room__purgeRoomMessageListByService({ 
+		room, container, zpService: zpServiceGda
+	});
+} broadcast(room.resource) {
+	string container,
+	Room room,
+	map[] list: []
+} on channel __selfName

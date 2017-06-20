@@ -2,13 +2,13 @@
  *
  */
 macroscript purgeWhiteboardObjectList(
-	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room,
-	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard
+	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room,
+	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard
 ) {
 	/** Set defaut storage prefix as room id */
 	const container = whiteboard;
-	/** Add message in conversation */
-	await zpRecipeConversation::core_conversation__purgeConversationMessageListByService({ 
+	/** Add message in room */
+	await zpRecipeRoom::core_room__purgeRoomMessageListByService({ 
 		room, container, zpService: zpServiceGda
 	});
 	/** Set default list */
@@ -20,6 +20,6 @@ macroscript purgeWhiteboardObjectList(
 	});
 } broadcast(room.resource) {
 	string container,
-	zpRecipeConversation::Room room,
-	zpRecipeConversation::Message[] list
+	zpRecipeRoom::Room room,
+	zpRecipeRoom::Message[] list
 } on channel __selfName

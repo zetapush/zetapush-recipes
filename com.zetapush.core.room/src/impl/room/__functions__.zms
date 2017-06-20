@@ -1,0 +1,59 @@
+/**
+ * Generate a unique room id
+ */
+function core_room__pascalify(value) return str:upper(str:substr(value, 0, 1) + str:substr(value, 1, str:len(value)))
+
+
+/**
+ * Generate a unique room id
+ */
+function core_room__id() return str:substr(str:rnd36(ROOM_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_ROOM_ID)
+
+/**
+ * Generate a unique room id
+ */
+function core_room__message_suffix_id() return str:substr(str:rnd36(ROOM_MESSAGE_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_ROOM_MESSAGE_SUFFIX)
+
+/**
+ * Format a stored message
+ */
+function core_room__format_stored_message(stored) return {
+	id: stored.__key,
+	[COLUMN_STORAGE_AUTHOR]: stored[COLUMN_STORAGE_AUTHOR],
+	[COLUMN_STORAGE_TYPE]: stored[COLUMN_STORAGE_TYPE],
+	[COLUMN_STORAGE_VALUE]: stored[COLUMN_STORAGE_VALUE],
+	[COLUMN_STORAGE_CREATED_AT]: stored[COLUMN_STORAGE_CREATED_AT],
+	[COLUMN_STORAGE_UPDATED_AT]: stored[COLUMN_STORAGE_UPDATED_AT],
+	[COLUMN_STORAGE_METADATA]: stored[COLUMN_STORAGE_METADATA],
+	[COLUMN_STORAGE_READERS]: stored[COLUMN_STORAGE_READERS],
+	[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_map_to_array(stored[COLUMN_STORAGE_TARGETS])
+}
+
+/**
+ * Generate a unique room message key
+ */
+function core_room__message_key(container) {
+	var createdAt = time:now();
+	var now = time:fmt(createdAt, 'YMDHMSM');
+	var key = container + now + usr:core_room__message_suffix_id();
+} return { container, createdAt, now, key }
+
+/**
+ * Generate range limits for room
+ */
+function core_room__range(container) {
+	var start = container + '00000000000000000' + '000';
+	var stop = container + '90000000000000000' + '000';
+} return { start, stop }
+
+/**
+ * Collection contains polyfill
+ */
+function core_room__contains(list, searched) {
+	var found = false;
+	for item in list {
+		if (item == searched) {
+			found = true;
+		}
+	}
+} return found

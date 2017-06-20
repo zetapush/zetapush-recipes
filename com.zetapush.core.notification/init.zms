@@ -1,6 +1,6 @@
 // Provisionning
 
-/** Create conversation */
+/** Create room */
 zpServiceGda.gda_createTable({
 	name: NOTIFICATION_TABLE,
 	columns: [{

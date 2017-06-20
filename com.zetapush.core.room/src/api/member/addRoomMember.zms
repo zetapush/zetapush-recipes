@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript addRoomMember(
+	/** Room id */ @NotNull string id,
+	/** User key */ @NotNull string member
+) {
+	const response = await zpRecipeGroup::core_group__addGroupMemberByService({
+		id,
+		member,
+		zpService: zpServiceGroups
+	});
+} broadcast response on channel __selfName
