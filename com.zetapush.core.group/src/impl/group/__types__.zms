@@ -12,6 +12,7 @@ class Group {
 class GroupMember {
 	/** Group id */ @NotNull string id;
 	/** User key */ @NotNull string member;
+	/** Group resource*/ @NotNull string resource;
 }
 
 class GroupMembership {

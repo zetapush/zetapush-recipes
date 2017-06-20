@@ -3,7 +3,7 @@
  */
 macroscript core_room__updateRoomMessageByService(
 	/** Room message id */ @ValidRoomMessageId string id,
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Message storage container id */ @ValidRoomId string container,
 	/** Message value*/ @NotNull map value,
 	/** Storage Service */ @NotNull service<gda> zpService

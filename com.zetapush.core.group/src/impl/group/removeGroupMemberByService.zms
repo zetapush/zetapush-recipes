@@ -11,4 +11,6 @@ macroscript core_group__removeGroupMemberByService(
 		user: member,
 		group: id
 	});
-} broadcast new GroupMember(id, member) on channel __selfName
+	/** Group fully qualified resource */
+	const resource = str:join(':', zpService, __userKey, id); 
+} broadcast new GroupMember(id, member, resource) on channel __selfName

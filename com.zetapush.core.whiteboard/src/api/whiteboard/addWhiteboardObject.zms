@@ -2,7 +2,7 @@
  *
  */
 macroscript addWhiteboardObject(
-	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room,
+	/** Whiteboard room object */ @NotNull zpRecipeRoom::Room room,
 	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard,
 	/** Object type */ @zpRecipeRoom::ValidMessageType string type,
 	/** Object value*/ @NotNull map value,

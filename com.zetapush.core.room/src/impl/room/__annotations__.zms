@@ -13,17 +13,6 @@ function core_room__validate_string_length(parameter, configuration) {
 	var validity = configuration.size == size;
 } return validity ? null : ('Expected ' + configuration.size + ' chars but got ' + size)
 
-/**
- * Validate room room
- */
-function core_room__validate_room_room(parameter, configuration) {
-
-} return usr:core_room__validate_string_length(parameter.id, {
-	size: NUMBER_OF_CHARS_IN_ROOM_ID
-})
-
-@NotNull type_validator ValidRoomRoom() = usr:core_room__validate_room_room;
-
 @NotNull @Size(min = NUMBER_OF_CHARS_IN_ROOM_ID, max = NUMBER_OF_CHARS_IN_ROOM_ID) type_validator ValidRoomId;
 
 @NotNull @Size(min = NUMBER_OF_CHARS_IN_ROOM_MESSAGE_ID, max = NUMBER_OF_CHARS_IN_ROOM_MESSAGE_ID) type_validator ValidRoomMessageId;

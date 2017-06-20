@@ -2,7 +2,7 @@
  *
  */
 macroscript addRoomMemberMessage(
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Room member user key */ string member,
 	/** Message type */ @ValidMessageType string type,
 	/** Message value*/ @NotNull map value,

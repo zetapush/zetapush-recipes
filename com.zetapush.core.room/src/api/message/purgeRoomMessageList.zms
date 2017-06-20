@@ -2,7 +2,7 @@
  *
  */
 macroscript purgeRoomMessageList(
-	@ValidRoomRoom map room
+	@NotNull Room room
 ) {
 	/** Set defaut storage container as room id */
 	const container = room.id;

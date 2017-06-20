@@ -2,7 +2,7 @@
  *
  */
 macroscript core_room__getRoomMessageListByService(
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Message storage container id */ @ValidRoomId string container,
 	/** Pagination object */ zpRecipeUtils::Pagination page,
 	/** Storage Service */ @NotNull service<gda> zpService

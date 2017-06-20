@@ -2,7 +2,7 @@
  *
  */
 macroscript core_room__addRoomMessageByService(
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Message storage container id */ @ValidRoomId string container,
 	/** Message type */ @ValidMessageType string type,
 	/** Message value*/ @NotNull map value,
