@@ -3,7 +3,7 @@
  */
 macroscript updateRoomMessageByService(
 	/** Room message id */ @ValidRoomMessageId string id,
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Message value*/ @NotNull map value
 ) {
 	/** Set defaut storage container as room id */

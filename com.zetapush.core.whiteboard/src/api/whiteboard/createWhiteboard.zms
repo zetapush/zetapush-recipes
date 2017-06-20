@@ -2,7 +2,7 @@
  *
  */
 macroscript createWhiteboard(
-	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room
+	/** Whiteboard room object */ @NotNull zpRecipeRoom::Room room
 	) {
 	/** Generate uniq room id */
 	const id = zpRecipeRoom::core_room__id();

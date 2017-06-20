@@ -10,5 +10,4 @@ macroscript removeRoomMember(
 		member,
 		zpService: zpServiceGroups
 	});
-} broadcast response on channel __selfName
-
+} broadcast(response.resource) response on channel __selfName

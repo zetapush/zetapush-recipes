@@ -3,7 +3,7 @@ class Room extends zpRecipeGroup::Group {
 }
 
 class Message {
-	/** Message uniq id */ string id;
+	/** Message uniq id */ @ValidRoomMessageId() string id;
 	/** Message author */ string author;
 	/** Message type*/ @ValidMessageType() string type;
 	/** Message value */ map value;
@@ -16,10 +16,5 @@ class Message {
 class RoomMessage {
 	/** Room container id */ string container;
 	/** Room message */ Message message;
-	/** Room room */ Room room;
-}
-
-class Room {
-	/** Room id */ string container;
 	/** Room room */ Room room;
 }

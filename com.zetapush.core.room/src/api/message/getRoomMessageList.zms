@@ -2,7 +2,7 @@
  *
  */
 macroscript getRoomMessageList(
-	/** Room room object */ @ValidRoomRoom map room,
+	/** Room room object */ @NotNull Room room,
 	/** Pagination object */ zpRecipeUtils::Pagination page
 ) {
 	/** Set defaut storage container as room id */

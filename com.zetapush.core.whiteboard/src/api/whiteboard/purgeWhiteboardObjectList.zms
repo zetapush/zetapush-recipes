@@ -2,7 +2,7 @@
  *
  */
 macroscript purgeWhiteboardObjectList(
-	/** Whiteboard room object */ @zpRecipeRoom::ValidRoomRoom map room,
+	/** Whiteboard room object */ @NotNull zpRecipeRoom::Room room,
 	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard
 ) {
 	/** Set defaut storage prefix as room id */

@@ -1,6 +1,6 @@
 class LoginAvailability {
-	/** Login availability */ @NotNull() boolean available;
-	/** Login value */ @NotNull() string login;
+	/** Login availability */ @NotNull boolean available;
+	/** Login value */ @NotNull string login;
 	/** Optionnal user profile value*/ map user;
 }
 

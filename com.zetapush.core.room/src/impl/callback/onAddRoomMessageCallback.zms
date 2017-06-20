@@ -3,7 +3,7 @@
  */
 macroscript core_room__addRoomMessageCallback(
 	@NotNull string container,
-	@ValidRoomRoom room,
+	@NotNull Room room,
 	@NotNull map message
 ) {
 	/** Get pascalified message type */
@@ -24,7 +24,7 @@ macroscript core_room__addRoomMessageCallback(
  */
 macroscript core_room__addRoomAttachmentMessageCallback(
 	@NotNull string container,
-	@ValidRoomRoom room,
+	@NotNull Room room,
 	@NotNull map message
 ) {
 	
@@ -37,7 +37,7 @@ macroscript core_room__addRoomAttachmentMessageCallback(
  */
 macroscript core_room__addRoomMarkupMessageCallback(
 	@NotNull string container,
-	@ValidRoomRoom room,
+	@NotNull Room room,
 	@NotNull map message
 ) {
 	

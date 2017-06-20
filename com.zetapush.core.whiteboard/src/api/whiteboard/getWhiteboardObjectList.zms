@@ -2,7 +2,7 @@
  *
  */
 macroscript getWhiteboardObjectList(
-	/** Room room object */ @zpRecipeRoom::ValidRoomRoom map room,
+	/** Room room object */ @NotNull zpRecipeRoom::Room room,
 	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard,
 	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
 ) {

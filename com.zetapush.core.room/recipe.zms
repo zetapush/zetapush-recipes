@@ -19,10 +19,14 @@ const COLUMN_STORAGE_TYPE = 'type';
 const COLUMN_STORAGE_VALUE = 'value';
 const COLUMN_STORAGE_CREATED_AT = 'createdAt';
 const COLUMN_STORAGE_UPDATED_AT = 'updatedAt';
-
 const COLUMN_STORAGE_METADATA = 'metadata';
 const COLUMN_STORAGE_READERS = 'readers';
 const COLUMN_STORAGE_TARGETS = 'targets';
+
+const TABLE_ROOM_INVITATION = 'invitation';
+const COLUMN_INVITATION_ROOM = 'room';
+const COLUMN_INVITATION_GUEST = 'guest';
+const COLUMN_INVITATION_EXPIRY = 'expiry';
 
 // File System
 
@@ -36,10 +40,11 @@ const CORE__ROOM_TYPE_ROOM = 'room';
 
 const EVENT__ADD_ROOM_MESSAGE = 'ZetaPushEvent__Room_AddRoomMessage';
 const EVENT__ADD_ROOM_MEMBER_MESSAGE = 'ZetaPushEvent__Room_AddRoomMemberMessage';
+const EVENT__CREATE_ROOM_INVITATION = 'ZetaPushEvent__Room_CreateInvitation';
 const EVENT__INC_ROOM_UNREAD = 'ZetaPushEvent__Room_IncRoomUnread';
 const EVENT__CREATE_ROOM = 'ZetaPushEvent__Room_CreateRoom';
 const EVENT__PURGE_ROOM = 'ZetaPushEvent__Room_PurgeRoom';
-const EVENT__UPDATE_ROOM_MESSAGE = 'ZetaPushEvent__Room_UPdateRoomMessage';
+const EVENT__UPDATE_ROOM_MESSAGE = 'ZetaPushEvent__Room_UpdateRoomMessage';
 
 // Room Content Type
 
