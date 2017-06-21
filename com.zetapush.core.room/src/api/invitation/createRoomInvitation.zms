@@ -2,13 +2,15 @@
  *
  */
 macroscript createRoomInvitation(
-	/** Room id */ @ValidRoomId string id
+	/** Room id */ @ValidRoomId string id,
+	/** Invitation type */ @NotNull map context,
+	/** Invitation message */ @NotNull string message
 ) {
 	/** Get associated room id */
 	const room = await getRoom({ id, owner: __userKey });
 	/** Get invitation for room */
 	const invitation = await core_room__createInvitationByService({
-		room, guest: null, zpService: zpServiceGda
+		room, context, message, zpService: zpServiceGda
 	});
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
