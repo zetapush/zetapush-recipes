@@ -1,6 +1,9 @@
 /**
  * ZetaPush Official Plugin Recipe
  * Provide plugin for user management APIs
+ *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
  */
 recipe com.zetapush.plugin.user.email 1.0.0;
 

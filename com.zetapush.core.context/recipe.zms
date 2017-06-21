@@ -1,6 +1,9 @@
 /**
-* Implements Business Contexts.
-*/
+ * Implements Business Contexts.
+ *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
+ */
 recipe com.zetapush.core.context 1.0.0;
 
 import recipe com.zetapush.core.room 1.0.0 in rooms;

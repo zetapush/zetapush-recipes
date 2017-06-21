@@ -1,5 +1,9 @@
 /**
+ * ZetaPush Official Core Recipe
+ * Provide role management APIs
  *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
  */
 recipe com.zetapush.core.role 1.0.0;
 

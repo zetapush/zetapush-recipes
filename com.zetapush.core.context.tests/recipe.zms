@@ -1,8 +1,11 @@
 /**
-* Recipe com.zetapush.core.context.tests
-* Created on Thu Mar 30 16:27:20 CEST 2017 by pablo
-* Documentation in a source comment for a simple description
-*/
+ * Recipe com.zetapush.core.context.tests
+ * Created on Thu Mar 30 16:27:20 CEST 2017 by pablo
+ * Documentation in a source comment for a simple description
+ *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
+ */
 recipe com.zetapush.core.context.tests 1.0.0;
 
 import recipe com.zetapush.core.context 1.0.0 in contexts;

@@ -1,6 +1,9 @@
 /**
  * ZetaPush Official Core Recipe
  * Provide config APIs
+ *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
  */
 recipe com.zetapush.core.config 1.0.0;
 
