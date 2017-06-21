@@ -28,7 +28,8 @@ const COLUMN_INVITATION_ROOM = 'room';
 const COLUMN_INVITATION_GUEST = 'guest';
 const COLUMN_INVITATION_EXPIRY = 'expiry';
 const COLUMN_INVITATION_CREATED_AT = 'createdAt';
-const COLUMN_INVITATION_METADATA = 'metadata';
+const COLUMN_INVITATION_CONTEXT = 'context';
+const COLUMN_INVITATION_MESSAGE = 'message';
 
 // File System
 

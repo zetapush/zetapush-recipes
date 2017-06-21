@@ -4,5 +4,6 @@ class Invitation {
 	/** Guest user key */ string guest;
 	/** Invitation exipry */ number expiry;
 	/** Invitation createdAt */ number createdAt;
-	/** Invitation metadata */ map metadata; 
+	/** Invitation context */ map context;
+	/** Invitation message */ string message;
 }

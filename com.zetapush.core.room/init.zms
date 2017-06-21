@@ -56,7 +56,11 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_LONG
 	}, {
 		map: false,
-		name: COLUMN_INVITATION_METADATA,
+		name: COLUMN_INVITATION_CONTEXT,
 		type: GdaDataType_OBJECT
+	}, {
+		map: false,
+		name: COLUMN_INVITATION_MESSAGE,
+		type: GdaDataType_STRING
 	}]
 });
