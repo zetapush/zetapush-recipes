@@ -12,4 +12,8 @@ macroscript_annotation UpdateRoomMessageListener = @EventListener(eventName = EV
 
 /* ROOM MEMBER MESSAGES LISTENERS */
 
-macroscript_annotation AddRoomMemberMessageListener = @EventListener(eventName = EVENT__ADD_ROOM_MEMBER_MESSAGE, triggerService = zpServiceTrigger);
+macroscript_annotation SendRoomMessageToMemberListener = @EventListener(eventName = EVENT__SEND_ROOM_MESSAGE_TO_MEMBER, triggerService = zpServiceTrigger);
+
+/* INVITATION LISTENERS */
+
+macroscript_annotation CreateInvitationListener = @EventListener(eventName = EVENT__CREATE_INVITATION, triggerService = zpServiceTrigger);
