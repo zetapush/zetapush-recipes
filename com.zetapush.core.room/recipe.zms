@@ -2,7 +2,7 @@
  * ZetaPush Official Core Recipe
  * Provide room management APIs
  *
- * Recipe Annotation Events
+* <strong>Recipe Annotation Events</strong>
  * @CreateRoomListener(): Handle Create Room Event
  * @PurgeRoomListener(): Handle Purge Room Event
  * @AddRoomMessageListener(): Handle Add Room Message Event

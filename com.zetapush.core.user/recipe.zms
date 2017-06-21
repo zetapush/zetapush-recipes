@@ -2,7 +2,7 @@
  * ZetaPush Official Core Recipe
  * Provide user management APIs
  *
- * Recipe Annotation Events
+* <strong>Recipe Annotation Events</strong>
  * @CreateUserListener(): Handle Create User Event
  * @ResetPasswordListener(): Handle ResetPassword Event
  * @UpdateUserListener(): Handle Update User Event
