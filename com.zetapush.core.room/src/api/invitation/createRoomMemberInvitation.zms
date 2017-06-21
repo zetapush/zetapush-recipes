@@ -13,7 +13,7 @@ macroscript createRoomMemberInvitation(
 	const invitation = await core_room__createInvitationByService({
 		room, context, message, guest, zpService: zpServiceGda
 	});
-} broadcast {
+} broadcast([__userKey, guest]) {
 	Room room,
 	Invitation invitation
 } on channel __selfName
