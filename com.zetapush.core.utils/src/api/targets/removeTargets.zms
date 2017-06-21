@@ -1,5 +1,6 @@
 /**
- * Remove tags
+ * Remove targets associated to a specific id
+ * Targets represent a list of string (group id or user key)
  */
 macroscript removeTargets(
 	/** Targets id */ @NotNull string id
