@@ -1,5 +1,12 @@
 /**
- *
+ * Get list of users according to user keys list
+ * Returned list wrap user profile in a ad hoc data structure
+ * <pre><code>
+ * class UserWrapper {
+ *   boolean found;
+ *   User user;
+ * }
+ * </code></pre>
  */
 macroscript getUserList(
 	/** List of userKey */ @NotNull array userKeys

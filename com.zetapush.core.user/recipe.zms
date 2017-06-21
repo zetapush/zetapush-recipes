@@ -1,6 +1,14 @@
 /**
  * ZetaPush Official Core Recipe
  * Provide user management APIs
+ *
+ * Recipe Annotation Events
+ * @CreateUserListener(): Handle Create User Event
+ * @ResetPasswordListener(): Handle ResetPassword Event
+ * @UpdateUserListener(): Handle Update User Event
+ *
+ * Licence MIT
+ * Copyright ZetaPush SAS © 2016-2017
  */
 recipe com.zetapush.core.user 1.0.0;
 

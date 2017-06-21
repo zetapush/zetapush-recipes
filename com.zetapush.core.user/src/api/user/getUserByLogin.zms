@@ -1,6 +1,9 @@
-/***/
+/**
+ * Get user profile according to the login use to connect the user
+ * <strong>Login is not the user key of the user</strong>
+ */
 macroscript getUserByLogin(
-	@NotNull string login
+	/** User login */ @NotNull string login
 ) {
 	const response = await core_user__getUserByLoginAndService({
 		login,

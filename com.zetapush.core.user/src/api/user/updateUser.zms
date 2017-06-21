@@ -1,5 +1,10 @@
 /**
  * Update user profile
+ * User profile can be customized with the followings config variables:
+ * <ul>
+ *	<li><strong>@config.authentication.simple.mandatory_fields</strong> Add mandatory fields to user profile (default is email)</li>
+ *	<li><strong>@config.authentication.simple.public_fields</strong> Add public fields to user profile (defaults are email,firstname,lastname,mobilenumber,phonenumber,birthday,avatar,biography)</li>
+ * </ul>
  */
 macroscript updateUser(
 	@NotNull string login,
@@ -7,7 +12,7 @@ macroscript updateUser(
 ) {
 	var profile = { login };
 	profile += fields;
-	/** Get user infos*/
+	/** Get user infos */
 	await core_user__updateUserByService({
 		profile,
 		zpService: zpServiceSimpleAuth
