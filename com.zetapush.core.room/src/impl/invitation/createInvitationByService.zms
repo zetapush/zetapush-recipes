@@ -30,4 +30,9 @@ macroscript core_room__createInvitationByService(
 		table: TABLE_ROOM_INVITATION,
 		owner: room.owner
 	});
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CREATE_INVITATION,
+		data: { room, invitation }
+	});
 } return invitation on channel __selfName

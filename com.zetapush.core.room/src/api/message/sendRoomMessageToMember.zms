@@ -16,7 +16,7 @@ macroscript sendRoomMessageToMember(
 	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers: [], targets: [ member ] };
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
-		event: EVENT__ADD_ROOM_MEMBER_MESSAGE,
+		event: EVENT__SEND_ROOM_MESSAGE_TO_MEMBER,
 		data: { container, room, message }
 	});
 } broadcast(member) {

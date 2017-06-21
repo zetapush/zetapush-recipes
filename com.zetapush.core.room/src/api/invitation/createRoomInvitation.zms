@@ -12,11 +12,6 @@ macroscript createRoomInvitation(
 	const invitation = await core_room__createInvitationByService({
 		room, context, message, zpService: zpServiceGda
 	});
-	/** Execute all registered macros */
-	zpRecipeUtils::zpServiceTrigger.trigger({
-		event: EVENT__CREATE_ROOM_MEMBER_INVITATION,
-		data: { invitation }
-	});
 } broadcast {
 	Room room,
 	Invitation invitation
