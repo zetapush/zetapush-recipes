@@ -1,0 +1,11 @@
+/**
+ *
+ */
+@DeleteRoomListener()
+macroscript core_room__onDeleteRoomCallback(
+	@NotNull string id
+) {
+	await zpRecipeGroup::core_group__deleteGroupByService({
+		id, zpService: zpServiceGroups
+	});
+}

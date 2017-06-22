@@ -12,7 +12,7 @@ macroscript core_room__createRoomByService(
 	id = id ?: usr:core_room__id();
 	trace(#core_room__createRoomByService, id);
 	/** Create room room */
-	const { room } = await core_room__createRoomRoomByService({
+	const { room } = await core_room__createRoomGroupByService({
 		id, name, members, zpService
 	});
 	trace(#core_room__createRoomByService, room);

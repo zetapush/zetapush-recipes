@@ -4,6 +4,8 @@ macroscript_annotation CreateRoomListener = @EventListener(eventName = EVENT__CR
 
 macroscript_annotation PurgeRoomListener = @EventListener(eventName = EVENT__PURGE_ROOM, triggerService = zpServiceTrigger);
 
+macroscript_annotation DeleteRoomListener = @EventListener(eventName = EVENT__DELETE_ROOM, triggerService = zpServiceTrigger);
+
 /* ROOM MESSAGES LISTENERS */
 
 macroscript_annotation AddRoomMessageListener = @EventListener(eventName = EVENT__ADD_ROOM_MESSAGE, triggerService = zpServiceTrigger);
