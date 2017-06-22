@@ -6,7 +6,7 @@ class Message {
 	/** Message created date */ number createdAt;
 	/** Message metadata */ map metadata;
 	/** Message readers */ string[] readers;
-	/** Merssage targets */ string targets;
+	/** Message targets */ string[] targets;
 }
 
 class RoomMessage {
