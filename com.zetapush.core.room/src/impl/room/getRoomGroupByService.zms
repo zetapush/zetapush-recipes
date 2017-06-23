@@ -1,7 +1,7 @@
 /**
  *
  */
-macroscript core_room__getRoomRoomByService(
+macroscript core_room__getRoomGroupByService(
 	/** Valid room room id */ @ValidRoomId string id,
 	/** Room room owner */ @NotNull string owner,
 	/** Group service */ @NotNull service<groups> zpService
