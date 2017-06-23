@@ -6,6 +6,7 @@ macroscript core_room__onDeleteRoomCallback(
 	@NotNull string id
 ) {
 	await zpRecipeGroup::core_group__deleteGroupByService({
-		id, zpService: zpServiceGroups
+		id: str:join('--', CORE__ROOM_TYPE_INVITATION, id),
+		zpService: zpServiceGroups
 	});
 }

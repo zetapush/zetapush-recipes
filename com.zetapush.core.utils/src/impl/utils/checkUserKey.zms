@@ -1,0 +1,9 @@
+/**
+ *
+ */
+macroscript core_utils__checkUserKey(
+	/** User Key to check */ string userKey
+) {
+	/** Check user key */
+	assert (__userKey == userKey) ERROR__INVALID_GRANT 'Invalid user key';
+}
