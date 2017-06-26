@@ -2,7 +2,7 @@
  *
  */
 @CreateRoomListener()
-macroscript onCreateRoomCallback(
+macroscript core_room__onCreateRoomCallback(
 	@NotNull Room room
 ) {
 	const owner = __userKey;

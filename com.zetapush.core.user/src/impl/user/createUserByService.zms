@@ -21,4 +21,4 @@ macroscript core_user__createUserByService(
 		event: EVENT__CREATE_USER,
 		data: { userKey }
 	});
-} broadcast { user } on channel __selfName
+} broadcast { User user } on channel __selfName
