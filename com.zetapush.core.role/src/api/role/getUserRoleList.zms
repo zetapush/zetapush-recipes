@@ -1,4 +1,4 @@
-@HasRoleIfNotUserKey(role = #getUserRoleList, userKey = userKey)
+@HasPermissionIfNotUserKey(permission = #getUserRoleList, userKey = userKey)
 macroscript getUserRoleList(
 	string userKey
 ) {
