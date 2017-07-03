@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Preset Recipe
- * Provide core features API
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides core features API
  */
 recipe com.zetapush.preset.core 1.0.0;
 

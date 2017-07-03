@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide utilities
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides utilities
  */
 recipe com.zetapush.core.utils 1.0.0;
 

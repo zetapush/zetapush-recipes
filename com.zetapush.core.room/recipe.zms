@@ -1,18 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide room management APIs
- *
-* <strong>Recipe Annotation Events</strong>
- * @CreateRoomListener(): Handle Create Room Event
- * @DeleteRoomListener(): Handle Delete Room Event
- * @PurgeRoomListener(): Handle Purge Room Event
- * @AddRoomMessageListener(): Handle Add Room Message Event
- * @UpdateRoomMessageListener(): Handle Add Room Message Event
- * @SendRoomMessageToMemberListener(): Handle Send Room Message To Member Event
- * @CreateInvitationListener(): Handle Create Invitation Event
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides room management APIs
  */
 recipe com.zetapush.core.room 1.0.0;
 
