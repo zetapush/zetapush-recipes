@@ -1,6 +1,7 @@
 src-gen/
 target/
 .settings/
+context-client/
 
 *.zmapp
 *.zmar
