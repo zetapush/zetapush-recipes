@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide notification
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides notifications
  */
 recipe com.zetapush.core.notification 1.0.0;
 

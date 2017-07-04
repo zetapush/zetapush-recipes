@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide whiteboards management APIs
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides whiteboards management APIs
  */
 recipe com.zetapush.core.whiteboard 1.0.0;
 

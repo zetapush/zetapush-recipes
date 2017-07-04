@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Plugin Recipe
- * Provide plugin for user role management APIs
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides a plugin for user role management APIs
  */
 recipe com.zetapush.plugin.user.role 1.0.0;
 

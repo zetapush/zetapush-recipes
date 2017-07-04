@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide file management APIs
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides file management APIs
  */
 recipe com.zetapush.core.file 1.0.0;
 
