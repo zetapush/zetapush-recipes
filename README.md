@@ -1,8 +1,10 @@
 # ZetaPush Official Recipes
 
-> This monorepo contains all official recipes
+> This monorepo contains all official recipes 
 
 ## Overview
+
+*High level recipes abstracting the use of Zetapush services*
 
 Core recipes
 
@@ -23,7 +25,7 @@ Plugin recipes
 
 ## Documentation
 
-Coming Soon
+Recipes propose API verbs contained in the folder `src/api/`, the one you may call in your macros. Additionally, some recipes contain a folder `src/impl` which you might need if you want to create your own API verbs. 
 
 *No documentation will be provided for these particular macros as using them probably means you're advanced enough with the use of ZetaPush services.*
 
@@ -158,5 +160,12 @@ Whiteboard recipe is closely related to conversation recipe. It brings possibili
 * getWhiteboardObjectList
 * purgeWhiteboardObjectList
 * updateWhiteboardObject
+
+
+
+
+
+
+
 
 
