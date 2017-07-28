@@ -1,0 +1,17 @@
+/** The call reach the timeout */
+macroscript timeoutCall(
+	/** ID of the call */ @NotNull string id,
+	/** ID of the group */ @NotNull string group
+) {
+	
+	// Get the call object
+	var callObject = call getCallFromId({id : id});
+	var my_call = Call.new(callObject);
+	
+	// Check if the call is calling
+	if (my_call.state == STATE_CALL_CALLING) {
+		call setCallState({id : id, state : STATE_CALL_MISSED});
+		call addToMissedCall({groupId : group, callId : id});
+	}
+	
+}

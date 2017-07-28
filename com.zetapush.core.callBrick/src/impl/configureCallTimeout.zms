@@ -1,0 +1,16 @@
+/** Used to configure and launch our call timeout */
+macroscript configureCallTimeout(
+	/** ID of the call */ @NotNull string id,
+	/** Group ID */ @NotNull string groupId
+) {
+	timer.setTimeout({
+		parameter : {
+			'id': id,
+			'group': groupId 
+		}, 
+		deploymentId : NAME_DEPLOY_ID_MACRO, 
+		verb : 'timeoutCall', 
+		delay : TIMEOUT_CALL_SECONDS, 
+		'loud' : true
+	});
+}

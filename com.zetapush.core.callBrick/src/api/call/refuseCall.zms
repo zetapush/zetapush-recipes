@@ -1,0 +1,6 @@
+/** Refuse a call */
+macroscript refuseCall(
+	/** ID of the call */ @NotNull string id
+) { 
+	call callRefused({id : id, source : __userKey});		
+}

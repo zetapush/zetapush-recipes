@@ -1,0 +1,18 @@
+/** Launch a call to a group of users */
+macroscript callGroup(
+	/** ID of the group we want to call */ @NotNull string id
+) {
+	
+	// Generate an ID for the call
+	var idCall = usr:core_call__id();
+		
+	// Create the call object
+	var callObject = Call.new({
+		id: idCall,
+		state: STATE_CALL_CALLING
+	});
+	
+	// Launch the settimeout
+	call configureCallTimeout({id : idCall, groupId: id});	
+	
+} broadcast (id) { callObject } on channel __selfName

@@ -1,0 +1,9 @@
+/** Add the call to the missed calls */
+macroscript addToMissedCall(
+	/** Group id */ @NotNull string groupId,
+	/** id of the call */ @NotNull string callId
+) {
+	
+	var callObject = call getCallFromId({id : callId});
+	
+} broadcast ( groupId ) { callObject } on channel __selfName

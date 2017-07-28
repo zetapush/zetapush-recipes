@@ -1,0 +1,6 @@
+/** Reply to a call */
+macroscript replyCall(
+	/** ID of the call */ @NotNull string id
+) {
+	call callSuccess({id : id});
+}

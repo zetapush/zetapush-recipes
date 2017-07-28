@@ -1,0 +1,12 @@
+/** Get the call object from his id */ 
+macroscript getCallFromId(
+	/** ID of the call */ @NotNull string id
+) {
+	var callStateRequest = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
+	
+	var callObject = Call.new({
+		id: id,
+		state: callStateRequest.result.COLUMN_STATE_CALL
+	});
+	
+} broadcast { callObject } on channel __selfName

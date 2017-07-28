@@ -1,0 +1,8 @@
+/**
+ *	Define a call
+ *	A Call state can be (created / calling / missed / refused / accepted / terminated)
+ */
+class Call {
+	string id;
+	string state;
+}
