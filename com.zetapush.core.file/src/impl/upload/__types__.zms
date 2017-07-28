@@ -24,7 +24,11 @@ class FileEntryList {
 	string owner;
 }
 
+/**
+ * Contains informations to upload a file on Zetapush platform
+ */
 class FileUploadRequest {
+	string contentType;
 	string httpMethod;
 	string guid;
 	string url;

@@ -5,7 +5,7 @@
  * User Key is the uniq key associted to each ZetaPush user. You can acces to this value with special keyword <strong>__userKey</strong>
  */
 macroscript getUser(
-	/** ZetaPush user key */ string userKey
+	/** (Optional) ZetaPush user key */ string userKey
 ) {
 	/** Manage optional userKey value */
 	userKey = userKey ?: __userKey;
