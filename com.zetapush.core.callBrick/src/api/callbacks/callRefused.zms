@@ -1,7 +1,0 @@
-/** Callback when the call is refused */
-macroscript callRefused(
-	/** ID of the call */ @NotNull string id,
-	/** userKey that refused the call */ @NotNull string source
-) {
-	call setCallState({id : id, state : STATE_CALL_REFUSED});	
-}

@@ -1,8 +1,12 @@
 /**
  *	Define a call
- *	A Call state can be (created / calling / missed / refused / accepted / terminated)
+ *	A Call state can be (calling / missed / refused / accepted / terminated)
  */
 class Call {
 	string id;
 	string state;
+}
+
+class PublicRoom {
+	string roomName;
 }

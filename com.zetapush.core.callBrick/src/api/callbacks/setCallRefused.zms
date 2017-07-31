@@ -1,0 +1,8 @@
+/** 
+ *	Macroscript called when the call is refused to change his state
+ */
+macroscript setCallRefused(
+	/** ID of the call */ @NotNull string id
+) {
+	call setCallState({id : id, state : STATE_CALL_REFUSED});	
+}

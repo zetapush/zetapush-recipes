@@ -1,9 +1,18 @@
-/** Add the call to the missed calls */
+/** 
+ *	Macroscript that used to send the call object as a missed call.
+ *	The client need to listen this macroscript to handle missed calls
+ */
 macroscript addToMissedCall(
 	/** Group id */ @NotNull string groupId,
 	/** id of the call */ @NotNull string callId
 ) {
 	
-	var callObject = call getCallFromId({id : callId});
+	var request = database.get({table : TABLE_DATABASE_STATE_CALL, key : callId});
+	var state = request.result.nameColumnStateCall;
+	
+	var callObject = Call.new({
+		id: callId,
+		state: state
+	});
 	
 } broadcast ( groupId ) { callObject } on channel __selfName

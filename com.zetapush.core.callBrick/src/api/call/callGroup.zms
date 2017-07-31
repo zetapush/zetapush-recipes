@@ -1,11 +1,12 @@
-/** Launch a call to a group of users */
+/**
+ *	Macrosript used to send a call to a group
+ */
 macroscript callGroup(
 	/** ID of the group we want to call */ @NotNull string id
 ) {
-	
 	// Generate an ID for the call
 	var idCall = usr:core_call__id();
-		
+
 	// Create the call object
 	var callObject = Call.new({
 		id: idCall,
@@ -13,6 +14,10 @@ macroscript callGroup(
 	});
 	
 	// Launch the settimeout
-	call configureCallTimeout({id : idCall, groupId: id});	
+	call configureCallTimeout({id : idCall, groupId: id}) loud;
+	call setCallState(callObject);
 	
-} broadcast (id) { callObject } on channel __selfName
+	// Get the source of the call
+	var source = __userKey;
+	
+} broadcast (id) { callObject, source } on channel __selfName

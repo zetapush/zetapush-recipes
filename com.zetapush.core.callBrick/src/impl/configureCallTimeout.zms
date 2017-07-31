@@ -1,16 +1,19 @@
-/** Used to configure and launch our call timeout */
+/**
+ *	Macroscript used to launch the timeout that simulate a device ringing
+ */ 
 macroscript configureCallTimeout(
 	/** ID of the call */ @NotNull string id,
 	/** Group ID */ @NotNull string groupId
 ) {
+	
 	timer.setTimeout({
-		parameter : {
-			'id': id,
-			'group': groupId 
+		"parameter" : {
+			"name": "timeoutCall",
+			"parameters": { "id": id, "group": groupId }	
 		}, 
-		deploymentId : NAME_DEPLOY_ID_MACRO, 
-		verb : 'timeoutCall', 
-		delay : TIMEOUT_CALL_SECONDS, 
-		'loud' : true
+		"deploymentId": "macro_0", 
+		"verb" : "func", 
+		"delay" : 5,
+		"loud": true
 	});
 }

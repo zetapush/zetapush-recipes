@@ -1,4 +1,4 @@
 /**
- * Generate a unique call id
+ * 	Generate a unique call ID
  */
 function core_call__id() return str:substr(str:rnd36(ROOM_ID_ENTROPY), 0, NUMBER_OF_CHARS_IN_ROOM_ID)

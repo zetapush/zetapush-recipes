@@ -1,17 +1,26 @@
-/** The call reach the timeout */
+/**
+ *	Macroscript called after the timeout.
+ *	This timeout is used to simulate a call that is ringing on the device
+ */
 macroscript timeoutCall(
 	/** ID of the call */ @NotNull string id,
 	/** ID of the group */ @NotNull string group
 ) {
 	
-	// Get the call object
-	var callObject = call getCallFromId({id : id});
-	var my_call = Call.new(callObject);
+	// Get the current state of the call
+	var request = database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
+	var state = request.result.nameColumnStateCall;
+	
+	// Create the new call object
+	var callObject = Call.new({
+		id: id,
+		state: state
+	});
 	
 	// Check if the call is calling
-	if (my_call.state == STATE_CALL_CALLING) {
+	if (callObject.state == STATE_CALL_CALLING) {
 		call setCallState({id : id, state : STATE_CALL_MISSED});
 		call addToMissedCall({groupId : group, callId : id});
 	}
 	
-}
+} broadcast (group) { id } on channel __selfName

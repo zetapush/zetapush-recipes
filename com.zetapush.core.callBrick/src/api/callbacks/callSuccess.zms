@@ -1,6 +1,0 @@
-/** Specify that the call is a success */
-macroscript callSuccess(
-	/** ID of the call */ @NotNull string id
-) {
-	call setCallState({id : id, state : STATE_CALL_ACCEPTED});
-}

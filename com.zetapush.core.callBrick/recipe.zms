@@ -9,15 +9,16 @@ recipe com.zetapush.core.callBrick 1.0.0;
 // 		IMPORTS
 // =====================
 import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
-import recipe fr.leocare.plugin.webrtc 1.0.0 in zpRecipeWebrtc;
+import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
 
 // =====================
 //		CONSTANTES
 // =====================
-const TABLE_DATABASE_STATE_CALL 				= "table_database_name_state_call";
-const COLUMN_STATE_CALL							= "name_column_state_call";
+const TABLE_DATABASE_STATE_CALL 				= "tableDatabaseNameStateCall";
+const COLUMN_STATE_CALL							= "nameColumnStateCall";
 
-const NAME_DEPLOY_ID_MACRO						= "macro_api";
+const NAME_DEPLOY_ID_MACRO						= "macro_0";
+const NAME_CRON_SERVICE							= "cron_service";
 
 const STATE_CALL_CREATED						= "created";
 const STATE_CALL_CALLING						= "calling";
@@ -26,7 +27,7 @@ const STATE_CALL_REFUSED						= "refused";
 const STATE_CALL_ACCEPTED						= "accepted";
 const STATE_CALL_TERMINATED						= "terminated";
 
-const TIMEOUT_CALL_SECONDS						= 10;
+const TIMEOUT_CALL_SECONDS						= 5;
 
 const ROOM_ID_ENTROPY 							= 32; // --> 32 chars
 const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // ==> 32 chars
@@ -41,7 +42,10 @@ service code = macro(NAME_DEPLOY_ID_MACRO) for 'src/api';
 service implCode = new macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
 
 /** Timer service to use timeout */
-service timer = cron(__default);
+service timer = cron(NAME_CRON_SERVICE);
 
 /** Database service to save states of our calls */
 service database = gda(__default);
+
+/** Weak service for the tests */
+service auth = new weak(__default).forbiddenVerbs(__all);
