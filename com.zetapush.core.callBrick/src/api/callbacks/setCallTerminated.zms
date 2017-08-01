@@ -1,0 +1,10 @@
+/** 
+ *	Macroscript called when the call is terminated.
+ *	We change the state of the call in the database
+ */
+macroscript setCallTerminated(
+	/** ID of the call */ @NotNull string id
+) {
+	// Change the state of the call
+	call setCallState({id : id, state : STATE_CALL_TERMINATED});
+}

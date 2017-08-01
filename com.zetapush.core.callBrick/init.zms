@@ -1,0 +1,13 @@
+/** 
+ *	Table of the database to stock state of a call 
+ *	The key of each line is the id of the call
+*/
+database.gda_createTable({
+	'name' : TABLE_DATABASE_STATE_CALL,
+	'columns': [
+		{
+			'name': COLUMN_STATE_CALL,
+			'type': GdaDataType_STRING
+		}
+	]
+});
