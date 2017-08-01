@@ -20,17 +20,16 @@ const COLUMN_STATE_CALL							= "nameColumnStateCall";
 const NAME_DEPLOY_ID_MACRO						= "macro_0";
 const NAME_CRON_SERVICE							= "cron_service";
 
-const STATE_CALL_CREATED						= "created";
 const STATE_CALL_CALLING						= "calling";
 const STATE_CALL_MISSED							= "missed";
 const STATE_CALL_REFUSED						= "refused";
 const STATE_CALL_ACCEPTED						= "accepted";
 const STATE_CALL_TERMINATED						= "terminated";
 
-const TIMEOUT_CALL_SECONDS						= 5;
+const TIMEOUT_CALL_SECONDS						= 10;
 
-const ROOM_ID_ENTROPY 							= 32; // --> 32 chars
-const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // ==> 32 chars
+const ROOM_ID_ENTROPY 							= 32; // To generate call id
+const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // To generate call id
 
 // =====================
 // 		SERVICES
@@ -47,5 +46,8 @@ service timer = cron(NAME_CRON_SERVICE);
 /** Database service to save states of our calls */
 service database = gda(__default);
 
-/** Weak service for the tests */
+/** Weak service for our tests */
 service auth = new weak(__default).forbiddenVerbs(__all);
+
+
+

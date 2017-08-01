@@ -11,9 +11,9 @@ macroscript configureCallTimeout(
 			"name": "timeoutCall",
 			"parameters": { "id": id, "group": groupId }	
 		}, 
-		"deploymentId": "macro_0", 
+		"deploymentId": NAME_DEPLOY_ID_MACRO, 
 		"verb" : "func", 
-		"delay" : 5,
+		"delay" : TIMEOUT_CALL_SECONDS,
 		"loud": true
 	});
 }

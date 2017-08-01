@@ -7,9 +7,11 @@ macroscript addToMissedCall(
 	/** id of the call */ @NotNull string callId
 ) {
 	
-	var request = database.get({table : TABLE_DATABASE_STATE_CALL, key : callId});
-	var state = request.result.nameColumnStateCall;
+	// Get the state of the call
+	var request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : TABLE_DATABASE_STATE_CALL, key : callId});
+	var state = request.result[COLUMN_STATE_CALL];
 	
+	// Create a call object and send it
 	var callObject = Call.new({
 		id: callId,
 		state: state

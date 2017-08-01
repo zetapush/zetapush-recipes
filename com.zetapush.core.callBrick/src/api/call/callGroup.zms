@@ -4,7 +4,7 @@
 macroscript callGroup(
 	/** ID of the group we want to call */ @NotNull string id
 ) {
-	// Generate an ID for the call
+	// Generate a random ID for the call
 	var idCall = usr:core_call__id();
 
 	// Create the call object
@@ -13,8 +13,10 @@ macroscript callGroup(
 		state: STATE_CALL_CALLING
 	});
 	
-	// Launch the settimeout
-	call configureCallTimeout({id : idCall, groupId: id}) loud;
+	// Launch the settimeout to simulate ringing
+	call configureCallTimeout({id : idCall, groupId: id});
+	
+	// Put the call in the database
 	call setCallState(callObject);
 	
 	// Get the source of the call

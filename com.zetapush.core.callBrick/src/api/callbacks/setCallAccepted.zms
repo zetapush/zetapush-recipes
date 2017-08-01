@@ -1,5 +1,6 @@
 /** 
- *	Macroscript called when the call is accepted to change his state
+ *	Macroscript called when the call is accepted.
+ *	We change the state of the call in the database
  */
 macroscript setCallAccepted(
 	/** ID of the call */ @NotNull string id

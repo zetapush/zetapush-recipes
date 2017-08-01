@@ -7,6 +7,9 @@ class Call {
 	string state;
 }
 
-class PublicRoom {
+/**
+ *	Define a Room with a name
+ */
+class WebrtcRoom {
 	string roomName;
 }

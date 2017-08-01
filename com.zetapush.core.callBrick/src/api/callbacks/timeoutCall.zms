@@ -8,8 +8,8 @@ macroscript timeoutCall(
 ) {
 	
 	// Get the current state of the call
-	var request = database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
-	var state = request.result.nameColumnStateCall;
+	var request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
+	var state = request.result[COLUMN_STATE_CALL];
 	
 	// Create the new call object
 	var callObject = Call.new({

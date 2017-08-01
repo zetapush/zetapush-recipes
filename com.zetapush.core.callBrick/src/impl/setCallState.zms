@@ -5,5 +5,5 @@ macroscript setCallState(
 	/** id call */ @NotNull string id,
 	/** state call */ @NotNull string state
 ) {
-	database.put({table : TABLE_DATABASE_STATE_CALL, data : state, key : id, column : COLUMN_STATE_CALL});
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : state, key : id, column : COLUMN_STATE_CALL});
 }
