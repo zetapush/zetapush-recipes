@@ -7,7 +7,7 @@ const CONTEXT_CREATION_FAILED = #CONTEXT_CREATION_FAILED;
 macroscript createContext(
 	/** Context template identifier */ @NotNull string contextTemplateId,
 	/** Fields */ map fields = null,
-	@Inject ContextManager manager
+	/*@Inject*/ ContextManager manager
 ) {
 	const {result : template} = call getContextTemplate({contextTemplateId}) hardFail;
 	const {result : errors} = call manager.validateFields({fields, template}) hardFail;
