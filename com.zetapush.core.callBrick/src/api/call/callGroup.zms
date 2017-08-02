@@ -2,10 +2,11 @@
  *	Macrosript used to send a call to a group
  */
 macroscript callGroup(
-	/** ID of the group we want to call */ @NotNull string id
+	/** ID of the group we want to call */ @NotNull string id,
+	/** Optional ID call */ string callId
 ) {
 	// Generate a random ID for the call
-	var idCall = usr:core_call__id();
+	var idCall = callId ?: usr:core_call__id();
 
 	// Create the call object
 	var callObject = Call.new({
@@ -14,7 +15,7 @@ macroscript callGroup(
 	});
 	
 	// Launch the settimeout to simulate ringing
-	call configureCallTimeout({id : idCall, groupId: id});
+	call configureCallTimeout({id : idCall, groupId: id}) loud;
 	
 	// Put the call in the database
 	call setCallState(callObject);

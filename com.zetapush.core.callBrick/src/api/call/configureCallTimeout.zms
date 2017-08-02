@@ -16,4 +16,5 @@ macroscript configureCallTimeout(
 		"delay" : TIMEOUT_CALL_SECONDS,
 		"loud": true
 	});
-}
+	
+} return { id } on channel __selfName

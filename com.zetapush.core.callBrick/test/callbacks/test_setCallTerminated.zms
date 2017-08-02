@@ -1,0 +1,20 @@
+zms_test test_setCallTerminated{
+	
+	// SETUP
+	zms_test_setup {
+		zms_test_user anonym = auth({});
+		sudo anonym call setCallTerminated({id : 'ID_CALL'});
+	}
+	
+	// HANDLER
+	zms_add_handler(anonym, callIsTerminated, (response,errors) => {
+		info(setCallTerminated.name, response);
+
+		assert response.result == true "Call state is not 'terminated'";
+		zms_test_success;
+	});
+	
+	// CALL
+	sudo anonym call callIsTerminated({id: 'ID_CALL'});
+	
+}

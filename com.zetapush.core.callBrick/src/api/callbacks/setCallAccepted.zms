@@ -7,4 +7,5 @@ macroscript setCallAccepted(
 ) {
 	// Change the state of the call
 	call setCallState({id : id, state : STATE_CALL_ACCEPTED});
-}
+
+} return { id } on channel __selfName

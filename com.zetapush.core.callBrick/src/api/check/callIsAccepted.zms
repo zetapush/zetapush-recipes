@@ -1,0 +1,17 @@
+/**
+ *	Check in the database if the call has the state 'accepted'
+ */
+macroscript callIsAccepted(
+	/** ID of the call */ @NotNull string id
+) {
+	var result = false;
+	
+	// Get the state of the call
+	var request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
+	var state = request.result[COLUMN_STATE_CALL];
+	
+	if (state == STATE_CALL_ACCEPTED) {
+		result = true;
+	}
+
+} return { result } on channel __selfName

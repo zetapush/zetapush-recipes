@@ -26,7 +26,7 @@ const STATE_CALL_REFUSED						= "refused";
 const STATE_CALL_ACCEPTED						= "accepted";
 const STATE_CALL_TERMINATED						= "terminated";
 
-const TIMEOUT_CALL_SECONDS						= 10;
+const TIMEOUT_CALL_SECONDS						= 5;
 
 const ROOM_ID_ENTROPY 							= 32; // To generate call id
 const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // To generate call id
@@ -47,7 +47,7 @@ service timer = cron(NAME_CRON_SERVICE);
 service database = gda(__default);
 
 /** Weak service for our tests */
-service auth = new weak(__default).forbiddenVerbs(__all);
+service auth = new weak();
 
 
 

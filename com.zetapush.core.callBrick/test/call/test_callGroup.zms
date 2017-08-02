@@ -1,0 +1,41 @@
+zms_test test_callGroup {
+	
+	// SETUP
+	zms_test_setup {
+		zms_test_user source = auth({});
+		zms_test_user destinataire = auth({});
+				
+		// Create a group and add members on it
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::createGroup({id: "idGroup", name: "myGroup"});
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({ id: "idGroup", member: destinataire.userKey});
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({ id: "idGroup", member: source.userKey});
+		
+		// Get the group
+		var group = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::getGroup({ id: 'idGroup'});
+	}
+	
+	// HANDLER CALLGROUP
+	zms_add_handler(destinataire, callGroup, (response,errors) => {
+		info(callGroup.name, response);
+		
+		sudo destinataire call callIsCalling({ id: 'idCall'});
+	});
+	
+	// HANDLER ISCALLING
+	zms_add_handler(destinataire, callIsCalling, (response, errors) => {
+		info(callIsCalling.name, response);
+		
+		assert response.result == true "Call state is not 'calling'";
+	});
+	
+	// HANDLER CONFIGURECALLTIMEOUT
+	zms_add_handler(source, configureCallTimeout, (response, errors) => {
+		info(configureCallTimeout.name, response);
+		
+		zms_test_success;
+	});	
+	
+	// CALL
+	sudo source call callGroup({id : group.result.group.resource, callId: "idCall"});
+	
+}

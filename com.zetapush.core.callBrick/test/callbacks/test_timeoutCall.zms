@@ -1,0 +1,37 @@
+zms_test test_timeoutCall {
+	
+	// SETUP
+	zms_test_setup {
+		zms_test_user source = auth({});
+		zms_test_user destinataire = auth({});
+				
+		// Create a group and add members on it
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::createGroup({id: "idGroup", name: "myGroup"});
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({ id: "idGroup", member: destinataire.userKey});
+		sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::addGroupMember({ id: "idGroup", member: source.userKey});
+		
+		// Get the group
+		var group = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::getGroup({ id: 'idGroup'});
+		
+		// Create and launch a call
+		sudo source call callGroup({id: "groupID", callId: "id_call"});
+	}
+	
+	// HANDLER TIMEOUTCALL
+	zms_add_handler(destinataire, timeoutCall, (response,errors) => {
+		info(timeoutCall.name, response);
+		
+		sudo destinataire call callIsMissed({ id: 'idCall'});
+	});
+	
+	// HANDLER CALLISMISSED
+	zms_add_handler(destinataire, callIsMissed, (response,errors) => {
+		info(callIsMissed.name, response);
+		
+		assert response.result == true "Call state is not 'missed'";
+		zms_test_success;
+	});
+
+	// CALL
+	sudo source call timeoutCall({id : 'id_call', group : group.result.group.resource});
+}

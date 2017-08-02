@@ -7,4 +7,5 @@ macroscript setCallTerminated(
 ) {
 	// Change the state of the call
 	call setCallState({id : id, state : STATE_CALL_TERMINATED});
-}
+	
+} return { id } on channel __selfName

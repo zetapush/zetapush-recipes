@@ -1,0 +1,20 @@
+zms_test test_setCallAccepted{
+	
+	// SETUP
+	zms_test_setup {
+		zms_test_user anonym = auth({});
+		sudo anonym call setCallAccepted({id : 'ID_CALL'});
+	}
+	
+	// HANDLER
+	zms_add_handler(anonym, callIsAccepted, (response,errors) => {
+		info(callIsAccepted.name, response);
+
+		assert response.result == true "Call state is not 'accepted'";
+		zms_test_success;
+	});
+	
+	// CALL
+	sudo anonym call callIsAccepted({id: 'ID_CALL'});
+	
+}
