@@ -13,6 +13,6 @@ macroscript createRoomInvitation(
 		room, context, message, zpService: zpServiceGda
 	});
 } broadcast {
-	Room room,
+	Room room: room.room,
 	Invitation invitation
 } on channel __selfName

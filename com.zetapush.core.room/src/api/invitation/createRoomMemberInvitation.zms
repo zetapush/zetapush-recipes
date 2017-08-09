@@ -15,7 +15,7 @@ macroscript createRoomMemberInvitation(
 		room, context, message, guest, zpService: zpServiceGda
 	});
 } broadcast([__userKey, guest]) {
-	Room room,
+	Room room: room.room,
 	Invitation invitation
 } on channel __selfName
 
