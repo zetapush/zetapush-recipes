@@ -7,12 +7,12 @@ macroscript createRoomInvitation(
 	/** Invitation message */ @NotNull string message
 ) {
 	/** Get associated room id */
-	const room = await getRoom({ id, owner: __userKey });
+	const { room } = await getRoom({ id, owner: __userKey });
 	/** Get invitation for room */
-	const invitation = await core_room__createInvitationByService({
+	const invitation = sudo room.owner await core_room__createInvitationByService({
 		room, context, message, zpService: zpServiceGda
 	});
-} broadcast {
-	Room room: room.room,
-	Invitation invitation
-} on channel __selfName
+} broadcast RoomInvitation.new({
+	room,
+	invitation
+}) on channel __selfName
