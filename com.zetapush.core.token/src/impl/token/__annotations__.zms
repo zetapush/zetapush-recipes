@@ -1,0 +1,1 @@
+macroscript_annotation IsValidToken(default string tokenValue) = @Before(macro = core_token__validateToken, macroParams = { tokenValue: tokenValue });

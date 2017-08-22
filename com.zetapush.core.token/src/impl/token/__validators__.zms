@@ -1,0 +1,4 @@
+/**
+ * Validate token duration
+ */
+@Min(0) type_validator TokenDuration;

@@ -1,0 +1,50 @@
+/**
+ * ZetaPush Official Core Recipe
+ * Provides token manipulation
+ */
+recipe com.zetapush.core.token 1.0.0;
+
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
+
+// Constants
+
+const TOKEN_OWNER = 'ZetaPushTokenOwner';
+
+const TOKEN_TABLE = 'token1';
+const COLUMN_TOKEN_CREATED_AT = 'createdAt';
+const COLUMN_TOKEN_CREATOR = 'creator';
+const COLUMN_TOKEN_EXPIRED_AT = 'expirededAt';
+const COLUMN_TOKEN_VALIDATED_AT = 'validatedAt';
+
+const TOKEN_ENTROPY = 32; // To generate token value
+const TOKEN_SIZE 	= 32; // o generate token value
+
+// Defaults
+
+const DEFAULT_TOKEN_DURATION = @config.token.duration ?: (1000 * 60); // 1 minute
+
+// Events
+
+const EVENT__CREATE_TOKEN = 'ZetaPushEvent__Token_Create';
+
+// Errors
+
+const ERROR__TOKEN_ALREADY_VALIDATED = #ERROR__TOKEN_ALREADY_VALIDATED;
+const ERROR__TOKEN_EXPIRED = #ERROR__TOKEN_EXPIRED;
+const ERROR__TOKEN_COLLISION = #ERROR__TOKEN_COLLISION;
+const ERROR__TOKEN_NOT_FOUND = #ERROR__TOKEN_NOT_FOUND;
+
+// Services declaration
+
+/**
+ * Public API (Client and Server side) macro service
+ */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+/**
+ * Private API (Server side only) macro service
+ */
+service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+/**
+ * Data Storage service
+ */
+service zpServiceGda = gda('cr_tkn_gda').forbiddenVerbs(__all);
