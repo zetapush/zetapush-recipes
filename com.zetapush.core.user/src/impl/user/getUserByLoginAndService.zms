@@ -3,20 +3,18 @@ macroscript core_user__getUserByLoginAndService(
 	@NotNull service<simple> zpService
 	
 ) {
-	const fields = zpService.checkUser({
+	const profile = zpService.checkUser({
 		key: login,
 		softFail: true
 	});
-	const user = new User(
-		fields.zetapushKey,
-		fields.login,
-		fields.email,
-		fields.firstname,
-		fields.lastname,
-		fields.mobilenumber,
-		fields.phonenumber,
-		fields.birthday,
-		fields.avatar,
-		fields.biography
-	);
-} return { User user } on channel __selfName
+	const user  = {
+		userKey: profile.zetapushKey
+	};
+	for property in profile {
+		if (property.key != 'zetapushKey') {
+			user[property.key] = property.value;
+		}
+	}
+} return {
+	User user
+} on channel __selfName
