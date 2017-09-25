@@ -1,0 +1,12 @@
+/**
+ *	Delete a room with his ID
+ */
+macroscript deleteRoom(
+	/** Room id */ @NotNull string id
+) {
+	const { room } = await core_room__deleteRoomByService({
+		id : id, 
+		zpService : zpServiceGroups
+	});
+	
+} on channel __selfName
