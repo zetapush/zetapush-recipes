@@ -41,7 +41,7 @@ macroscript core_room__onConfirmFileUploadCallback(
 				owner,
 				path: str:join('/', room.metadata.attachments, guid)
 			},
-			metadata: {}
+			metadata: metadata?: {}
 		}) loud;
 	}	
 } broadcast(resource) {
