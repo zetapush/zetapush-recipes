@@ -1,0 +1,16 @@
+/**
+ *
+ */
+macroscript core_room__deleteRoomMessageByService(
+	/** Message Id */ @NotNull string id,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	/** Delete message */
+	const result = zpService.removeRow({
+		table : TABLE_ROOM_STORAGE, 
+		key : id
+	});
+} return {
+	string id,
+	map result
+} on channel __selfName

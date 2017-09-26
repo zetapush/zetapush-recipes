@@ -1,0 +1,9 @@
+macroscript deleteRoomMessage(
+	/** ID of the message */ string id) 
+{
+	const { result } = await core_room__deleteRoomMessageByService({
+		id: id,
+		zpService: zpServiceGda 
+	});
+	
+} return { result } on channel __selfName
