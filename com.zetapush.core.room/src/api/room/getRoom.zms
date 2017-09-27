@@ -11,7 +11,7 @@ macroscript getRoom(
 		id, owner, zpService: zpServiceGroups
 	});
 	/** Get room message list */
-	const { list: messages, page } = await getRoomMessageList({ room });
+	const { list: messages, page } = sudo owner await getRoomMessageList({ room });
 } return {
 	Room room,
 	map[] messages,
