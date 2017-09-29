@@ -1,0 +1,26 @@
+/**
+ *	Macroscript used to call an user via WebRTC in a private room
+ */
+macroscript callUser(
+	/** userKey of the destinataire */ string userKey
+) {
+	
+	// Generate a random ID for the call
+	var idCall = str:rnd64(10);
+
+	// Create the call object
+	var callObject = Call.new({
+		id: idCall,
+		state: STATE_CALL_CALLING
+	});
+	
+	// Launch the settimeout to simulate ringing
+	call configureCallTimeout({id : idCall, groupId: userKey}) loud;
+	
+	// Put the call in the database
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : callObject.state, key : callObject.id, column : COLUMN_STATE_CALL});
+	
+	// Get the source of the call
+var source = __userKey;
+	
+} broadcast (userKey) { callObject, source } on channel __selfName

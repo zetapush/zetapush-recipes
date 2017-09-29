@@ -1,0 +1,12 @@
+/**
+ *	Macroscript used to refuse a call
+ */
+macroscript refuseCall(
+	/** ID of the call */ string id,
+	/** userKey of the caller */ string destinataire
+) {
+	
+	// Set the state
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : STATE_CALL_REFUSED, key : id, column : COLUMN_STATE_CALL});
+
+} broadcast (destinataire) { id } on channel __selfName

@@ -1,0 +1,12 @@
+macroscript leaveVisioRoom(
+	/** Conversation Room */ @NotNull WebrtcRoom webrtcRoom
+){
+	trace(#leaveVisioRoom, { webrtcRoom});
+	
+	var room = await getVisioRoomByName({roomName: webrtcRoom.roomName});	
+	
+	var member= sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeRoom::removeRoomMember({id:room.id, member: __userKey});
+	
+	trace(#leaveVisioRoom, { member });
+	
+} broadcast(room.resource) {user:__userKey} on channel __selfName

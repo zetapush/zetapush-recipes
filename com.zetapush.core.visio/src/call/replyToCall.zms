@@ -1,0 +1,13 @@
+/**
+ *	Macroscript used by the destinataire of a call
+ *	to accept the call
+ */
+macroscript replyToCall(
+	/** ID of the call */ string id,
+	/** userKey of the caller */ string destinataire
+) {
+	
+	// Set the state
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : STATE_CALL_ACCEPTED, key : id, column : COLUMN_STATE_CALL});
+	
+} broadcast (destinataire) { id } on channel __selfName
