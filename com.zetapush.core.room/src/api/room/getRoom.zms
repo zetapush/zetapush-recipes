@@ -3,7 +3,8 @@
  */
 macroscript getRoom(
 	/** Room room id */ @ValidRoomId string id,
-	/** Room room owner */ @NotNull string owner
+	/** Room room owner */ @NotNull string owner,
+	/** Room pagination */ zpRecipeUtils::Pagination page
 ) {
 	trace(#getRoom, { id, owner });
 	/** Get room room */
@@ -11,9 +12,9 @@ macroscript getRoom(
 		id, owner, zpService: zpServiceGroups
 	});
 	/** Get room message list */
-	const { list: messages, page } = sudo owner await getRoomMessageList({ room });
+	const { list: messages, page: pageResult } = await getRoomMessageList({ room, page });
 } return {
 	Room room,
 	map[] messages,
-	zpRecipeUtils::Pagination page
+	zpRecipeUtils::Pagination page: pageResult
 } on channel __selfName
