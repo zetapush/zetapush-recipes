@@ -9,6 +9,7 @@ macroscript core_room__addRoomMessageByService(
 	/** Message metadata */ @NotNull map metadata,
 	/** Storage Service */ @NotNull service<gda> zpService
 ) {
+	trace(core_room__addRoomMessageByService, __parameters);
 	// TODO Check permissions?
 	/** Get message key */
 	const { createdAt, now, key } = usr:core_room__message_key(container);
