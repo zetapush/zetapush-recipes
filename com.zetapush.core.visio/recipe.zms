@@ -21,7 +21,7 @@ const STATE_CALL_REFUSED						= "refused";
 const STATE_CALL_ACCEPTED						= "accepted";
 const STATE_CALL_TERMINATED 					= "terminated";
 
-const TIMEOUT_CALL_SECONDS = 5;
+const TIMEOUT_CALL_SECONDS = 20;
 
 /** our code is run by this service */
 service code = macro(__default) for 'src';

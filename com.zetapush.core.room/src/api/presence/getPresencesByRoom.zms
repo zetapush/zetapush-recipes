@@ -1,8 +1,8 @@
 macroscript getPresencesByRoom(
-	/** Room ID */ string id) 
+	/** Room ID */ string id,
+	/** Owner */ string owner) 
 {
 
-	var presences = zpRecipeGroup::zpServiceGroups.listPresences({group : id});
-
+	var presences = zpServiceGroups.listPresences({group : id, owner: owner});
 
 } return { presences } on channel __selfName
