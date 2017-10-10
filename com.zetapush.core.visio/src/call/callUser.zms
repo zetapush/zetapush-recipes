@@ -23,4 +23,4 @@ macroscript callUser(
 	// Get the source of the call
 var source = __userKey;
 	
-} broadcast (userKey) { callObject, source } on channel __selfName
+} broadcast ([userKey, source]) { callObject, source } on channel __selfName

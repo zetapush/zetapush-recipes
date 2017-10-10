@@ -1,9 +1,13 @@
 macroscript deleteRoomMessage(
-	/** ID of the message */ string id) 
+	/** ID of the message */ string id,
+	/** Owner message */ string owner) 
 {
-	const { result } = await core_room__deleteRoomMessageByService({
+	
+	owner = owner ?: __userKey;
+	
+	const { result } = sudo owner await core_room__deleteRoomMessageByService({
 		id: id,
 		zpService: zpServiceGda 
 	});
-	
+
 } return { result } on channel __selfName

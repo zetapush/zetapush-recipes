@@ -28,14 +28,15 @@ macroscript core_room__setRoomPermissionsByServices(
 	});
 	/** Grant grant to the group for the stack */
 	zpServiceGroups.mgrant({
-		actions: [Verb_zpfs_hdfs_newUploadUrl],
+		actions: [Verb_zpfs_hdfs_newUploadUrl, Verb_zpfs_hdfs_rm],
 		group: id,
 		resource: str:join(':', zpServiceFileSystem, __userKey, path)
 	});
 	/** Grant grant to the group for the stack */
-	zpServiceGroups.grant({
-		action: Verb_zpfs_hdfs_newFile,
+	zpServiceGroups.mgrant({
+		actions: [Verb_zpfs_hdfs_newFile],
 		group: id,
 		resource: '*'
 	});
+
 } on channel __selfName
