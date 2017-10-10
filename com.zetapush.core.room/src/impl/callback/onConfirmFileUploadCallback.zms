@@ -33,7 +33,7 @@ macroscript core_room__onConfirmFileUploadCallback(
 		});
 		trace(#core_room__onConfirmFileUploadCallback, { room });
 		/** Add attachment as room message */
-		await addRoomMessage({
+		const { message } = await addRoomMessage({
 			room,
 			type: MESSAGE_TYPE_ATTACHMENT,
 			value: {
@@ -43,6 +43,10 @@ macroscript core_room__onConfirmFileUploadCallback(
 			},
 			metadata: {}
 		}) loud;
+		/** Update message matadata */
+		metadata.message = message;
+		/** Notify file service of metadata */
+		zpService.updateMeta({path, metadata });
 	}	
 } broadcast(resource) {
 	string id,

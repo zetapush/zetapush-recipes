@@ -8,7 +8,7 @@ macroscript getRoom(
 	trace(#getRoom, { id, owner });
 	/** Get room room */
 	const { room } = sudo owner await core_room__getRoomGroupByService({ 
-		id, owner, zpService: zpServiceGroups
+		id, zpService: zpServiceGroups
 	});
 	/** Get room message list */
 	const { list: messages, page } = await getRoomMessageList({ room });

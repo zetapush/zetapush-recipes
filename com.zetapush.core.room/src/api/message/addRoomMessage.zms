@@ -7,6 +7,7 @@ macroscript addRoomMessage(
 	/** Message value*/ @NotNull map value,
 	/** Message metadata */ @NotNull map metadata
 ) {
+	trace(addRoomMessage.name, __parameters);
 	/** Set defaut storage container as room id */
 	const container = room.id;
 	/** Add message in room */
