@@ -1,0 +1,61 @@
+/**
+	Generate a key with the provided shape. The shape can contain
+	the following variables:
+	
+	<ul>
+	<li><b>{timestamp}</b>: use the timestamp (by default the value is time:now() but you can set another timestamp using timestamp parameter)</li>
+	<li><b>{random64:XX}</b>: generate a random number using str:rand64 function. XX means the number of characters</li>
+	<li><b>{random36:XX}</b>: generate a random number using str:rand36 function. XX means the number of characters</li>
+	<li><b>{random10:XX}</b>: generate a random number using str:rand10 function. XX means the number of characters</li>
+	</ul>
+	
+	You can set a custom prefix, suffix or your own shape. For example:
+	<ul>
+	<li>Prefix: <b><code>generateKey({shape: myvar + '_{timestamp}_{random64:10}'})</code></b></li>
+	<li>Suffix: <b><code>generateKey({shape: '{timestamp}_{random64:10}_' + myvar})</code></b></li>
+	<li>Own shape: <b><code>generateKey({shape: '{random36:24}_' + myvar + '_{timestamp}'})</code></b></li>
+	</ul>
+*/
+macroscript generateKey(
+	/** The shape of the key (by default <b><code>'{timestamp}_{random64:10}'</code></b>) */
+	string shape = '{timestamp}_{random64:10}',
+	/** The timestamp if provided. By default, the value is time:now() */
+	number timestamp = null
+) {
+	const key = usr:generateKey(shape, timestamp);
+} return {string key} on channel __selfName
+
+/**
+	Generate a key with the provided shape. The shape can contain
+	the following variables:
+	
+	<ul>
+	<li><b>{timestamp}</b>: use the timestamp (by default the value is time:now() but you can set another timestamp using timestamp parameter)</li>
+	<li><b>{random64:XX}</b>: generate a random number using str:rand64 function. XX means the number of characters</li>
+	<li><b>{random36:XX}</b>: generate a random number using str:rand36 function. XX means the number of characters</li>
+	<li><b>{random10:XX}</b>: generate a random number using str:rand10 function. XX means the number of characters</li>
+	</ul>
+	
+	You can set a custom prefix, suffix or your own shape. For example:
+	<ul>
+	<li>Prefix: <b><code>generateKey({shape: myvar + '{timestamp}_{random64:10}'})</code></b></li>
+	<li>Suffix: <b><code>generateKey({shape: '{timestamp}_{random64:10}' + myvar})</code></b></li>
+	<li>Own shape: <b><code>generateKey({shape: '{timestamp}_' + myvar + '{random64:10}'})</code></b></li>
+	</ul>
+*/
+function generateKey(shape, timestamp) {
+	const ts = timestamp==null ? time:now() : timestamp;
+	var key = str:replace(shape, "{timestamp}", ts);
+	const randomIdx = str:indexOf(key, "{random");
+	if(randomIdx>=0) {
+		const randomEndIdx = str:indexOf(str:substr(key, randomIdx+1, str:len(key)), '}');
+		if(randomEndIdx>=0) {
+			const numChars = str:substr(key, randomIdx+10, randomEndIdx+randomIdx+1);
+			key = str:replace(key, "{random64", str:rnd10(1)+str:substr(str:rnd64(numChars+5), 0, numChars-1));
+			key = str:replace(key, "{random36", str:rnd10(1)+str:substr(str:rnd36(numChars+5), 0, numChars-1));
+			key = str:replace(key, "{random10", str:rnd10(numChars));
+			key = str:replace(key, ":"+numChars+"}", '');
+		}
+	}
+	return key;
+}
