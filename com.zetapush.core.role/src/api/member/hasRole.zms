@@ -3,11 +3,14 @@ macroscript hasRole(
 	/** Optionnal role name */ string name,
 	boolean assertion = false
 ) {
+	
 	assert (id?? || name??) zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
 	/** Support optionnal parameter */
 	if (!(id??) && name??) {
 		id = str:hex(str:md5(str:upper(name)));
 	} 
+	
+	
 	/** Is memeber of group role service */
 	const { member: has } = await zpRecipeGroup::core_group__isMemberOfByService({
 		id,
@@ -15,4 +18,5 @@ macroscript hasRole(
 		isHardFail: assertion,
 		zpService: zpServiceGroupsRole
 	});
-} return new HasUserRole(id, name, __userKey, true) on channel __selfName
+	
+} return new HasUserRole(id, name, __userKey, has) on channel __selfName

@@ -12,7 +12,7 @@ macroscript core_token__generateToken(
 		createdAt,
 		creator,
 		expiredAt,
-		value: fmt:pad(math:lrand(0, 10000000000), 10, 0, '.')
+		value: str:rnd10(5)
 	});
 	const { result } = zpServiceGda.get({
 		table : TOKEN_TABLE,
