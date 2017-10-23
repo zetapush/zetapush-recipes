@@ -26,7 +26,7 @@ const STATE_CALL_REFUSED						= "refused";
 const STATE_CALL_ACCEPTED						= "accepted";
 const STATE_CALL_TERMINATED						= "terminated";
 
-const TIMEOUT_CALL_SECONDS						= 10;
+const TIMEOUT_CALL_SECONDS						= 30;
 
 const ROOM_ID_ENTROPY 							= 32; // To generate call id
 const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // To generate call id
