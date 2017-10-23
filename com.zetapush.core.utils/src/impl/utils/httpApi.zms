@@ -1,0 +1,22 @@
+macroscript httpApiPublicUrl(
+	/** Optional sandbox identifier. Uses the zms.businessId property by default */
+	string sandboxId = null,
+	/** Optional base URL for exposing HTTP API. Uses the com.zetapush.http.baseUrl property by default */
+	string baseUrl = null,
+	/** Optional additional path */
+	string path = null
+) {
+	if(sandboxId==null) {
+		sandboxId = @zms.businessId;
+	}
+	if(baseUrl==null) {
+		baseUrl = @com.zetapush.http.baseUrl;
+	}
+	var url = str:replace(baseUrl, "${sandboxId}", sandboxId);
+	if(path!=null) {
+		url = url + path;
+	}
+} return {
+	/** The resolved url */
+	string url
+} on channel __selfName
