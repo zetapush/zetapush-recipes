@@ -16,6 +16,11 @@ macroscript httpApiPublicUrl(
 	if(path!=null) {
 		url = url + path;
 	}
+	var idx = str:indexOf(url, '://');
+	var scheme = str:substr(url, 0, idx+3);
+	var location = str:substr(url, idx+3, str:len(url));
+	trace("scheme=", scheme, "location=", location);
+	url = scheme + str:replace(location, "//", "/");
 } return {
 	/** The resolved url */
 	string url
