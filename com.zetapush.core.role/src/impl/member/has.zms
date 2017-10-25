@@ -4,10 +4,16 @@
 macroscript core_role__has(
 	/** Optionnal role/permission id */ string id,
 	/** Optionnal role/permission name */ string name,
-	/** */ @NotNull service<groups> zpService 
+	/** */ @NotNull service<groups> zpService,
+	/** Optional if true, it fails if the user has not the role (default value). If false, a boolean is returned and there is no failure */
+	failIfMissingGrant = true
 ) {
 	/** Check optionnal parameters */
 	assert (id?? || name??) zpRecipeUtils::ERROR__MISSING_MANDATORY_INPUT 'Missing id or name parameter';
+	
+	// Define result if the failIfMissingGrant is false
+	var has = null;
+	
 	/** Support exception for global owner */
 	if (__userKey != zpRecipeUtils::GLOBAL_OWNER) {
 		/** Support optionnal parameter */
@@ -22,8 +28,16 @@ macroscript core_role__has(
 			zpService
 		});
 		/** Handle errors */
-		if (coll:size(errors) > 0) {
+		if (failIfMissingGrant && coll:size(errors) > 0) {
 			fail ERROR__MISSING_GRANT 'Missing grant';
 		}
+	
+		if (!failIfMissingGrant) {
+			if (coll:size(errors) > 0) {
+				has = false;
+			} else {
+				has = true;
+			}
+		}
 	}
-}
+} return { has } on channel __selfName
