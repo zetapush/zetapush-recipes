@@ -1,3 +1,17 @@
+/** Function to auto-generate an idenfitier */ 
+function generateId(id, configuration) {
+	var validationMessage = null;
+	var replacementParameterValue = id;
+	if(id==null) {
+		replacementParameterValue = usr:generateKey(configuration.shape ?: '{timestamp}_{random64:10}', null);
+	}
+} return {
+	validationMessage,
+	replacementParameterValue
+};
+
+type_validator Id(default shape) = usr:generateId;
+
 /**
 	Generate a key with the provided shape. The shape can contain
 	the following variables:
