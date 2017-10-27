@@ -10,36 +10,29 @@ macroscript core_room__getRoomMessageListByService(
 	/** Define range start and stop */
 	const { start, stop } = usr:core_room__range(container);
 	trace(#core_room__getRoomMessageListByService, { start, stop });
-	/** Retreive message for a specific range */
-	const { result: { content } } = zpService.range({
-		columns: [{
-			column: COLUMN_STORAGE_AUTHOR
-		}, {
-			column: COLUMN_STORAGE_TYPE
-		}, {
-			column: COLUMN_STORAGE_VALUE
-		}, {
-			column: COLUMN_STORAGE_CREATED_AT
-		}, {
-			column: COLUMN_STORAGE_UPDATED_AT
-		}, {
-			column: COLUMN_STORAGE_METADATA
-		}, {
-			column: COLUMN_STORAGE_READERS
-		}, {
-			column: COLUMN_STORAGE_TARGETS
-		}],
-		start,
+	const { result } = await zpRecipeUtils::paginatedGdaRange({
+		gdaService: zpService,
 		table: TABLE_ROOM_STORAGE,
+		start,
 		stop,
+		columns: [
+			{ column: COLUMN_STORAGE_AUTHOR },
+			{ column: COLUMN_STORAGE_TYPE },
+			{ column: COLUMN_STORAGE_VALUE },
+			{ column: COLUMN_STORAGE_CREATED_AT },
+			{ column: COLUMN_STORAGE_UPDATED_AT },
+			{ column: COLUMN_STORAGE_METADATA },
+			{ column: COLUMN_STORAGE_READERS },
+			{ column: COLUMN_STORAGE_TARGETS }
+		],
 		owner: room.owner,
 		page
 	});
 	/** Format stored data */
-	const list = coll:map(content, usr:core_room__format_stored_message);
+	const list = coll:map(result.content, usr:core_room__format_stored_message);
 } return {
 	string container,
 	Room room,
 	Message[] list,
-	zpRecipeUtils::Pagination page
+	zpRecipeUtils::ResponsePagination page: result.page
 } on channel __selfName
