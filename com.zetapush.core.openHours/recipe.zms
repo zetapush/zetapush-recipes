@@ -22,8 +22,5 @@ const CURRENT_TIMEZONE = @com.zetapush.openHours.currentTimezone ?: Timezone_Eur
 /** our code is run by this service */
 service code = macro(PRIVATE_MACRO_SERVICE).forbiddenVerbs(__all) for 'src';
 
-/** CRON pour auto update de jours fériés */
-service cron = new cron(CRON_SERVICE).forbiddenVerbs(__all);
-
 /** a NoSQL database */
 service nosql_db = gda(GDA_SERVICE).forbiddenVerbs(__all);

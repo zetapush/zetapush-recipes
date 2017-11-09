@@ -1,7 +1,5 @@
 /** sentinel key for default value */
 const DEF = "__DEF";
-/** key prefix for holiday */
-const FERIE = "__FERIE";
 /** Date validation YYYYMMDD */ 
 @Pattern("[0-9]{8}") type_validator FormattedDate;
 /** Hour between 0 and 23 */

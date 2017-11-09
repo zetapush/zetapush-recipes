@@ -24,10 +24,10 @@ macroscript setOpenedHoursForDate(@Valid class DayOpenHours dayInfo) {
 macroscript getOpenedHoursForDate(@FormattedDate string date) {
 	var { result : row } = nosql_db.get( {table : HOURS_TABLE, key : date});
 	if (coll:size(row) == 0) {
-		var { result : ferie } = nosql_db.get( {table : HOURS_TABLE, key : FERIE + date});
-		row = ferie;
-		if (coll:size(ferie) == 0) {
+		if (usr:isDateFerie(date)) row = usr:closedHours();
+		else {
 			var time = time:parseUTC(date);
+			/** hard coded : saturday sunday are holiday */
 			if (time:dow(time) > 5) row = usr:closedHours();
 			else {
 				var { result : def } = nosql_db.get( {table : HOURS_TABLE, key : DEF});
@@ -68,16 +68,11 @@ OpenHours hours : hours }
 macroscript initOpenHours() {
 	/** bootstrap default hours if absent */
 	call setDefaultOpenedHours( {openHours : new OpenHours(DEFAULT_START_HOUR, DEFAULT_END_HOUR), omitUpdate : true});
-	/** bootstrap holidays for this year*/
-	call updateHolidaysForOpenHours();
 }
-/** Initialises french holidays */
-@Sudo(GLOBAL_USER)
-macroscript updateHolidaysForOpenHours() {
-	var closed = usr:closedHours();
-	var days = usr:compute_holidays(time:now());
-	nosql_db.puts( {table : HOURS_TABLE, rows : coll:map(days, d -> {data : closed, key : FERIE + d})});
-} return { days }
+
+function isTimeFerie(time) return usr:isDateFerie(time:fmt(time, Format_YMD))
+
+function isDateFerie(date) return coll:contains(usr:compute_holidays(date), date)
 
 /** convention : closed when both start and end are zero
 

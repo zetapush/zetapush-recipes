@@ -1,3 +1,2 @@
-### README for com.zetapush.core.openHours
+### Working Hours management
 
-Documentation in markdown format for a comprehensive description
