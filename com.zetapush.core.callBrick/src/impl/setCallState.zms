@@ -6,4 +6,8 @@ macroscript setCallState(
 	/** state call */ @NotNull string state
 ) {
 	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : state, key : id, column : COLUMN_STATE_CALL});
+	/** Hydrate a call object */
+	const callObject = Call.new({ id, state });
+} return {
+	callObject
 }

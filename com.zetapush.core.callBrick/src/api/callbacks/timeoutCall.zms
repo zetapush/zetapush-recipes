@@ -8,19 +8,19 @@ macroscript timeoutCall(
 ) {
 	
 	// Get the current state of the call
-	var request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : TABLE_DATABASE_STATE_CALL, key : id});
-	var state = request.result[COLUMN_STATE_CALL];
+	const request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({
+		table: TABLE_DATABASE_STATE_CALL,
+		key: id
+	});
+	const state = request.result[COLUMN_STATE_CALL];
 	
 	// Create the new call object
-	var callObject = Call.new({
-		id: id,
-		state: state
-	});
+	const callObject = Call.new({ id, state });
 	
 	// Check if the call is calling
 	if (callObject.state == STATE_CALL_CALLING) {
-		call setCallState({id : id, state : STATE_CALL_MISSED});
-		call addToMissedCall({groupId : group, callId : id});
+		await setCallState({ id, state: STATE_CALL_MISSED });
+		await addToMissedCall({ groupId: group, callId: id });
 	}
 	
 } broadcast (group) { id } on channel __selfName
