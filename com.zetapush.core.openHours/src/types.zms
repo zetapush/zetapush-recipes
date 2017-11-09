@@ -1,0 +1,28 @@
+/** sentinel key for default value */
+const DEF = "__DEF";
+/** key prefix for holiday */
+const FERIE = "__FERIE";
+/** Date validation YYYYMMDD */ 
+@Pattern("[0-9]{8}") type_validator FormattedDate;
+/** Hour between 0 and 23 */
+@Min(0) @Max(23) type_validator HourOfDay;
+/** Checks that hours are valid and consistent */
+@Valid type_validator ValidHours = usr:checkHours;
+/** start/end hours for a day*/
+class OpenHours {
+	/** Start Hour */
+	@NotNull @HourOfDay number startHour;
+	/** End hour */
+	@NotNull @HourOfDay number endHour;
+}
+/** working hours information for a given day*/
+class DayOpenHours {
+	/** Working hours for the given date */
+	@ValidHours OpenHours hours;
+	/** Date for which hours are to set */
+	@FormattedDate string date;
+}
+function checkHours(openHours, config) {
+	return openHours.startHour < openHours.endHour ? null : "Start hour " + openHours.startHour +
+	" should be lower than end hour " + openHours.endHour;
+}
