@@ -5,7 +5,9 @@ macroscript core_group__getGroupByService(
 	/** Group id */ @NotNull string id,
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
-	const { groupName, owner, users } = zpService.groupUsers({ group: id });
+	var { groupName, owner, users } = zpService.groupUsers({ group: id });
+	// TODO Check after platform fix
+	users = coll:filter(users, user -> user != '');
 	const group = new Group(
 		id,
 		zpService,
@@ -16,6 +18,7 @@ macroscript core_group__getGroupByService(
 		{},
 		[]
 	);
+	trace(core_group__getGroupByService.name, { group });
 	if (coll:size(group.members) > 0) {
 		const userKeys = coll:set(group.members);
 		const ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
