@@ -7,4 +7,4 @@ nosql_db.gda_createTable({
 	}]
 });
 
-sudo GLOBAL_USER call initOpenHours();
+sudo GLOBAL_USER call core_openhours__initOpenHours();
