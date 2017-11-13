@@ -20,7 +20,7 @@ const PENTECOTE = @(boolean)com.zetapush.openHours.inclusion_pentecote ?: true;
 const CURRENT_TIMEZONE = @com.zetapush.openHours.currentTimezone ?: Timezone_Europe_Paris;
 
 /** our code is run by this service */
-service code = macro(PRIVATE_MACRO_SERVICE).forbiddenVerbs(__all) for 'src';
+service code = new macro(PRIVATE_MACRO_SERVICE).forbiddenVerbs(__all) for 'src';
 
 /** a NoSQL database */
-service nosql_db = gda(GDA_SERVICE).forbiddenVerbs(__all);
+service nosql_db = new gda(GDA_SERVICE).forbiddenVerbs(__all);
