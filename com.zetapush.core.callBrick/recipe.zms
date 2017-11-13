@@ -44,7 +44,7 @@ service implCode = new macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerb
 service timer = cron(NAME_CRON_SERVICE);
 
 /** Database service to save states of our calls */
-service database = gda(__default);
+service database = new gda(__default).forbiddenVerbs(__all);
 
 /** Weak service for our tests */
 service auth = new weak(__default).forbiddenVerbs(__all);
