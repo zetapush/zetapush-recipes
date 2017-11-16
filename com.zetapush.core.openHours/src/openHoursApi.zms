@@ -15,6 +15,15 @@ macroscript core_openhours__setDefaultOpenedHours(
 	if (needsUpdate) nosql_db.put( {table : HOURS_TABLE, data : openHours, key : DEF, column : HOURS_COL});
 }
 
+
+/** Retreive default working hours (past, present and future) */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__getDefaultOpenedHours() {
+	const { result : def } = nosql_db.get( {table : HOURS_TABLE, key : DEF});
+	const params = (coll:size(def) != 0) ? def[HOURS_COL] : { startHour: DEFAULT_START_HOUR, endHour: DEFAULT_END_HOUR }; 
+} return OpenHours.new(params)
+
+
 /** Adds an exception for a given date */
 @Sudo(GLOBAL_USER)
 macroscript core_openhours__setOpenedHoursForDate(@Valid class DayOpenHours dayInfo) {
