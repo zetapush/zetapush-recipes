@@ -282,6 +282,53 @@ macroscript paginatedGdaRange(
 	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
 } broadcast { request, result } on channel __selfName
 
+macroscript paginatedGdaFilter(
+	/** the gda service to request */
+	service<gda> gdaService,
+	/** table name (see 'table' parameter documentation of gda service for more details) */
+	string table,
+	/** Start row key (inclusive) */
+	string start,
+	/** Stop row key (exclusive) */
+	string stop,
+	/** Optional column/cell specifications of the columns/cells to retrieve 
+		(see 'columns' parameter documentation of gda service for more details) */
+	object columns = null,
+	/** Otional User key. When calling the API, defaults to the current (calling) user's primary key. 
+		For impersonation purposes, the caller may use the key of another user, 
+		provided that the proper authorizations have been given by the impersonated
+		user (see 'table' parameter documentation of gda service for more details) */
+	string owner = null,
+	/** Optional requested pagination (see 'page' parameter documentation of gda service for more details):
+		<ul>
+		<li><i>pageNumber</i>:	Page number (zero-based). Default is 0 when not specified.</li>
+		<li><i>pageSize</i>:	Page size (minimum 1).</li>
+		<li><i>direction</i>:	Optional sort direction ('ASC'/'DESC'). Default is ASC when not specified.</li>
+		</ul>
+	 */
+	Pagination page = null,
+	/** Function to filter the result */
+	object funct
+) {
+	// call the service with asked elements
+	var response = gdaService.filter({ start, stop, table, columns, owner, page, function: funct });
+	var hasNextPage = false;
+	if(page!=null) {
+		// if content array size is the same as the request page size
+		// then it may have more elements
+		// else (less returned element than requested) it means that there is no more elements 
+		// (no need to request for extra empty data)
+		if(coll:size(response.result.content)>=page.pageSize) {
+			// call the service with one more element to know if there is at least one more item
+			var moreResponse = gdaService.filter({ start, stop, table, columns, owner, page: usr:computePageForHasNext(page), function: funct });
+			hasNextPage = coll:size(moreResponse.result.content)>0;
+		}
+	}
+	/** Destructure result properties */
+	var request = response.request;
+	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
+} broadcast { request, result } on channel __selfName
+
 
 function formatPaginatedResult(originalResult, hasNextPage) {
 	var originalPagination = originalResult.page;
