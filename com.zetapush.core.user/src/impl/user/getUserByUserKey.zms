@@ -7,8 +7,8 @@ macroscript core_user__getUserByUserKey(
 	});
 	/** Normalize user fields */
 	const user = users[userKey];
+	assert user?? && user!=null 'USER_NOT_FOUND' "The user doesn't exist";
 	user.userKey = userKey;
-	trace('core_user__getUserByUserKey', user);
 	/** Confirm file upload */
 	const { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
 	if (avatar.type == 'FILE') {
