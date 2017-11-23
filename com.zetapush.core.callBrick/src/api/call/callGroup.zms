@@ -10,14 +10,16 @@ macroscript callGroup(
 	// Create the call object
 	var callObject = Call.new({
 		id: idCall,
-		state: STATE_CALL_CALLING
+		state: STATE_CALL_CALLING,
+		caller: __userKey,
+		called: id
 	});
 	
 	// Launch the settimeout to simulate ringing
-	call configureCallTimeout({id : idCall, groupId: id});
+	call configureCallTimeout({callId : callObject.id});
 	
 	// Put the call in the database
-	call setCallState(callObject);
+	call setCallState({callObject});
 	
 	// Get the source of the call
 	var source = __userKey;

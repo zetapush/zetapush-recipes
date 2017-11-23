@@ -2,12 +2,10 @@
  *	Change the call state in the database
  */
 macroscript setCallState(
-	/** id call */ @NotNull string id,
-	/** state call */ @NotNull string state
+	/** Call object */ @NotNull Call callObject
 ) {
-	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : state, key : id, column : COLUMN_STATE_CALL});
-	/** Hydrate a call object */
-	const callObject = Call.new({ id, state });
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_CALL, data : callObject, key : callObject.id, column : COLUMN_CALL_OBJECT});
+	
 } return {
 	callObject
 }

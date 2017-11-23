@@ -1,0 +1,31 @@
+/**
+ *	Get the list of in progress call by user
+ */
+macroscript getCurrentCallByUser(
+	/** UserKey of the user */ @NotNull string userKey,
+	/** Pagination object */ zpRecipeUtils::Pagination page) 
+{	
+	// Get the list of all group the user is part of
+	var { list } = sudo userKey await zpRecipeGroup::getUserGroupList();
+	var listGroupId = [];
+	
+	for elt in list {
+		listGroupId = list:add(listGroupId, elt.id);
+	}
+	
+	var request = sudo zpRecipeUtils::GLOBAL_OWNER database.filter({
+		start : ' ',
+		table : TABLE_DATABASE_CALL,
+		stop : '~',
+		page,
+		function : x -> ((x[COLUMN_CALL_OBJECT].caller == userKey ||
+						  x[COLUMN_CALL_OBJECT].called == userKey ||
+						  coll:contains(listGroupId, x[COLUMN_CALL_OBJECT].caller) ||
+						  coll:contains(listGroupId, x[COLUMN_CALL_OBJECT].called)) &&
+						  x[COLUMN_CALL_OBJECT].state == STATE_CALL_ACCEPTED)
+		
+	});	
+	
+	var listMissedCalls = request.result.content;
+
+} return { listMissedCalls } on channel __selfName
