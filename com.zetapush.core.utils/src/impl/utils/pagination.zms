@@ -103,7 +103,7 @@ macroscript paginatedStackList(
 	}
 	/** Destructure result properties */
 	var request = response.request;
-	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
+	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage, null));
 } broadcast { request, result } on channel __selfName
 
 
@@ -188,7 +188,7 @@ macroscript paginatedGdaList(
 	}
 	/** Destructure result properties */
 	var request = response.request;
-	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
+	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage, null));
 } broadcast { request, result } on channel __selfName
 
 
@@ -279,7 +279,7 @@ macroscript paginatedGdaRange(
 	}
 	/** Destructure result properties */
 	var request = response.request;
-	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
+	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage, null));
 } broadcast { request, result } on channel __selfName
 
 macroscript paginatedGdaFilter(
@@ -326,11 +326,11 @@ macroscript paginatedGdaFilter(
 	}
 	/** Destructure result properties */
 	var request = response.request;
-	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage));
+	var result = PageContent.new(usr:formatPaginatedResult(response.result, hasNextPage, null));
 } broadcast { request, result } on channel __selfName
 
 
-function formatPaginatedResult(originalResult, hasNextPage) {
+function formatPaginatedResult(originalResult, hasNextPage, totalPages) {
 	var originalPagination = originalResult.page;
 } return {
 	content: originalResult.content,
@@ -338,7 +338,8 @@ function formatPaginatedResult(originalResult, hasNextPage) {
 		pageNumber : originalPagination.pageNumber,
 		pageSize : originalPagination.pageSize,
 		direction : originalPagination.direction,
-		hasNext : hasNextPage
+		hasNext : hasNextPage,
+		totalPages: totalPages
 	})
 }
 

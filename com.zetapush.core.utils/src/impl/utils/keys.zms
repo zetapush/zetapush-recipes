@@ -10,6 +10,17 @@ function generateId(id, configuration) {
 	replacementParameterValue
 };
 
+/**
+	Generate a key with the provided shape. The shape can contain
+	the following variables:
+	
+	<ul>
+	<li><b>{timestamp}</b>: use the timestamp (by default the value is time:now() but you can set another timestamp using timestamp parameter)</li>
+	<li><b>{random64:XX}</b>: generate a random number using str:rand64 function. XX means the number of characters</li>
+	<li><b>{random36:XX}</b>: generate a random number using str:rand36 function. XX means the number of characters</li>
+	<li><b>{random10:XX}</b>: generate a random number using str:rand10 function. XX means the number of characters</li>
+	</ul>
+*/
 type_validator Id(default shape) = usr:generateId;
 
 /**
