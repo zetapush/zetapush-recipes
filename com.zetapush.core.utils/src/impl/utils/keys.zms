@@ -20,6 +20,8 @@ function generateId(id, configuration) {
 	<li><b>{random36:XX}</b>: generate a random number using str:rand36 function. XX means the number of characters</li>
 	<li><b>{random10:XX}</b>: generate a random number using str:rand10 function. XX means the number of characters</li>
 	</ul>
+	
+	Default shape is <b><code>'{timestamp}_{random64:10}'</code></b>
 */
 type_validator Id(default shape) = usr:generateId;
 
