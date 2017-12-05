@@ -1,3 +1,4 @@
+
 class Room extends zpRecipeGroup::Group {
 	zetapush::GrantListItem[] grants;	
 }

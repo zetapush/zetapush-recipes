@@ -2,11 +2,11 @@
  *
  */
 @CreateRoomListener()
-macroscript onCreateRoomCallback(
+macroscript core_room__onCreateRoomCallback(
 	@NotNull Room room
 ) {
 	const owner = __userKey;
-	const id = str:join('--', CORE__ROOM_TYPE_INVITATION, room.id);
+	const id = str:join('', CORE__ROOM_TYPE_INVITATION, room.id);
 	const members = [];
 	const name = 'Invitation (' + room.name + ')';
 	/** Room metadata */

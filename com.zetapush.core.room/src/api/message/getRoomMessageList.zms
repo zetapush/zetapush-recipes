@@ -8,12 +8,12 @@ macroscript getRoomMessageList(
 	/** Set defaut storage container as room id */
 	var container = room.id;
 	/** Add message in room */
-	var { result: { list } } = call core_room__getRoomMessageListByService({ 
+	var { result: { list, page: pageResponse } } = call core_room__getRoomMessageListByService({ 
 		room, container, page, zpService: zpServiceGda
 	}) hardFail;
 } return {
 	string container,
 	Room room,
 	Message[] list,
-	zpRecipeUtils::Pagination page
+	zpRecipeUtils::ResponsePagination page: pageResponse
 } on channel __selfName

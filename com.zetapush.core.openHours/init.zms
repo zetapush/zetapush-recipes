@@ -1,0 +1,10 @@
+nosql_db.gda_createTable({
+	name: HOURS_TABLE,
+	columns: [{
+		map: false,
+		name: HOURS_COL,
+		type: GdaDataType_OBJECT
+	}]
+});
+
+sudo GLOBAL_USER call core_openhours__initOpenHours();

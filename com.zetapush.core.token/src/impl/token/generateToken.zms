@@ -1,0 +1,43 @@
+/**
+ *
+ */
+@Sudo(TOKEN_OWNER)
+macroscript core_token__generateToken(
+	@NotNull string creator,
+	@TokenDuration number duration = DEFAULT_TOKEN_DURATION
+) {
+	const createdAt = time:now();
+	const expiredAt = duration?? ? createdAt + duration : 0;
+	const token = Token.new({
+		createdAt,
+		creator,
+		expiredAt,
+		value: fmt:pad(math:lrand(0, 10000000000), 10, 0, '.')
+	});
+	const { result } = zpServiceGda.get({
+		table : TOKEN_TABLE,
+		key: token.value
+	});
+	assert coll:size(result) == 0 ERROR__TOKEN_COLLISION;
+	zpServiceGda.puts({
+		table : TOKEN_TABLE,
+		rows : [{
+			key: token.value,
+			data: {
+				[COLUMN_TOKEN_CREATED_AT]: token.createdAt,
+				[COLUMN_TOKEN_CREATOR]: token.creator,
+				[COLUMN_TOKEN_VALIDATED_AT]: null,
+				[COLUMN_TOKEN_EXPIRED_AT]: token.expiredAt
+			}
+		}]
+	});
+	/**
+	 * Executed all registered macros
+	 */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__CREATE_TOKEN,
+		data: {
+			token
+		}
+	});
+} return token on channel __selfName

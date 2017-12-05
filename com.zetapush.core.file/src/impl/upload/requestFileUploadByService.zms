@@ -11,7 +11,7 @@ macroscript core_file__requestFileUploadByService(
 	/** Request new upload url end point */
 	const { httpMethod, guid, url } = zpService.newUploadUrl({ contentType, owner, path: folder });
 	/** File upload request */
-	const request = new FileUploadRequest(httpMethod, guid, url, owner);
+	const request = FileUploadRequest.new({ contentType, httpMethod, guid, url, owner });
 	/** Trigger event */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__REQUEST_FILE_UPLOAD,

@@ -1,24 +1,18 @@
 /**
  * ZetaPush Official Preset Recipe
- * Provide core features API
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides core features API
  */
 recipe com.zetapush.preset.core 1.0.0;
 
-import recipe com.zetapush.core.config 1.0.0 in zpRecipeConfig;
-import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
-import recipe com.zetapush.core.file 1.0.0 in zpRecipeFile;
-import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
-import recipe com.zetapush.core.notification 1.0.0 in zpRecipeNotification;
-import recipe com.zetapush.core.organization 1.0.0 in zpRecipeOrganization;
-import recipe com.zetapush.core.role 1.0.0 in zpRecipeRole;
-import recipe com.zetapush.core.user 1.0.0 in zpRecipeUser;
-import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
-import recipe com.zetapush.core.whiteboard 1.0.0 in zpRecipeWhiteboard;
+import recipe com.zetapush.core.config 1.0.0;
+import recipe com.zetapush.core.room 1.0.0;
+import recipe com.zetapush.core.file 1.0.0;
+import recipe com.zetapush.core.group 1.0.0;
+import recipe com.zetapush.core.notification 1.0.0;
+import recipe com.zetapush.core.organization 1.0.0;
+import recipe com.zetapush.core.role 1.0.0;
+import recipe com.zetapush.core.user 1.0.0;
+import recipe com.zetapush.core.utils 1.0.0;
+import recipe com.zetapush.core.whiteboard 1.0.0;
 
-/**
- * Private API (Server side only) macro service
- */
-service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbiddenVerbs(__all) for 'src/impl';
+import recipe com.zetapush.plugin.user.role 1.0.0;

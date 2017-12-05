@@ -1,5 +1,5 @@
 /**
- *
+ * Assertion to check if current user has a specified group
  */
 macroscript core_role__has(
 	/** Optionnal role/permission id */ string id,

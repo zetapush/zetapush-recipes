@@ -1,0 +1,9 @@
+/** 
+ *	Macroscript that used to send the call object as a missed call.
+ *	The client need to listen this macroscript to handle missed calls
+ */
+macroscript addToMissedCall(
+	/** Call object */ @NotNull Call callObject
+) {
+	
+} broadcast ( callObject.called ) { callObject } on channel __selfName

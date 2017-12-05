@@ -7,12 +7,4 @@ class LoginAvailability {
 class User {
 	string userKey;
 	string login;
-	string email;
-	string firstname;
-	string lastname;
-	string mobilenumber;
-	string phonenumber;
-	string birthday;
-	string avatar;
-	string biography;
 }

@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+@zpRecipeUtils::IsGlobalOwner()
+macroscript plugin_user_role__initialize(
+	
+) {
+	/** Create user role */
+	await zpRecipeRole::createRole({
+		name: zpRecipeRole::CORE__ROLE_USER
+	});
+}

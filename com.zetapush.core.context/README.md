@@ -8,3 +8,6 @@ A Context has or contains
  * a status
  * 1 to n rooms 
   
+Licence MIT
+
+Copyright ZetaPush SAS © 2016-2017

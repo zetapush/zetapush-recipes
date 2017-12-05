@@ -1,0 +1,26 @@
+/**
+* Recipe com.zetapush.core.openHours
+* Created on Wed Nov 08 16:26:20 CET 2017 by pablo
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.core.openHours 1.0.0;
+
+/** table for hour storage */
+const HOURS_TABLE = 'hoursTable';
+/** the only column */
+const HOURS_COL = 'hours';
+
+const PRIVATE_MACRO_SERVICE = @com.zetapush.core.openHours.macroService ?: "macro_1";
+const CRON_SERVICE = @com.zetapush.core.openHours.cronService ?: "cron_0";
+const GDA_SERVICE = @com.zetapush.core.openHours.gdaService ?: "gda_0";
+const DEFAULT_START_HOUR = @com.zetapush.openHours.defaultStartHour ?: 9;
+const DEFAULT_END_HOUR = @com.zetapush.openHours.defaultStartHour ?: 18;
+const GLOBAL_USER = @com.zetapush.openHours.globalUser ?: "GLOBAL_USER";
+const PENTECOTE = @(boolean)com.zetapush.openHours.inclusion_pentecote ?: true;
+const CURRENT_TIMEZONE = @com.zetapush.openHours.currentTimezone ?: Timezone_Europe_Paris;
+
+/** our code is run by this service */
+service code = new macro(PRIVATE_MACRO_SERVICE).forbiddenVerbs(__all) for 'src';
+
+/** a NoSQL database */
+service nosql_db = new gda(GDA_SERVICE).forbiddenVerbs(__all);

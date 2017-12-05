@@ -1,5 +1,6 @@
+/** Handle a Create User Event */
 macroscript_annotation CreateUserListener = @EventListener(eventName = EVENT__CREATE_USER, triggerService = zpServiceTrigger);
-
+/** Handle a ResetPassword Event */
 macroscript_annotation ResetPasswordListener = @EventListener(eventName = EVENT__RESET_PASSWORD, triggerService = zpServiceTrigger);
-
+/** Handle an Update User Event */
 macroscript_annotation UpdateUserListener = @EventListener(eventName = EVENT__UPDATE_USER, triggerService = zpServiceTrigger);

@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript generateToken(
+	@TokenDuration number duration = DEFAULT_TOKEN_DURATION
+) {
+	trace(generateToken.name, __parameters);
+	const token = await core_token__generateToken({
+		duration,
+		creator: __userKey
+	});
+	trace(generateToken.name, token);
+} broadcast token on channel __selfName

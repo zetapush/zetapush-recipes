@@ -1,0 +1,17 @@
+/**
+ *	Define a call
+ *	A Call state can be (calling / missed / refused / accepted / terminated)
+ */
+class Call {
+	/** ID of the call */ string id;
+	/** State of the call */ string state;
+	/** userKey of the user that create this call */ string caller;
+	/** ID of the group that receive this call */ string called;
+}
+
+/**
+ *	Define a Room with a name
+ */
+class WebrtcRoom {
+	string roomName;
+}

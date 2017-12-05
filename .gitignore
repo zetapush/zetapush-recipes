@@ -1,6 +1,10 @@
 src-gen/
 target/
 .settings/
+context-client/
+.metadata/
+.recommenders/
+RemoteSystemsTempFiles/
 
 *.zmapp
 *.zmar

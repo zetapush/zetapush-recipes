@@ -1,0 +1,15 @@
+zms_test timeout {
+	
+	zms_test_setup {
+		zms_test_user anonym = auth({});
+	}
+	zms_add_handler(anonym, timeoutCall, (response,errors) => {
+		info(timeoutCall.name, response);
+		zms_test_success;
+	});
+	zms_add_handler(anonym, configureCallTimeout, (response,errors) => {
+		info(configureCallTimeout.name, response);
+		//zms_test_success;
+	});
+	sudo anonym call configureCallTimeout({id : 'id', groupId : 'groupId'});
+}

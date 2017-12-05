@@ -1,0 +1,26 @@
+/**
+ *
+ */
+macroscript core_room__deleteRoomByService(
+	/** Optionnal room id */ @NotNull string id,
+	/** Group service */@NotNull service<groups> zpService
+) {
+	trace(#core_room__deleteRoomByService, { id, userKey: __userKey });
+	/** Delete room */
+	await zpRecipeGroup::core_group__deleteGroupByService({
+		id, zpService
+	});
+	/** Room attachments path */
+	const path = ROOM_ATTACHMENTS_PATH + id;
+	/** Delete uploaded file attached to room */
+	await zpRecipeFile::deleteFileEntry({
+		path 
+	});
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__DELETE_ROOM,
+		data: { id }
+	});
+} return {
+	string id
+} on channel __selfName

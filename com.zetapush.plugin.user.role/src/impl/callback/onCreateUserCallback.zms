@@ -2,7 +2,7 @@
  *
  */
 @zpRecipeUser::CreateUserListener()
-macroscript preset_core__onCreateUserCallback(
+macroscript plugin_user_role__onCreateUserCallback(
 	/** User key */ @NotNull string userKey
 ) {
 	/** Add role user for created user */

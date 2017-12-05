@@ -1,0 +1,6 @@
+class Token {
+	@NotNull string value;
+	@NotNull number createdAt;
+	@NotNull string creator;
+	number expiredAt;
+}

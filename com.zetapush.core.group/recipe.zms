@@ -1,9 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide extra group management
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides extra group management
  */
 recipe com.zetapush.core.group 1.0.0;
 

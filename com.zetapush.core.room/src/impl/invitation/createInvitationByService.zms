@@ -12,7 +12,7 @@ macroscript core_room__createInvitationByService(
 	/** Local variables */
 	const owner = __userKey;
 	const createdAt = time:now();
-	const key = str:join('--', CORE__ROOM_TYPE_INVITATION, room.id);
+	const key = str:join('', CORE__ROOM_TYPE_INVITATION, room.id);
 	const invitation = new Invitation(key, owner, null, expiry, createdAt, context, message);
 	/** Store message */
 	zpService.puts({

@@ -1,17 +1,6 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide room management APIs
- *
-* <strong>Recipe Annotation Events</strong>
- * @CreateRoomListener(): Handle Create Room Event
- * @PurgeRoomListener(): Handle Purge Room Event
- * @AddRoomMessageListener(): Handle Add Room Message Event
- * @UpdateRoomMessageListener(): Handle Add Room Message Event
- * @SendRoomMessageToMemberListener(): Handle Send Room Message To Member Event
- * @CreateInvitationListener(): Handle Create Invitation Event
- *
- * Licence MIT
- * Copyright ZetaPush SAS © 2016-2017
+ * Provides room management APIs
  */
 recipe com.zetapush.core.room 1.0.0;
 
@@ -59,6 +48,7 @@ const EVENT__CREATE_INVITATION = 'ZetaPushEvent__Room_CreateRoomInvitation';
 const EVENT__INC_ROOM_UNREAD = 'ZetaPushEvent__Room_IncRoomUnread';
 const EVENT__CREATE_ROOM = 'ZetaPushEvent__Room_CreateRoom';
 const EVENT__PURGE_ROOM = 'ZetaPushEvent__Room_PurgeRoom';
+const EVENT__DELETE_ROOM = 'ZetaPushEvent__Room_DeleteRoom';
 const EVENT__UPDATE_ROOM_MESSAGE = 'ZetaPushEvent__Room_UpdateRoomMessage';
 
 // Room Content Type

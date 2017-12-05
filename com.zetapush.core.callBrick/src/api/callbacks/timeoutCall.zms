@@ -1,0 +1,24 @@
+/**
+ *	Macroscript called after the timeout.
+ *	This timeout is used to simulate a call that is ringing on the device
+ */
+macroscript timeoutCall(
+	/** ID of the call */ @NotNull string id
+) {
+	
+	const request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({
+		table: TABLE_DATABASE_CALL,
+		key: id
+	});
+	
+	const callObject = request.result[COLUMN_CALL_OBJECT];
+	
+	// Check if the call is calling
+	if (callObject.state == STATE_CALL_CALLING) {
+		callObject.state = STATE_CALL_MISSED;
+		
+		await setCallState({ callObject });
+		await addToMissedCall({ callObject });
+	}
+	
+} broadcast (callObject.called) { id } on channel __selfName
