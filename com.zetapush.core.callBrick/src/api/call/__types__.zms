@@ -7,6 +7,7 @@ class Call {
 	/** State of the call */ string state;
 	/** userKey of the user that create this call */ string caller;
 	/** ID of the group that receive this call */ string called;
+	/** Generic call context */ map context = {};
 }
 
 /**

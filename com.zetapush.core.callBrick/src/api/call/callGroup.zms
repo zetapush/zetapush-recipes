@@ -2,7 +2,8 @@
  *	Macrosript used to send a call to a group
  */
 macroscript callGroup(
-	/** ID of the group we want to call */ @NotNull string id
+	/** ID of the group we want to call */ @NotNull string id,
+	/** Generic call context */ map context = {}
 ) {
 	// Generate a random ID for the call
 	var idCall = usr:core_call__id();
@@ -12,7 +13,8 @@ macroscript callGroup(
 		id: idCall,
 		state: STATE_CALL_CALLING,
 		caller: __userKey,
-		called: id
+		called: id,
+		context
 	});
 	
 	// Launch the settimeout to simulate ringing
