@@ -25,8 +25,8 @@ function core_room__format_stored_message(stored) return {
 	[COLUMN_STORAGE_CREATED_AT]: stored[COLUMN_STORAGE_CREATED_AT],
 	[COLUMN_STORAGE_UPDATED_AT]: stored[COLUMN_STORAGE_UPDATED_AT],
 	[COLUMN_STORAGE_METADATA]: stored[COLUMN_STORAGE_METADATA],
-	[COLUMN_STORAGE_READERS]: stored[COLUMN_STORAGE_READERS],
-	[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_map_to_array(stored[COLUMN_STORAGE_TARGETS])
+	[COLUMN_STORAGE_READERS]: {},//stored[COLUMN_STORAGE_READERS],
+	[COLUMN_STORAGE_TARGETS]: []//zpRecipeUtils::reduce_map_to_array(stored[COLUMN_STORAGE_TARGETS])
 }
 
 /**

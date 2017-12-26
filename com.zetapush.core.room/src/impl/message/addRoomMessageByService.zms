@@ -10,17 +10,18 @@ macroscript core_room__addRoomMessageByService(
 	/** Storage Service */ @NotNull service<gda> zpService
 ) {
 	trace(core_room__addRoomMessageByService, __parameters);
-	// TODO Check permissions?
 	/** Get message key */
 	const { createdAt, now, key } = usr:core_room__message_key(container);
 	/** Prepare data storage */
 	var targets = [];
 	const readers = {};
+	/*
 	for member in room.members {
 		const { userKey } = member;
 		targets += userKey;
 		readers[userKey] = 0;
 	}
+	*/
 	/** Define message structure */
 	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
 	/** Store message */

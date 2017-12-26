@@ -1,12 +1,9 @@
 /**
  *
  */
+@ThumbnailListener()
 macroscript core_file__onThumbnailCallback(
-	map baseFile,
-	array failed,
-	array thumbnails
+	class zetapush::ThumbnailResult result
 ) {
-	// TODO : your code here
-} broadcast {
-	baseFile, failed, thumbnails
-} on channel __selfName
+
+} broadcast result on channel __selfName

@@ -25,8 +25,8 @@ macroscript core_room__onConfirmFileUploadCallback(
 		/** Set room resource */
 		resource = room.resource;
 		/** Grant stat for the uploaded file */
-		zpServiceGroups.grant({
-			action: Verb_zpfs_hdfs_stat,
+		zpServiceGroups.mgrant({
+			actions: [Verb_zpfs_hdfs_stat, Verb_zpfs_hdfs_updateMeta],
 			group: id,
 			resource: str:join(':', zpService, owner, path),
 			owner
@@ -41,14 +41,16 @@ macroscript core_room__onConfirmFileUploadCallback(
 				owner,
 				path: str:join('/', room.metadata.attachments, guid)
 			},
-			metadata: {
+			metadata: (metadata + {
 				file: file.file
-			}
+			})
 		}) loud;
-		/** Update message matadata */
-		metadata.message = message;
 		/** Notify file service of metadata */
-		zpService.updateMeta({path, metadata });
+		sudo owner zpService.updateMeta({
+			path,
+			owner,
+			metadata: (metadata + { message })
+		});
 	}	
 } broadcast(resource) {
 	string id,
