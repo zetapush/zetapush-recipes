@@ -14,43 +14,49 @@ macroscript core_room__onConfirmFileUploadCallback(
 	var id = null;
 	var resource = owner;
 
-	if (str:len(path) > (str:len(ROOM_ATTACHMENTS_PATH) + NUMBER_OF_CHARS_IN_ROOM_ID)) {
+	if (str:startsWith(path, ROOM_ATTACHMENTS_PATH) && str:len(path) > (str:len(ROOM_ATTACHMENTS_PATH) + NUMBER_OF_CHARS_IN_ROOM_ID)) {
 		/** Parse file path to get room room id */
 		id = str:substr(path, str:len(ROOM_ATTACHMENTS_PATH), str:len(ROOM_ATTACHMENTS_PATH) + NUMBER_OF_CHARS_IN_ROOM_ID);
 		/** Get room by attachment */
-		const { room } = await getRoom({
+		const response = call getRoom({
 			id,
-			owner
-		});
-		/** Set room resource */
-		resource = room.resource;
-		/** Grant stat for the uploaded file */
-		zpServiceGroups.mgrant({
-			actions: [Verb_zpfs_hdfs_stat, Verb_zpfs_hdfs_updateMeta],
-			group: id,
-			resource: str:join(':', zpService, owner, path),
-			owner
-		});
-		trace(#core_room__onConfirmFileUploadCallback, { room });
-		/** Add attachment as room message */
-		const { message } = await addRoomMessage({
-			room,
-			type: MESSAGE_TYPE_ATTACHMENT,
-			value: {
-				guid,
-				owner,
-				path: str:join('/', room.metadata.attachments, guid)
-			},
-			metadata: (metadata + {
-				file: file.file
-			})
-		}) loud;
-		/** Notify file service of metadata */
-		sudo owner zpService.updateMeta({
-			path,
 			owner,
-			metadata: (metadata + { message })
+			page: {
+				pageSize: 0
+			}
 		});
+		if (coll:size(response.errors) == 0) {
+			const { room } = response.result;
+			/** Set room resource */
+			resource = room.resource;
+			/** Grant stat for the uploaded file */
+			zpServiceGroups.mgrant({
+				actions: [Verb_zpfs_hdfs_stat, Verb_zpfs_hdfs_updateMeta],
+				group: id,
+				resource: str:join(':', zpService, owner, path),
+				owner
+			});
+			trace(#core_room__onConfirmFileUploadCallback, { room });
+			/** Add attachment as room message */
+			const { message } = await addRoomMessage({
+				room,
+				type: MESSAGE_TYPE_ATTACHMENT,
+				value: {
+					guid,
+					owner,
+					path: str:join('/', room.metadata.attachments, guid)
+				},
+				metadata: (metadata + {
+					file: file.file
+				})
+			}) loud;
+			/** Notify file service of metadata */
+			sudo owner zpService.updateMeta({
+				path,
+				owner,
+				metadata: (metadata + { message })
+			});
+		}
 	}	
 } broadcast(resource) {
 	string id,
