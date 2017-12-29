@@ -1,0 +1,71 @@
+/**
+ * Get generic filtered data list
+ */
+macroscript core_utils__getFilteredDataByWhiteList(
+	/** Generic Data Access Service */
+	@NotNull service<gda> zpServiceGda,
+	/** Column name */
+	@NotNull string column,
+	/** Table to fetch data */
+	@NotNull string table,
+	/** Start key value */
+	@NotNull string start,
+	/** Stop key value */
+	@NotNull string stop,
+	/** Whitelist values */
+	@NotNull array whitelist,
+	/** Optional pagination structure */
+	zetapush::Pagination page
+) {
+	/** Get filtered data from a specific column */
+	const output = await core_utils__getFilteredDataByFilter({
+		zpServiceGda,
+		column,
+		table,
+		start,
+		stop,
+		filter: row => row[column]?? && coll:contains(whitelist, row[column]),
+		page
+	});
+} return output on channel __selfName
+
+
+/**
+ * Get generic filtered data list
+ */
+macroscript core_utils__getFilteredDataByFilter(
+	/** Generic Data Access Service */
+	@NotNull service<gda> zpServiceGda,
+	/** Column name */
+	@NotNull string column,
+	/** Table to fetch data */
+	@NotNull string table,
+	/** Start key value */
+	@NotNull string start,
+	/** Stop key value */
+	@NotNull string stop,
+	/** Filter function applied on each row */
+	@NotNull filter,
+	/** Optional pagination structure */
+	zetapush::Pagination page
+) {
+	/** Get filtered data from a specific column */
+	const { result } = zpServiceGda.filter({
+		columns: [column],
+		table,
+		start,
+		stop,
+		function: filter,
+		page
+	});
+	/** Extract keys from filtered data */
+	const keys = coll:map(result.content, (row) => row.__key);
+	/** Get multiple values */
+	const { result: content } = zpServiceGda.mget({
+		table,
+		keys
+	});
+} return {
+	array content,
+	zetapush::Pagination page: result.page
+} on channel __selfName
