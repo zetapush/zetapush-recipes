@@ -5,12 +5,12 @@ macroscript getDefaultOrganization(
 
 ) {
 	trace(#getDefaultOrganization, @provisionning.core.organization.name);
-	var { result: { value } } = call zpRecipeConfig::getStringConfig({
+	const { value } = await zpRecipeConfig::getStringConfig({
 		id: CONFIG_CORE_ORGANIZATION__DEFAULT_ORGANIZATION
-	}) hardFail;
+	});
 	trace(#getDefaultOrganization, value);
-	var { result: { organization } } = call getOrganization({ id: value }) hardFail;
+	const { organization } = await getOrganization({ id: value });
 	trace(#getDefaultOrganization, organization);
 } return {
-	organization
+	Organization organization
 } on channel __selfName

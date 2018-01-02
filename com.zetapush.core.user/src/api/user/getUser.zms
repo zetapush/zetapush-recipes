@@ -1,10 +1,16 @@
+/**
+ * Get user profile according to the given user key
+ * <strong>UserKey is not the login used to connect the user</strong>
+ * To get a user profile based on the login value, you have to call <a href="./getUserbyLogin.html">getUserbyLogin()</a>
+ * User Key is the uniq key associted to each ZetaPush user. You can acces to this value with special keyword <strong>__userKey</strong>
+ */
 macroscript getUser(
-	string userKey
+	/** (Optional) ZetaPush user key */ string userKey
 ) {
 	/** Manage optional userKey value */
 	userKey = userKey ?: __userKey;
 	/** Get user by user key */
-	var { result: { user } } = call core_user__getUserByUserKey({
+	const response = await core_user__getUserByUserKey({
 		userKey
-	}) hardFail;
-} return { user } on channel __selfName
+	});
+} return response on channel __selfName

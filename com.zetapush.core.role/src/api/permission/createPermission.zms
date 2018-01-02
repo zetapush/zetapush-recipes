@@ -4,9 +4,9 @@ macroscript createPermission(
 ) {
 	trace(#createPermission, name);
 	/** Get name based id */
-	var id = str:hex(str:md5(str:upper(name)));
+	const id = str:hex(str:md5(str:upper(name)));
 	/** Create group based role */
-	var { result: { group: permission } } = sudo zpRecipeUtils::GLOBAL_OWNER call zpRecipeGroup::core_group__createGroupByService({
+	const { group: permission } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__createGroupByService({
 		id,
 		name: str:upper(name),
 		members: [],
@@ -17,7 +17,7 @@ macroscript createPermission(
 		},
 		tags: [],
 		zpService: zpServiceGroupsPermission
-	}) hardFail;
+	});
 } broadcast {
-	permission
+	Permission permission
 } on channel __selfName

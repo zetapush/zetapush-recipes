@@ -1,0 +1,7 @@
+
+@Injectable
+@Singleton class ContextManagerImpl extends ContextManager {
+	macroscript validateFields(map fields, @NotNull ContextTemplate template) {
+		trace("validating fields : ", fields);
+	} return { map errors : null }
+}

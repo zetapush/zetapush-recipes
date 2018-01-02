@@ -1,9 +1,12 @@
-/***/
+/**
+ * Get user profile according to the login use to connect the user
+ * <strong>Login is not the user key of the user</strong>
+ */
 macroscript getUserByLogin(
-	@NotNull string login
+	/** User login */ @NotNull string login
 ) {
-	var { result: { user } } = call core_user__getUserByLoginAndService({
+	const response = await core_user__getUserByLoginAndService({
 		login,
 		zpService: zpServiceSimpleAuth
-	}) hardFail;
-} return { user } on channel __selfName
+	});
+} return response on channel __selfName

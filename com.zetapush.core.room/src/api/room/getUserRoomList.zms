@@ -1,0 +1,12 @@
+/**
+ *
+ */
+macroscript getUserRoomList(
+	/** Pagination object */ zpRecipeUtils::Pagination page
+) {
+	const { list } = await core_room__getUserRoomListByService({ 
+		page, zpService: zpServiceGroups
+	});
+} broadcast {
+	map[] list
+} on channel __selfName

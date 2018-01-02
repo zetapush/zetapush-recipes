@@ -1,13 +1,21 @@
+/**
+ * Create a new ZetaPush with a credentials based authentication
+ * User profile can be customized with the followings config variables:
+ * <ul>
+ *	<li><strong>@config.authentication.simple.mandatory_fields</strong> Add mandatory fields to user profile (default is email)</li>
+ *	<li><strong>@config.authentication.simple.public_fields</strong> Add public fields to user profile (defaults are email,firstname,lastname,mobilenumber,phonenumber,birthday,avatar,biography)</li>
+ * </ul>
+ */
 macroscript createUser(
-	@NotNull string login,
-	@NotNull string password,
-	@AuthMandatoryFields map fields	
+	/***/ @NotNull string login,
+	/***/ @NotNull string password,
+	/** Extra mandatory fields for user profile */ @AuthMandatoryFields map fields	
 ) {
 	var profile = { login, password };
 	profile += fields;
 	/** Create user in simple service */
-	var { result: { user } } = call core_user__createUserByService({
+	const response = await core_user__createUserByService({
 		profile,
 		zpService: zpServiceSimpleAuth
-	}) hardFail;
-} broadcast { user } on channel __selfName
+	});
+} broadcast response on channel __selfName

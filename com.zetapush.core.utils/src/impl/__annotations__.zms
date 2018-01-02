@@ -1,0 +1,7 @@
+macroscript_annotation CheckUserKey(default string userKey) = @Before(macro = core_utils__checkUserKey, macroParams = {
+	userKey
+});
+
+macroscript_annotation IsGlobalOwner = @Before(macro = core_utils__checkUserKey, macroParams = {
+	userKey: GLOBAL_OWNER
+});

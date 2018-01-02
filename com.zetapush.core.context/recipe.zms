@@ -1,0 +1,50 @@
+/**
+ * Implements Business Contexts.
+ */
+recipe com.zetapush.core.context 1.0.0;
+
+import recipe com.zetapush.core.room 1.0.0 in rooms;
+
+/** Deployment ID for the API macros*/
+const API_DID = @com.zetapush.core.context.macro.api.did ?: "macro_0";
+/** Deployment ID for the implementation macros*/
+const IMPL_DID = @com.zetapush.core.context.macro.impl.did ?: "macro_1";
+/** Deployment ID for the workflow service */
+const WORKFLOW_DID = @com.zetapush.core.context.workflow.did ?: "workflow_0";
+/** Deployment ID for the gda service */
+const GDA_DID = @com.zetapush.core.context.gda.did ?: "gda_0";
+/** Deployment ID for the groups service for Context Templates Rights*/
+const CONTEXTTEMPLATERIGHTS_DID = @com.zetapush.core.context.ctx.tmpl.rights.did ?: "ctx_tmpl_rights";
+/** Deployment ID for the groups service for Context Rights*/
+const CONTEXTRIGHTS_DID = @com.zetapush.core.context.ctx.rights.did ?: "ctx_rights";
+/** Group for context templates management*/
+const CONTEXT_MANAGERS_GROUP = "contextManagers";
+const CONTEXT_MANAGERS_GROUP_FQN = CONTEXTTEMPLATERIGHTS_DID + ":" + CONTEXT_TEMPLATES_VIRTUAL_USER + ":" +
+CONTEXT_MANAGERS_GROUP;
+/** Storage of context templates */
+const CONTEXT_TEMPLATES_TABLE = "ContextTemplatesTable";
+/** Storage of contexts */
+const CONTEXTS_TABLE = "ContextsTable";
+
+/** Virtual user for context templates */
+const CONTEXT_TEMPLATES_VIRTUAL_USER = "ctxTmplVUser";
+
+const CONTEXT_READER_GROUP = "contextReaders";
+const CONTEXT_READ_RIGHT = "canReadContext";
+
+/** APIs for Contexts */
+service api = new macro(API_DID) for 'src/api';
+/** Contexts implementation */
+service impl = new macro(IMPL_DID).forbiddenVerbs(__all) for 'src/impl';
+
+/** The engine for our contexts*/
+service workflow = new workflow(WORKFLOW_DID).forbiddenVerbs(__all);
+/** Stores our context templates */
+service gda = new gda(GDA_DID).forbiddenVerbs(__all);
+/** Elastic Search service */
+service searchService = search(__default).forbiddenVerbs(__all);
+/** Rights for contexts */
+service groupsService = new groups(CONTEXTRIGHTS_DID).forbiddenVerbs(__all);
+
+/** Rights for CRUD of Context Templates */
+service contextTemplateRights = new groups(CONTEXTTEMPLATERIGHTS_DID).forbiddenVerbs(__all);

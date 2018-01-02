@@ -1,5 +1,5 @@
 /**
- * Validate conversation room
+ * Validate room room
  */
 function core_user__validate_auth_mandatory_fields(parameter, configuration) {
 	var fields = str:split(AUTH_MANDATORY_FIELDS, ',');

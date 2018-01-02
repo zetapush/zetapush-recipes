@@ -1,0 +1,27 @@
+/**
+ *
+ */
+@Sudo(TOKEN_OWNER)
+macroscript core_token__validateToken(
+	string tokenValue
+) {
+	const validatedAt = time:now();
+	const { result } = zpServiceGda.get({
+		table : TOKEN_TABLE,
+		key: tokenValue
+	});
+
+	assert coll:size(result) > 0 ERROR__TOKEN_NOT_FOUND;
+	assert !result[COLUMN_TOKEN_VALIDATED_AT]?? ERROR__TOKEN_ALREADY_VALIDATED;
+	assert validatedAt < result[COLUMN_TOKEN_EXPIRED_AT] ERROR__TOKEN_EXPIRED;
+
+	zpServiceGda.puts({
+		table : TOKEN_TABLE,
+		rows : [{
+			key: tokenValue,
+			data: {
+				[COLUMN_TOKEN_VALIDATED_AT]: validatedAt
+			}
+		}]
+	});
+} return {} on channel __selfName

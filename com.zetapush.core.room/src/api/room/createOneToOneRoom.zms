@@ -1,0 +1,19 @@
+/**
+ *
+ */
+macroscript createOneToOneRoom(
+	/** Room interlocutor */ @NotNull string interlocutor
+) {
+	const members = [__userKey, interlocutor];
+	const hash = zpRecipeUtils::reduce_array_to_hash(members, TABLE_ROOM_STORAGE) + usr:core_room__id();
+	const id = str:substr(hash, 0, NUMBER_OF_CHARS_IN_ROOM_ID);
+	const name = str:join('.', 'I18N', 'ONE_TO_ONE_ROOM');
+	trace(#createOneToOneRoom, { id, name, members });
+	/** Create room with specific id */
+	const { room } = sudo zpRecipeUtils::GLOBAL_OWNER await core_room__createRoomByService({ 
+		id, name, members, zpService: zpServiceGroups
+	});
+	trace(#createOneToOneRoom, { room });
+} broadcast(room.resource) {
+	Room room
+} on channel __selfName

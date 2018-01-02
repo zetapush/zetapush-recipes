@@ -8,11 +8,9 @@ macroscript core_group__isMemberOfByService(
 	/** Group service */ @NotNull service<groups> zpService
 ) {
 	/** Assert only admins can create execute macro */
-	var { member } = zpService.memberOf({
+	const { member } = zpService.memberOf({
 		hardFail: isHardFail,
 		group: id,
 		owner: owner
 	});
-} return {
-	member
-} on channel __selfName
+} return new GroupMembership(member) on channel __selfName

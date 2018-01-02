@@ -7,7 +7,7 @@
 Core recipes
 
 - Config
-- Conversation
+- Room
 - File
 - Group
 - Notification

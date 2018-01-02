@@ -1,14 +1,18 @@
 macroscript core_user__getUserByUserKey(
 	@NotNull string userKey
 ) {
-	var { users } = zpServiceUserDirectory.userInfo({
+	/** Get user profile from user directory */
+	const { users } = zpServiceUserDirectory.userInfo({
 		userKeys : [userKey]
 	});
-	/** Destructure response properties */
-	var user = users[userKey];
-	/** Confirm file upload */
-	var { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
-	/** Add computed property userKey */
-	user.avatar = avatar;
+	/** Normalize user fields */
+	const user = users[userKey];
 	user.userKey = userKey;
-} broadcast { user } on channel __selfName
+	trace('core_user__getUserByUserKey', user);
+	/** Confirm file upload */
+	const { entry: avatar } = zpRecipeFile::zpServiceFile.stat({ path: user.avatar });
+	if (avatar.type == 'FILE') {
+		/** Add computed property userKey */
+		user.avatar = avatar.url.url;
+	}
+} broadcast { User user } on channel __selfName

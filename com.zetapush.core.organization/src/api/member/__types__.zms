@@ -1,0 +1,3 @@
+class OrganizationMember extends zpRecipeGroup::GroupMember {
+	/* Organization name */ string name;
+}

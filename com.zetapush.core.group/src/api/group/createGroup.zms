@@ -11,7 +11,5 @@ macroscript createGroup(
 	/** Manage default group id */
 	id = id ?: str:hex(str:md5(name));
 	/** */
-	var { result: { group } } = call core_group__createGroupByService({ id, name, members, metadata, tags, zpService: zpServiceGroups }) hardFail;
-} broadcast {
-	group
-} on channel __selfName
+	const response = await core_group__createGroupByService({ id, name, members, metadata, tags, zpService: zpServiceGroups });
+} broadcast response on channel __selfName

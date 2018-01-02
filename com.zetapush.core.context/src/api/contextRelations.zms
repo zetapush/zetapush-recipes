@@ -1,0 +1,10 @@
+/** creates a room in a context */
+macroscript createContextRoom(/** context identifier */ string contextId, string roomName, string[] members) {
+	// TODOOOOOO
+	var { result: { room } } = call rooms::core_room__createRoomByService({ 
+		id: null, name:roomName, members, zpService: rooms::zpServiceGroups
+	}) hardFail;
+} broadcast(room.resource) {
+	string contextId,
+	map room
+} on channel __selfName

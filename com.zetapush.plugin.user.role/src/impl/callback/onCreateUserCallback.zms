@@ -1,0 +1,13 @@
+/**
+ *
+ */
+@zpRecipeUser::CreateUserListener()
+macroscript plugin_user_role__onCreateUserCallback(
+	/** User key */ @NotNull string userKey
+) {
+	/** Add role user for created user */
+	call zpRecipeRole::addRoleMember({
+		name: zpRecipeRole::CORE__ROLE_USER,
+		member: userKey
+	}) hardFail;
+} on channel __selfName

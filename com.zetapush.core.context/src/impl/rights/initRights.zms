@@ -1,0 +1,9 @@
+macroscript initContextRights(string contextId, string userKey) {
+	sudo contextId groupsService.createGroup({
+		group : CONTEXT_READER_GROUP
+	});
+	sudo contextId groupsService.addUser({
+		user : userKey,
+		group : CONTEXT_READER_GROUP
+	});
+}

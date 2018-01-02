@@ -1,0 +1,7 @@
+class StringConfigPaginatedList extends zpRecipeUtils::PaginatedList {
+	StringConfig[] content;
+}
+
+class StringConfig extends zpRecipeUtils::Storable {
+	/** Value */ string value;
+}

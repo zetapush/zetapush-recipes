@@ -5,19 +5,29 @@ macroscript core_group__getGroupByService(
 	/** Group id */ @NotNull string id,
 	/** Group service implementation */ @NotNull service<groups> zpService
 ) {
-	var ApiObjectGroupUsers = zpService.groupUsers({ group: id });
-	var group = usr:core_group__get_group_from_api_object(zpService, ApiObjectGroupUsers);
+	var { groupName, owner, users } = zpService.groupUsers({ group: id });
+	// TODO Check after platform fix
+	users = coll:filter(users, user -> user != '');
+	const group = new Group(
+		id,
+		zpService,
+		groupName,
+		owner,
+		str:join(':', zpService, owner, id),
+		users,
+		{},
+		[]
+	);
+	trace(core_group__getGroupByService.name, { group });
 	if (coll:size(group.members) > 0) {
-		var userKeys = coll:set(group.members);
-		var ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
+		const userKeys = coll:set(group.members);
+		const ApiObjectUserInfos = zpServiceUserDirectory.userInfo({ userKeys });
 		group.members = usr:core_group__list_user_from_api_object(ApiObjectUserInfos);	
 	}
 	/** Get group metadata */
-	var metadata = call zpRecipeUtils::getMetadata({ id }) hardFail;
-	group.metadata = metadata.result.value;
+	const metadata = await zpRecipeUtils::getMetadata({ id });
+	group.metadata = metadata.value;
 	/** Get group tags */
-	var tags = call zpRecipeUtils::getTags({ id }) hardFail;
-	group.tags = tags.result.value;
-} return { 
-	group
-} on channel __selfName
+	const tags = await zpRecipeUtils::getTags({ id });
+	group.tags = tags.value;
+} return { Group group } on channel __selfName

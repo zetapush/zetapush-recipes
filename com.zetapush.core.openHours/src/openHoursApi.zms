@@ -1,0 +1,111 @@
+
+/** Modifies default working hours (past, present and future) */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__setDefaultOpenedHours(
+	/** new default working hours */
+	@ValidHours OpenHours openHours,
+	/** omit update if some data is already defined */
+	boolean omitUpdate = false
+) {
+	var needsUpdate = true;
+	if (omitUpdate) {
+		var { result : def } = nosql_db.get( {table : HOURS_TABLE, key : DEF});
+		if (coll:size(def) != 0) needsUpdate = false;
+	}
+	if (needsUpdate) nosql_db.put( {table : HOURS_TABLE, data : openHours, key : DEF, column : HOURS_COL});
+}
+
+
+/** Retreive default working hours (past, present and future) */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__getDefaultOpenedHours() {
+	const { result : def } = nosql_db.get( {table : HOURS_TABLE, key : DEF});
+	const params = (coll:size(def) != 0) ? def[HOURS_COL] : { startHour: DEFAULT_START_HOUR, endHour: DEFAULT_END_HOUR }; 
+} return OpenHours.new(params)
+
+
+/** Adds an exception for a given date */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__setOpenedHoursForDate(@Valid class DayOpenHours dayInfo) {
+	nosql_db.put( {table : HOURS_TABLE, data : dayInfo.hours, key : dayInfo.date, column : HOURS_COL});
+}
+/** Returns the working hours of the given date */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__getOpenedHoursForDate(@FormattedDate string date) {
+	var { result : row } = nosql_db.get( {table : HOURS_TABLE, key : date});
+	if (coll:size(row) == 0) {
+		if (usr:isDateFerie(date)) row = usr:closedHours();
+		else {
+			var time = time:parseUTC(date);
+			/** hard coded : saturday sunday are holiday */
+			if (time:dow(time) > 5) row = usr:closedHours();
+			else {
+				var { result : def } = nosql_db.get( {table : HOURS_TABLE, key : DEF});
+				row = def;
+			}
+		}
+	}
+} return new DayOpenHours(row[HOURS_COL], date)
+
+/** Returns a list of days and open hours for the given interval (both bounds included)*/
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__getOpenedHoursForInterval(@FormattedDate string startDate, @FormattedDate string endDate) {
+	var start = time:parseUTC(startDate);
+	var end = time:add(time:parseUTC(endDate), 1, ChronoUnit_DAYS);
+	var days = [];
+	while (time:before(start, end)) {
+		var day = await core_openhours__getOpenedHoursForDate( {date : time:fmt(start, Format_YMD)});
+		days += day;
+		start = time:add(start, 1, ChronoUnit_DAYS);
+	}
+} return {
+	DayOpenHours [] days
+}
+
+/** Tests if the current time is during working hours */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__isInOpenedHours(
+	/** optional timestamp (millis from epoch)*/
+	number now = 0
+) {
+	if (now == 0) now = time:now();
+	var date = time:fmt(now, Format_YMD);
+	var hours = await core_openhours__getOpenedHoursForDate( {date});
+} return {
+	/** Whether the current time is during working hours*/
+	boolean open : usr:isDuringWorkingHours(hours, now),
+	/** Configured hours for today */
+	OpenHours hours : hours
+}
+
+/** Initialises default working hours (properties) and french holidays (computed) */
+@Sudo(GLOBAL_USER)
+macroscript core_openhours__initOpenHours() {
+	/** bootstrap default hours if absent */
+	call core_openhours__setDefaultOpenedHours({
+		openHours: new OpenHours(DEFAULT_START_HOUR, DEFAULT_END_HOUR),
+		omitUpdate : true
+	});
+}
+
+function isTimeFerie(time) return usr:isDateFerie(time:fmt(time, Format_YMD))
+
+function isDateFerie(date){
+	var stamp = time:parse(date, null);
+	stamp = time:toEpoch(stamp);
+} return coll:contains(usr:compute_holidays(stamp), date)
+
+/** convention : closed when both start and end are zero
+
+Returns a ready-to-store hours row
+ */
+function closedHours() return {[HOURS_COL] : new OpenHours(0, 0)};
+
+/** true when given day information corresponds to a working day */
+function isWorkingDay(/** OpenHours instance*/ hours) return hours.startHour != 0 && hours.endHour != 0;
+
+/** true when given time is between the given working hours*/
+function isDuringWorkingHours(/** OpenHours instance*/ hours, /** time (epoch millis or opaque time )*/ time) {
+	var zonedNow = time:parse(time:zfmt(time, Format_YMDHMS, CURRENT_TIMEZONE), CURRENT_TIMEZONE);
+	var hour = time:hod(zonedNow);
+} return hour >= hours.startHour && hour < hours.endHour;

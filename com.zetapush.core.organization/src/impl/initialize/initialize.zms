@@ -5,8 +5,8 @@ macroscript core_organization__initialize(
 
 ) {
 	if (@provisionning.core.organization.name != null) {
-		call setDefaultOrganization({
+		await setDefaultOrganization({
 			name: @provisionning.core.organization.name
-		}) hardFail;
+		});
 	}
 }

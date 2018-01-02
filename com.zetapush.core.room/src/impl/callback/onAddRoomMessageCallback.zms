@@ -1,0 +1,46 @@
+/**
+ *
+ */
+macroscript core_room__addRoomMessageCallback(
+	@NotNull string container,
+	@NotNull Room room,
+	@NotNull map message
+) {
+	/** Get pascalified message type */
+	const type = usr:core_room__pascalify(message.type);
+	/** Get computed macro name */
+	const name = 'core_room__addRoom' + type + 'MessageCallback';
+	/** Dynamic room message callback */
+	zpServiceImplMacro.func({
+		parameters: __parameters,
+		name
+	});
+} return {
+	
+} on channel __selfName
+
+/**
+ *
+ */
+macroscript core_room__addRoomAttachmentMessageCallback(
+	@NotNull string container,
+	@NotNull Room room,
+	@NotNull map message
+) {
+	
+} return {
+	
+} on channel __selfName
+
+/**
+ *
+ */
+macroscript core_room__addRoomMarkupMessageCallback(
+	@NotNull string container,
+	@NotNull Room room,
+	@NotNull map message
+) {
+	
+} return {
+	
+} on channel __selfName

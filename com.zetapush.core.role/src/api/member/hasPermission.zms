@@ -9,10 +9,10 @@ macroscript hasPermission(
 		id = str:hex(str:md5(str:upper(name)));
 	} 
 	/** Is memeber of group role service */
-	var { result: { member: has } } = call zpRecipeGroup::core_group__isMemberOfByService({
+	const { member: has } = await zpRecipeGroup::core_group__isMemberOfByService({
 		id,
 		owner: zpRecipeUtils::GLOBAL_OWNER,
 		isHardFail: assertion,
 		zpService: zpServiceGroupsPermission
-	}) hardFail;
-} return { id, name, has } on channel __selfName
+	});
+} return new HasUserPermission(id, name, __userKey, true) on channel __selfName

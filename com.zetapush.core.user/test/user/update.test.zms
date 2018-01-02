@@ -1,0 +1,36 @@
+zms_test core_user__update {
+	zms_test_setup {
+		zms_test_user anonymous = zpServiceWeakAuth({});
+		var value = 'user-test-' + str:rnd36(10);
+	}
+	zms_add_handler(anonymous, createUser, (result, errors, user) => {
+		trace(#createUser, user, result, errors);
+		var profile = result.user;
+		
+		assert profile?? && profile.userKey?? 'USER_CREATED_FAIL';
+
+		zms_add_handler(anonymous, createUser, (result, errors, user) => {
+			trace(#updateUser, user, result, errors);
+			
+			zms_test_success;
+		});
+
+		trace(#createUser, profile.userKey);
+
+		sudo profile.userKey call updateUser({
+			login: profile.login,
+			fields : {
+				email: profile.email
+			}
+		});
+		
+	});
+	sudo anonymous call createUser({
+		login: value,
+		password: value,
+		fields: {
+			email: value + '@yopmail.com',
+			firstname: 'Test'
+		}
+	});
+}

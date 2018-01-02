@@ -1,0 +1,35 @@
+/**
+ *
+ */
+macroscript core_room__createRoomGroupByService(
+	/** Valid room room id */ @ValidRoomId string id,
+	/** Room room name */ @NotNull string name,
+	/** Room room members */ @NotNull array members,
+	/** Group service */@NotNull service<groups> zpService
+) {
+	trace(#core_room__createRoomGroupByService, { id, name, members, userKey: __userKey });
+	/** Room attachments path */
+	const path = ROOM_ATTACHMENTS_PATH + id;
+	/** Room metadata */
+	const metadata = {
+		type: CORE__ROOM_TYPE_ROOM,
+		attachments: path
+	};
+	/** Create group */
+	const { group: room } = await zpRecipeGroup::core_group__createGroupByService({
+		id, name, members, metadata, zpService
+	});
+	trace(#core_room__createRoomGroupByService, room);
+	/** Set correct room permissions */
+	await core_room__setRoomPermissionsByServices({
+		id, path,
+		zpServiceGroups: zpService,
+		zpServiceGda: zpServiceGda,
+		zpServiceFileSystem: zpRecipeFile::zpServiceFile
+	});
+	/** Extends room with grants list */
+	const { grants } = zpService.listGrants({ group: id });
+	room.grants = grants;
+} return {
+	Room room
+} on channel __selfName

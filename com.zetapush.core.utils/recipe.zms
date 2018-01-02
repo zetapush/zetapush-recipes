@@ -1,8 +1,8 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide utilities
+ * Provides utilities
  */
-recipe com.zetapush.core.utils 2.0.0;
+recipe com.zetapush.core.utils 1.0.0;
 
 // Constants
 

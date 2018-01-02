@@ -1,0 +1,3 @@
+class Tags extends Storable {
+	/** Value */ string[] value;
+}

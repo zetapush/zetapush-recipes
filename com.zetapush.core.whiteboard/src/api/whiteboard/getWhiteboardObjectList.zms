@@ -2,16 +2,19 @@
  *
  */
 macroscript getWhiteboardObjectList(
-	/** Conversation room object */ @zpRecipeConversation::ValidConversationRoom map room,
-	/** Whiteboard id */ @zpRecipeConversation::ValidConversationId string whiteboard,
+	/** Room room object */ @NotNull zpRecipeRoom::Room room,
+	/** Whiteboard id */ @zpRecipeRoom::ValidRoomId string whiteboard,
 	/** Pagination object */ map page = { pageSize: 100, pageNumber: 0 }
 ) {
 	/** Set defaut storage container as room id */
-	var container = whiteboard;
-	/** Add message in conversation */
-	var { result: { list } } = call zpRecipeConversation::core_conversation__getConversationMessageListByService({ 
+	const container = whiteboard;
+	/** Add message in room */
+	const { list } = await zpRecipeRoom::core_room__getRoomMessageListByService({ 
 		room, container, page, zpService: zpServiceGda
-	}) hardFail;
+	});
 } return {
-	container, room, list, page
+	string container,
+	zpRecipeRoom::Room room,
+	zpRecipeRoom::Message[] list,
+	zpRecipeUtils::Pagination page
 } on channel __selfName

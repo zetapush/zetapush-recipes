@@ -1,2 +1,0 @@
-/** Initialize recipe */
-sudo zpRecipeUtils::GLOBAL_OWNER call preset_core__initialize();

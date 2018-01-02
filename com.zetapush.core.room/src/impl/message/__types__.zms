@@ -1,0 +1,16 @@
+class Message {
+	/** Message uniq id */ @ValidRoomMessageId() string id;
+	/** Message author */ string author;
+	/** Message type*/ @ValidMessageType() string type;
+	/** Message value */ map value;
+	/** Message created date */ number createdAt;
+	/** Message metadata */ map metadata;
+	/** Message readers */ string[] readers;
+	/** Message targets */ string[] targets;
+}
+
+class RoomMessage {
+	/** Room container id */ string container;
+	/** Room message */ Message message;
+	/** Room room */ Room room;
+}

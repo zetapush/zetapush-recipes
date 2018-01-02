@@ -1,0 +1,61 @@
+/** Definition of a field in a context */
+class ContextTemplateField {
+	/** Field name (and identifier) */ @NotNull string name;
+	/** Pretty name */@NotNull string prettyName;
+	/** Whether the field must be filled in */@NotNull boolean mandatory;
+	/** Field type (the meaning of this field is implementation dependent)
+	 * It could be for example "text", "phone_number", "postal_code", etc. 
+	 */string type;
+	/** Configuration for the field type (the meaning of this field is implementation dependent)
+	 * For example it might contain the number of digits if 'type' is "phone_number", or a regular expression for "text"
+	 */map typeConfig;
+}
+/** Context template full information */
+class ContextTemplate {
+	/** General information */ @NotNull ContextTemplateInfo info;
+	/** Configured fields */ @NotNull  ContextTemplateField[] fields;
+	/** Workflow template */ @NotNull WorkflowTemplate template;
+}
+/** Context template information */
+class ContextTemplateInfo extends ContextTemplateKey {
+	/** Name this context template*/ string name;
+	/** Default state when starting*/ string defaultState;
+	/** Workflow template name*/ string workflowTemplateName;
+	/** Groups/Users that will be notified of context creation */ string[] groups;
+}
+
+class ContextTemplateKey {
+	/** The ID of the context template */@NotNull string contextTemplateId;
+}
+class ContextTemplateFieldRemoval extends ContextTemplateKey {
+	/** The field to be removed */@NotNull string fieldName;
+}
+
+class CtxPagination {
+	/** page size */@Min(1) @Max(50) number pageSize = 10;
+	/** page number */@Min(0) number pageNumber = 0;
+}
+
+class WorkflowTemplate {
+	/** All the possible states of this workflow */ @NotNull WorkflowStateDefinition[] states;
+	/**	Unique template name */ @NotNull string templateName;
+	/** All the transitions of this workflow */ @NotNull WorkflowTransitionDefinition[] transitions;
+}
+
+class ServiceVerbCall {
+	/** Parameter that will be passed to the target verb when called. The format is the format accepted by the target. */ map parameter;
+	/** DeploymentId of the target service. */ string deploymentId;
+	/** Verb to be called within the target service. */ string verb;
+	/** Specifies whether this call should generate all expected direct user notifications (primary outputs). Does not affect side-effects (other outputs). Defaults to false */ boolean loud;
+}
+
+class WorkflowStateDefinition {
+	/** Called on the workflow when this state is about to be reached. If the call is a macro, it has the possibility to prevent the transition by returning {'transition':'failed', 'message':'optional error message'}. */ ServiceVerbCall call;
+	/** ID of the state */	string stateId;
+	/** State name */ string stateName;
+}
+
+class WorkflowTransitionDefinition {
+	/** Starting state */ string from;
+	/** Destination state */ string to;
+}

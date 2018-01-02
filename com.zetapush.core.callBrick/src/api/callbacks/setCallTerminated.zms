@@ -1,0 +1,18 @@
+/** 
+ *	Macroscript called when the call is terminated.
+ *	We change the state of the call in the database
+ */
+macroscript setCallTerminated(
+	/** ID of the call */ @NotNull string id
+) {
+	const request = sudo zpRecipeUtils::GLOBAL_OWNER database.get({
+		table: TABLE_DATABASE_CALL,
+		key: id
+	});
+	
+	var callObject = request.result[COLUMN_CALL_OBJECT];
+	callObject.state = STATE_CALL_TERMINATED;
+	
+	// Change the state of the call
+	const output = await setCallState({callObject});
+} return output on channel __selfName

@@ -1,0 +1,4 @@
+class RoomInvitation {
+	Room room;
+	Invitation invitation;
+}

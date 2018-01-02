@@ -1,12 +1,12 @@
 /**
  * ZetaPush Official Core Recipe
- * Provide extra group management
+ * Provides extra group management
  */
-recipe com.zetapush.core.group 2.0.0;
+recipe com.zetapush.core.group 1.0.0;
 
 // Import recipes
 
-import recipe com.zetapush.core.utils 2.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
 
 // Context
 

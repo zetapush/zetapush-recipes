@@ -1,0 +1,26 @@
+// Provisionning
+/*
+zpServiceGda.gda_removeTable({
+	name: TOKEN_TABLE
+});
+*/
+zpServiceGda.gda_createTable({
+	name: TOKEN_TABLE,
+	columns: [{
+		map: false,
+		name: COLUMN_TOKEN_VALIDATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_TOKEN_CREATED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_TOKEN_EXPIRED_AT,
+		type: GdaDataType_LONG
+	}, {
+		map: false,
+		name: COLUMN_TOKEN_CREATOR,
+		type: GdaDataType_STRING
+	}]
+});

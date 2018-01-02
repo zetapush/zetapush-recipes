@@ -1,0 +1,106 @@
+zms_test test_core_room__create {
+	import zms_test_setup test_core_room__setup;
+
+	zms_add_handler(anonymous, getUserRoomList, (result, errors) => {
+		info('getUserRoomList', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		zms_test_success;
+	});
+	
+	zms_add_handler(anonymous, getRoomMessageList, (result, errors) => {
+		info('getRoomMessageList', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getUserRoomList();
+	});
+	
+	zms_add_handler(anonymous, addRoomMessage, (result, errors) => {
+		info('addRoomMessage', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getRoomMessageList({
+			room: result.room
+		});
+	});
+	
+	zms_add_handler(anonymous, createRoom, (result, errors) => {
+		info('createRoom', result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call addRoomMessage({
+			room: result.room,
+			type: MESSAGE_TYPE_MARKUP,
+			value : {
+				text: 'Hello'
+			},
+			metadata: {
+				yo: 'bitch'
+			}
+		});
+	});
+
+	sudo anonymous call createRoom({
+		name: 'Room',
+		members: []
+	});
+}
+
+zms_test test_core_room__create_one_to_one {
+	zms_test_setup {
+		import zms_test_setup test_core_room__setup;
+		
+		zms_test_user interlocutor = zpRecipeUser::zpServiceWeakAuth({});	
+	}
+
+	zms_add_handler(anonymous, getUserRoomList, (result, errors) => {
+		info(#getUserRoomList, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		zms_test_success;
+	});
+	
+	zms_add_handler(anonymous, getRoomMessageList, (result, errors) => {
+		info(#getRoomMessageList, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getUserRoomList();
+	});
+	
+	zms_add_handler(anonymous, addRoomMessage, (result, errors) => {
+		info(#addRoomMessage, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call getRoomMessageList({
+			room: result.room
+		});
+	});
+	
+	zms_add_handler(anonymous, createOneToOneRoom, (result, errors) => {
+		info(#createOneToOneRoom, result, errors);
+
+		assert coll:size(errors) == 0 'UNEXPECTED_ERRORS';
+
+		sudo anonymous call addRoomMessage({
+			room: result.room,
+			type: MESSAGE_TYPE_MARKUP,
+			value : {
+				text: 'Hello'
+			},
+			metadata: {
+				yo: 'bitch'
+			}
+		});
+	});
+
+	sudo anonymous call createOneToOneRoom({
+		interlocutor: interlocutor.userKey
+	});
+}

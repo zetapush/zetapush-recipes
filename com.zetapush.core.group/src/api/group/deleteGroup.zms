@@ -4,7 +4,5 @@
 macroscript deleteGroup(
 	/** Group id */ @NotNull string id
 ) {
-	call core_group__deleteGroupByService({ id, zpService: zpServiceGroups }) hardFail;
-} broadcast {
-	id
-} on channel __selfName
+	const response = await core_group__deleteGroupByService({ id, zpService: zpServiceGroups });
+} broadcast response on channel __selfName

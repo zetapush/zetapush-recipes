@@ -1,0 +1,49 @@
+/** computes french holidays for the year corresponding to 'now',
+with an optional PENTECOTE<br>
+output format is an array of YYYYMMDD
+ */
+function compute_holidays(/** current timestamp */ now) {
+	var year = time:fmt(now, Format_Y);
+	var paques = usr:easter_date(str:parseNumber(year));
+	var paq = time:parseUTC(year + fmt:pad(paques.month, 2, 0, '.') + fmt:pad(paques.day, 2, 0, '.'));
+	var days = ['0101', '0501', '0508', '0714', '0815', '1101', '1111', '1225'];
+	days = coll:map(days, d -> year + d);
+	days += time:fmt(time:add(paq, 1, ChronoUnit_DAYS), Format_YMD);
+	days += time:fmt(time:add(paq, 39, ChronoUnit_DAYS), Format_YMD);
+	if (PENTECOTE) {
+		days += time:fmt(time:add(paq, 50, ChronoUnit_DAYS), Format_YMD);
+	}
+} return days
+
+/** computes the easter date for the given year */
+function easter_date(/** year for which to compute easter */year) {
+	var a = year % 4;
+	var b = year % 7;
+	var c = year % 19;
+	var m = 24;
+	var n = 5;
+	var d = (19 * c + m) % 30;
+	var ea = (2 * a + 4 * b + 6 * d + n) % 7;
+	var day = 0;
+	var month = 0;
+	var easterdate = 22 + d + ea;
+
+	if (easterdate > 31) {
+		day = d + ea - 9;
+		month = 4;
+	} else {
+		day = 22 + d + ea;
+		month = 3;
+	}
+
+	if (d == 29 && ea == 6) {
+		day = 10;
+		month = 4;
+	} else {
+		if (d == 28 && ea == 6) {
+			day = 18;
+			month = 4;
+		}
+	}
+	return { day, month, year};
+}

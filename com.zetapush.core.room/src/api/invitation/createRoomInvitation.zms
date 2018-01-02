@@ -1,0 +1,18 @@
+/**
+ *
+ */
+macroscript createRoomInvitation(
+	/** Room id */ @ValidRoomId string id,
+	/** Invitation type */ @NotNull map context,
+	/** Invitation message */ @NotNull string message
+) {
+	/** Get associated room id */
+	const { room } = await getRoom({ id, owner: __userKey });
+	/** Get invitation for room */
+	const invitation = sudo room.owner await core_room__createInvitationByService({
+		room, context, message, zpService: zpServiceGda
+	});
+} broadcast RoomInvitation.new({
+	room,
+	invitation
+}) on channel __selfName

@@ -1,0 +1,38 @@
+/**
+ *
+ */
+macroscript core_room__updateRoomMessageByService(
+	/** Room message id */ @ValidRoomMessageId string id,
+	/** Room room object */ @NotNull Room room,
+	/** Message storage container id */ @ValidRoomId string container,
+	/** Message value*/ @NotNull map value,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	const updatedAt = time:now();
+	/** Store message */
+	zpService.puts({
+		rows: [{
+			key: id,
+			data: {
+				[COLUMN_STORAGE_VALUE]: value,
+				[COLUMN_STORAGE_UPDATED_AT]: updatedAt
+			}
+		}],
+		table: TABLE_ROOM_STORAGE,
+		owner: room.owner
+	});
+	/** Get updated message */
+	const { result: stored } = zpService.get({
+		key: id,
+		table: TABLE_ROOM_STORAGE,
+		owner: room.owner
+	});
+	const message = usr:core_room__format_stored_message(stored);
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__UPDATE_ROOM_MESSAGE,
+		data: { container, room, message }
+	});
+} broadcast {
+	container, room, message
+} on channel __selfName

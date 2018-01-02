@@ -1,0 +1,20 @@
+class Group {
+	/** Group id */ string id;
+	/** Group deployment id */ string deploymentId;
+	/** Group name */ string name;
+	/** Group owner */ string owner;
+	/** Group resource */ string resource;
+	/** Group members */ array members;
+	/** Group metadata */ map metadata;
+	/** Group tags */ string[] tags;
+}
+
+class GroupMember {
+	/** Group id */ @NotNull string id;
+	/** User key */ @NotNull string member;
+	/** Group resource*/ @NotNull string resource;
+}
+
+class GroupMembership {
+	/** Is member of group */ boolean member;
+}

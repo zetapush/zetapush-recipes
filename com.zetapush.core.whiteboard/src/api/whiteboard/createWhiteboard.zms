@@ -2,25 +2,26 @@
  *
  */
 macroscript createWhiteboard(
-	/** Whiteboard room object */ @zpRecipeConversation::ValidConversationRoom map room
+	/** Whiteboard room object */ @NotNull zpRecipeRoom::Room room
 	) {
-	/** Generate uniq conversation id */
-	var id = zpRecipeConversation::core_conversation__id();
+	/** Generate uniq room id */
+	const id = zpRecipeRoom::core_room__id();
 	trace(#createWhiteboard, { room, id });
-	/** Conversation attachments path */
-	var path = WHITEBOARD_ATTACHMENTS_PATH + id;
+	/** Room attachments path */
+	const path = WHITEBOARD_ATTACHMENTS_PATH + id;
 	/** Set correct room permissions */
-	sudo room.owner call zpRecipeConversation::core_conversation__setConversationPermissionsByServices({
+	sudo room.owner await zpRecipeRoom::core_room__setRoomPermissionsByServices({
 		id: room.id, path,
-		zpServiceGroups: zpRecipeConversation::zpServiceGroups,
+		zpServiceGroups: zpRecipeRoom::zpServiceGroups,
 		zpServiceGda: zpServiceGda,
 		zpServiceFileSystem: zpRecipeFile::zpServiceFile
-	}) hardFail;
+	});
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__CREATE_WHITEBOARD,
 		data: { id, room }
 	});
 } broadcast(room.resource) {
-	id, room
+	string id,
+	zpRecipeRoom::Room room
 } on channel __selfName

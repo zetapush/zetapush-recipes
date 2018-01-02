@@ -1,0 +1,11 @@
+/**
+ *	Change the call state in the database
+ */
+macroscript setCallState(
+	/** Call object */ @NotNull Call callObject
+) {
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_CALL, data : callObject, key : callObject.id, column : COLUMN_CALL_OBJECT});
+	
+} return {
+	callObject
+}

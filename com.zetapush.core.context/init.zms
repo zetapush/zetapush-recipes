@@ -1,0 +1,65 @@
+/** Creates the table of context templates*/
+gda.gda_createTable({
+	name : CONTEXT_TEMPLATES_TABLE,
+	'columns' : [
+		{
+			'name' : 'fields', 
+			'map' : true, 
+			'type' : GdaDataType_OBJECT
+		},
+		{
+			'name' : 'info', 
+			'map' : false, 
+			'type' : GdaDataType_OBJECT
+		}
+	]
+});
+/** Creates the table of contexts*/
+gda.gda_createTable({
+	name : CONTEXTS_TABLE,
+	'columns' : [
+		{
+			'name' : 'fields',
+			'map' : true,
+			'type' : GdaDataType_OBJECT
+		},
+		{
+			'name' : 'info',
+			'map' : false,
+			'type' : GdaDataType_OBJECT
+		},
+		{
+			'name' : 'state',
+			'map' : false,
+			'type' : GdaDataType_STRING
+		}
+	]
+});
+
+
+
+/** 
+Creates a group for administration of context templates.
+*/
+contextTemplateRights.groups_create({
+	'group' : CONTEXT_MANAGERS_GROUP,
+	'groupName' : 'A group for CRUD management',
+	'owner' : CONTEXT_TEMPLATES_VIRTUAL_USER
+});
+contextTemplateRights.groups_grant({
+	'owner' : CONTEXT_TEMPLATES_VIRTUAL_USER,
+	resource : '*',
+	actions : ["*"],
+	group : CONTEXT_MANAGERS_GROUP
+});
+groupsService.groups_create({
+	owner : CONTEXT_TEMPLATES_VIRTUAL_USER,
+	group : CONTEXT_READER_GROUP,
+	groupName : 'Context readers'
+});
+groupsService.groups_grant({
+	owner : CONTEXT_TEMPLATES_VIRTUAL_USER,
+	group : CONTEXT_READER_GROUP,
+	resource : '*',
+	actions : ["*"]
+});

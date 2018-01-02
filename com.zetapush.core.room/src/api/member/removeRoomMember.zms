@@ -1,0 +1,13 @@
+/**
+ *
+ */
+macroscript removeRoomMember(
+	/** Room id */ @ValidRoomId string id,
+	/** User key */ @NotNull string member
+) {
+	const response = await zpRecipeGroup::core_group__removeGroupMemberByService({
+		id,
+		member,
+		zpService: zpServiceGroups
+	});
+} broadcast(response.resource) response on channel __selfName

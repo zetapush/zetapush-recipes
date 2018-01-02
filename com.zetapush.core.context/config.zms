@@ -1,0 +1,14 @@
+//const SDFSDFSDS =  @@from("data/tables.sql","string") +0 ;
+///**
+//this is the label
+//*/
+//import @com.example.project7.welcomeMessage(mandatory = true, type = string) ;
+//
+//
+zms_recipe_config 
+/** Host name <hr> for the <B>context</b> recipe*/
+@NotNull @PlaceHolder("host name here")  @(string)com.zetapush.core.context.host = "qsdqsdqsd";
+/** <i>port</i> <b>number</b>*/
+@NotNull @PlaceHolder("port number")   @(string)com.zetapush.core.context.port = "qsdqsdqsd";
+/** the welcome message from the <span style="color:red">context recipe</span>*/
+@NotNull @PlaceHolder("Welcome message") @Enum(["hello", "world"])  @(string)com.zetapush.core.context.welcomeMessage3 = "qsdqsdqsd";

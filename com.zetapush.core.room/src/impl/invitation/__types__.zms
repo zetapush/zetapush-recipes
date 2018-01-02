@@ -1,0 +1,9 @@
+class Invitation {
+	/** Invitation id */ @NotNull string id;
+	/** Invitation id */ @NotNull string owner;
+	/** Guest user key */ string guest;
+	/** Invitation exipry */ number expiry;
+	/** Invitation createdAt */ number createdAt;
+	/** Invitation context */ map context;
+	/** Invitation message */ string message;
+}
