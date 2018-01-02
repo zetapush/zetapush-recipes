@@ -29,7 +29,6 @@ macroscript core_openhours__getDefaultOpenedHours() {
 macroscript core_openhours__setOpenedHoursForDate(@Valid class DayOpenHours dayInfo) {
 	nosql_db.put( {table : HOURS_TABLE, data : dayInfo.hours, key : dayInfo.date, column : HOURS_COL});
 }
-
 /** Returns the working hours of the given date */
 @Sudo(GLOBAL_USER)
 macroscript core_openhours__getOpenedHoursForDate(@FormattedDate string date) {
@@ -91,7 +90,10 @@ macroscript core_openhours__initOpenHours() {
 
 function isTimeFerie(time) return usr:isDateFerie(time:fmt(time, Format_YMD))
 
-function isDateFerie(date) return coll:contains(usr:compute_holidays(date), date)
+function isDateFerie(date){
+	var stamp = time:parse(date, null);
+	stamp = time:toEpoch(stamp);
+} return coll:contains(usr:compute_holidays(stamp), date)
 
 /** convention : closed when both start and end are zero
 
