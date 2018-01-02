@@ -91,9 +91,10 @@ macroscript core_openhours__initOpenHours() {
 function isTimeFerie(time) return usr:isDateFerie(time:fmt(time, Format_YMD))
 
 function isDateFerie(date){
-	var stamp = time:parse(date, null);
-	stamp = time:toEpoch(stamp);
-} return coll:contains(usr:compute_holidays(stamp), date)
+	const time = time:parseUTC(date);
+	const epoch = time:toEpoch(time);
+	const holidays = usr:compute_holidays(epoch);
+} return coll:contains(holidays, date)
 
 /** convention : closed when both start and end are zero
 
