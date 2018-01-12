@@ -5,7 +5,6 @@
 	<projects>
 		<project>com.zetapush.core.group</project>
 		<project>com.zetapush.core.utils</project>
-		<project>fr.leocare.plugin.webrtc</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
