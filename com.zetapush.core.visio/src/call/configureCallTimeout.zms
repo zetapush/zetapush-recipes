@@ -9,11 +9,12 @@ macroscript configureCallTimeout(
 	timer.setTimeout({
 		"parameter" : {
 			"name": "timeoutCall",
-			"parameters": { "id": id, "group": groupId }	
+			"parameters": { "id": id, "group": [groupId, __userKey] }	
 		}, 
 		"deploymentId": NAME_DEPLOY_ID_MACRO, 
 		"verb" : "func", 
 		"delay" : TIMEOUT_CALL_SECONDS,
 		"loud": true
 	});
-}
+	
+} return { id } on channel __selfName

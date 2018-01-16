@@ -1,0 +1,13 @@
+
+/**
+ *	Macrpscript used to stop a call
+ */
+macroscript terminateCall(
+	/** ID of the call */ string id,
+	/** userKey of the destinataire */ string destinataire
+) {
+	
+	// Set the state
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : STATE_CALL_TERMINATED, key : id, column : COLUMN_STATE_CALL});
+
+} broadcast (destinataire) { id } on channel __selfName

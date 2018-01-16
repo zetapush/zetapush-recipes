@@ -1,0 +1,33 @@
+/**
+* Recipe com.zetapush.core.visio
+* Created on Fri Sep 29 09:49:46 CEST 2017 by damien
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.core.visio 1.0.0;
+
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
+
+const NAME_DEPLOY_ID_MACRO 						= "macro_0";
+const NAME_CRON_SERVICE 						= "cron_service";
+
+const TABLE_DATABASE_STATE_CALL 				= "tableDatabaseNameStateCall";
+const COLUMN_STATE_CALL 						= "nameColumnStateCall";
+
+const UNKNOWN_ROOM_ID 							= "unknown room id";
+const STATE_CALL_CALLING						= "calling";
+const STATE_CALL_MISSED							= "missed";
+const STATE_CALL_REFUSED						= "refused";
+const STATE_CALL_ACCEPTED						= "accepted";
+const STATE_CALL_TERMINATED 					= "terminated";
+
+const TIMEOUT_CALL_SECONDS = 20;
+
+/** our code is run by this service */
+service code = macro(__default) for 'src';
+
+/** Database service */
+service database = gda('gda_visio').forbiddenVerbs(__all);
+
+/** Timer service to use timeout */
+service timer = cron(NAME_CRON_SERVICE);

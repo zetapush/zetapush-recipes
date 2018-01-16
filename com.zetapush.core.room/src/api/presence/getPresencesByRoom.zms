@@ -1,0 +1,8 @@
+macroscript getPresencesByRoom(
+	/** Room ID */ string id,
+	/** Owner */ string owner) 
+{
+
+	var presences = zpServiceGroups.listPresences({group : id, owner: owner});
+
+} return { presences } on channel __selfName

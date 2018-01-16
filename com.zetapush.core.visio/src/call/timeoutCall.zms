@@ -4,7 +4,7 @@
  */
 macroscript timeoutCall(
 	/** ID of the call */ @NotNull string id,
-	/** ID of the group */ @NotNull string group
+	/** ID of the group */ @NotNull array group
 ) {
 	
 	// Get the current state of the call
@@ -19,8 +19,8 @@ macroscript timeoutCall(
 	
 	// Check if the call is calling
 	if (callObject.state == STATE_CALL_CALLING) {
-		call setCallState({id : id, state : STATE_CALL_MISSED});
-		call addToMissedCall({groupId : group, callId : id});
+		// Set the state
+		sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : TABLE_DATABASE_STATE_CALL, data : STATE_CALL_MISSED, key : id, column : COLUMN_STATE_CALL});
 	}
 	
-} broadcast (group) { id } on channel __selfName
+} broadcast (group) { callObject } on channel __selfName

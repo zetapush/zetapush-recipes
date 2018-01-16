@@ -1,0 +1,12 @@
+macroscript joinVisioRoom(
+	/** Conversation Room */ @NotNull WebrtcRoom webrtcRoom
+){
+	trace(#joinVisioRoom, { webrtcRoom});
+	
+	var room = await getVisioRoomByName({roomName: webrtcRoom.roomName});
+	
+	trace(#joinVisioRoom, { room });
+	
+	var member = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeRoom::addRoomMember({id: room.id, member: __userKey});
+			
+} broadcast(room.resource) member on channel __selfName

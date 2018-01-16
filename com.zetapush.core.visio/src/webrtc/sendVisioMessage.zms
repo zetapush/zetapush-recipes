@@ -1,0 +1,7 @@
+macroscript sendVisioMessage(
+	/** UserId */ @NotNull string target,
+	/** Message */ @NotNull map message
+){
+	trace(#sendVisioMessage, { target, message });
+	
+} broadcast (target) { message } on channel __selfName

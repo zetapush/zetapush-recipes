@@ -41,9 +41,7 @@ macroscript core_room__onConfirmFileUploadCallback(
 				owner,
 				path: str:join('/', room.metadata.attachments, guid)
 			},
-			metadata: {
-				file: file.file
-			}
+			metadata: metadata?: {}
 		}) loud;
 		/** Update message matadata */
 		metadata.message = message;

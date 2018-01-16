@@ -1,10 +1,15 @@
 /**
- *
+ * TODO: Need to add function to set permissions
  */
 macroscript getUserRoomList(
+	/** Optional userkey */ string userKey, 
 	/** Pagination object */ zpRecipeUtils::Pagination page
 ) {
-	const { list } = await core_room__getUserRoomListByService({ 
+	
+	/** Manage default parameters */
+	userKey = userKey ?: __userKey;
+	
+	const { list } = sudo userKey await core_room__getUserRoomListByService({ 
 		page, zpService: zpServiceGroups
 	});
 } broadcast {

@@ -1,0 +1,10 @@
+macroscript createVisioRoom() {
+	
+	var name = str:substr(str:rnd36(zpRecipeRoom::ROOM_ID_ENTROPY), 0, zpRecipeRoom::NUMBER_OF_CHARS_IN_ROOM_ID);
+	
+	var room = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeRoom::createRoom({name:name, members:[__userKey]});
+	
+	// store in GDA
+	sudo zpRecipeUtils::GLOBAL_OWNER database.put({table : 'webrtcRoom', data : room, key : name, column : 'room'});
+	
+} return room on channel __selfName

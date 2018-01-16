@@ -1,0 +1,21 @@
+macroscript getVisioRoomByName(
+	/** Room name */ string roomName
+){
+	trace(#getVisioRoomByName, { roomName });
+	
+	const { result } = sudo zpRecipeUtils::GLOBAL_OWNER database.get({table : 'webrtcRoom', key : roomName});
+	
+	trace(#getVisioRoomByName, { result });
+	
+	if (!result.room??){
+		fail UNKNOWN_ROOM_ID 'The room id is unknown';
+	}
+	
+	const { room } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeRoom::getRoom({id:result.room.room.id, owner: zpRecipeUtils::GLOBAL_OWNER});
+	
+	trace(#getVisioRoomByName, { room });
+	
+	if (!room??){
+		fail UNKNOWN_ROOM_ID 'The room id is unknown';
+	}
+} return room on channel __selfName
