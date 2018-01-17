@@ -10,6 +10,7 @@ recipe com.zetapush.core.callBrick 1.0.0;
 // =====================
 import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
 import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
+import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
 
 // =====================
 //		CONSTANTES
