@@ -1,0 +1,8 @@
+zpServiceGda.gda_createTable({
+	name: NAME_TABLE_PRESENCE,
+	columns: [{
+		name: COLUMN_PRESENCE_DATA,
+		type: GdaDataType_DOUBLE
+	}]
+});
+sudo PRESENCE_OWNER call core_presence__initialize();

@@ -1,0 +1,7 @@
+/* ROOM PRESENCES LISTENER */
+/** Handle a presence listener event */
+macroscript_annotation UpdatePresence = @ApiListener(
+	apiService = zpServiceGroup,
+	apiVerb = Verb_groups_presence,
+	triggerService = zpServiceTrigger
+);

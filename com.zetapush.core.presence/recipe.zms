@@ -1,0 +1,28 @@
+/**
+* Recipe com.zetapush.core.presence
+* Created on Fri Nov 10 16:18:22 CET 2017 by damien
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.core.presence 1.0.0;
+
+import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
+import recipe com.zetapush.core.user 1.0.0 in zpRecipeUser;
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
+
+/** our code is run by this service */
+service zpServiceApiMacro = macro(__default) for 'src/api';
+
+service zpServiceImplMacro = macro('presence_impl') for 'src/impl';
+
+service zpServiceGda = gda('gda_presence').forbiddenVerbs(__all);
+
+service zpServiceGroup = groups('cr_prsnc_groups').options({
+	groups_presence_owner: true,
+	groups_presence_group: true
+});
+
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);
+

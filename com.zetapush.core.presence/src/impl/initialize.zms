@@ -1,0 +1,10 @@
+@Sudo(PRESENCE_OWNER)
+macroscript core_presence__initialize(
+) {
+	await zpRecipeGroup::core_group__createGroupByService({
+		id: PRESENCE_GROUP_ID,
+		name: PRESENCE_GROUP_ID,
+		members: [],
+		zpService: zpServiceGroup
+	});
+}

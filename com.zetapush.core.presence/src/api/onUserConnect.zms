@@ -1,0 +1,9 @@
+macroscript onUserConnect(
+	@NotNull string userKey
+) {
+	
+} broadcast([
+	str:join(':', zpServiceGroup, PRESENCE_GROUP_ID)
+]) {
+	userKey
+} on channel __selfName
