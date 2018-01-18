@@ -8,9 +8,8 @@ macroscript getCurrentPresences(
 	var currentPresences = zpServiceGda.get({table : NAME_TABLE_PRESENCE, key : userKey});
 	var countPresences = currentPresences.result[COLUMN_PRESENCE_DATA];
 	
-	var list = zpServiceGda.list({table : NAME_TABLE_PRESENCE});
-	trace('lsit', list);
+	var list = zpServiceGda.list({table : NAME_TABLE_PRESENCE});	
 	
+	var listCurrentPresences = zpServiceGroup.listPresences({group : PRESENCE_GROUP_ID});
 	
-	var a = zpServiceGroup.listPresences({group : PRESENCE_GROUP_ID});
-} return { countPresences, a } on channel __selfName
+} return { countPresences, listCurrentPresences } on channel __selfName
