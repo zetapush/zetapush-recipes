@@ -3,13 +3,14 @@
  */
 macroscript createRoom(
 	/** Room room name */ @NotNull string name,
-	/** Room room members */ @NotNull array members
+	/** Room room members */ @NotNull array members,
+	/** Optionnal id of the room */ string id
 ) {
 	/** Add current user a room member */
 	members += __userKey;
 	/** Create room with generated id */
 	const { room } = await core_room__createRoomByService({ 
-		id: null, name, members, zpService: zpServiceGroups
+		id, name, members, zpService: zpServiceGroups
 	});
 } broadcast(room.resource) {
 	Room room

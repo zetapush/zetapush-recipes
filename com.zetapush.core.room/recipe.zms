@@ -82,8 +82,8 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
  * Room group service
  */
 service zpServiceGroups = groups('cr_cnvrst_groups').options({
-	groups_presence_owner: false,
-	groups_presence_group: false
+	groups_presence_owner: true,
+	groups_presence_group: true
 }).forbiddenVerbs(__all);
 /**
  * NoSQL Dataservice
