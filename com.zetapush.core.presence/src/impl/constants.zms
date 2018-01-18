@@ -1,0 +1,7 @@
+const PRESENCE_OWNER = 'PresenceOwner';
+const PRESENCE_GROUP_ID = 'presence';
+
+const NAME_TABLE_PRESENCE = "tablePresence";
+const COLUMN_PRESENCE_DATA = "columnPresenceData";
+
+const UPDATE_PRESENCES = 'updatePresencesEvent';

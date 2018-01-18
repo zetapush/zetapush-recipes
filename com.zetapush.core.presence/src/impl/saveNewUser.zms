@@ -1,0 +1,20 @@
+/**
+ *	Macroscript to save user in this recipe
+ */
+macroscript saveNewUser(
+	/** userKey */ @NotNull string userKey) {
+		
+	sudo PRESENCE_OWNER await zpRecipeGroup::core_group__addGroupMemberByService({
+		id: PRESENCE_GROUP_ID,
+		member: userKey,
+		zpService: zpServiceGroup
+	});
+	
+	sudo PRESENCE_OWNER zpServiceGda.put({
+		table: NAME_TABLE_PRESENCE,
+		column : COLUMN_PRESENCE_DATA,
+		data: 0,
+		key: userKey
+	});
+		
+}

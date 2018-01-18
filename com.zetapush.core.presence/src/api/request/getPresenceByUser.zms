@@ -1,0 +1,14 @@
+/**
+ *	Get the presence for an user in a specific room
+ *  Return a boolean to say if the user is present or not
+ */
+macroscript getPresenceByUser(
+	/** Optional userkey of the user */ string userKey
+) 
+{
+	userKey = userKey ?: __userKey;	
+	
+	var { countPresences } = await getCurrentPresences({ userKey });
+	var presence = countPresences >= 1 ? true : false;
+	
+} return { presence } on channel __selfName

@@ -1,0 +1,31 @@
+/**
+ *	Update the presence in the database for a specific user
+ */
+@Sudo(PRESENCE_OWNER)
+macroscript updatePresenceInDatabase(
+	/** UserKey of the user */ @NotNull string userKey,
+	/** Type of the presence */ @NotNull string state
+) {
+	var valuePresence = null;
+	if (state == 'ON') {
+		valuePresence = 1;
+	} else if (state == 'OFF') {
+		valuePresence = -1;
+	} else {
+		fail 'ERROR__STATE_PRESENCE' "The state of the presence should be 'ON' or 'OFF'";
+	}
+
+	// Get state of this user
+	var { countPresences } = await getCurrentPresences({ userKey });
+	
+	// New value 
+	var newCountPresence = countPresences + valuePresence;
+	
+	// Set the new value of the count presence in the database
+	zpServiceGda.put({
+		table : NAME_TABLE_PRESENCE, 
+		key : userKey,
+		data: newCountPresence,
+		column: COLUMN_PRESENCE_DATA
+	});	
+} broadcast { newCountPresence } on channel __selfName

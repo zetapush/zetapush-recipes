@@ -1,0 +1,6 @@
+@zpRecipeUser::CreateUserListener()
+macroscript core_presence__onCreateUserCallback(
+	string userKey
+) {
+	sudo PRESENCE_OWNER await saveNewUser({userKey});
+}

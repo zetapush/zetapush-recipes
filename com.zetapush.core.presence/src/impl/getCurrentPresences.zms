@@ -1,0 +1,16 @@
+/**
+ *	Get the current presences for a specific user
+ */
+@Sudo(PRESENCE_OWNER)
+macroscript getCurrentPresences(
+	/** userKey of the user */ @NotNull string userKey
+) {
+	var currentPresences = zpServiceGda.get({table : NAME_TABLE_PRESENCE, key : userKey});
+	var countPresences = currentPresences.result[COLUMN_PRESENCE_DATA];
+	
+	var list = zpServiceGda.list({table : NAME_TABLE_PRESENCE});
+	trace('lsit', list);
+	
+	
+	var a = zpServiceGroup.listPresences({group : PRESENCE_GROUP_ID});
+} return { countPresences, a } on channel __selfName

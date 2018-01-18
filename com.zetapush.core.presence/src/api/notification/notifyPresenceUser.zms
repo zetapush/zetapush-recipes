@@ -1,0 +1,28 @@
+/**
+ *	Notify that a specific user is present or not
+ *	return userKey of the associate with a boolean to specify his presence
+ */
+@UpdatePresence()
+macroscript notifyPresenceUser(
+	zetapush::OwnerResource user,
+	string presence,
+	zetapush::GroupRelated group
+) 
+{
+	// Get the previous count of the presences in the database
+	var { countPresences }  = await getCurrentPresences({ userKey: user });
+	
+	// Put the new count value of presences
+	var { newCountPresence } = await updatePresenceInDatabase({userKey : user, state : presence });
+	
+	// Call correct callback about presence count
+	if (countPresences == 0 && newCountPresence == 1) {
+		await onUserConnect({
+			userKey: user.owner
+		}) loud;
+	} else if (countPresences == 1 && newCountPresence == 0) {
+		await onUserDisconnect({
+			userKey: user.owner
+		}) loud;
+	}	
+}
