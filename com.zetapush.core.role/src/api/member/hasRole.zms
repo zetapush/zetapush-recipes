@@ -15,4 +15,4 @@ macroscript hasRole(
 		isHardFail: assertion,
 		zpService: zpServiceGroupsRole
 	});
-} return new HasUserRole(id, name, __userKey, true) on channel __selfName
+} return new HasUserRole(id, name, __userKey, has) on channel __selfName
