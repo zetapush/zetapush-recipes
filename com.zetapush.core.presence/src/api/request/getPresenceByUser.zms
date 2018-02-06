@@ -21,8 +21,6 @@ macroscript getPresenceByUser(
 			}
 		}
 	}
-	
-	trace('countPresences', countPresences);
 
 	var presence = countPresences >= 1 ? true : false;
 	

@@ -17,12 +17,12 @@ macroscript notifyPresenceUser(
 	
 	// Call correct callback about presence count
 	if (countPresences == 0 && newCountPresence == 1) {
-		await onUserConnect({
-			userKey: user.owner
-		}) loud;
+//		await onUserConnect({
+//			userKey: user.owner
+//		}) loud;
 	} else if (countPresences == 1 && newCountPresence == 0) {
-		await onUserDisconnect({
-			userKey: user.owner
-		}) loud;
+//		await onUserDisconnect({
+//			userKey: user.owner
+//		}) loud;
 	}	
 }
