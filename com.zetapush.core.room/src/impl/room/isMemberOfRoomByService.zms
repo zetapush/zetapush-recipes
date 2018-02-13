@@ -1,0 +1,19 @@
+/**
+ * Test the membership of the CURRENT_USER for a room
+ */
+macroscript core_room__isMemberOfRoomByService(
+	/** Valid room room id */ @ValidRoomId string id,
+	/** Room Owner */ @NotNull string owner,
+	/** Group service */@NotNull service<groups> zpService
+) {
+	trace(#core_room__isMemberOfRoomByService, {id, owner, zpService});
+
+	const { member } = await zpRecipeGroup::core_group__isMemberOfByService({
+		id, owner, isHardFail: false , zpService
+	});
+	
+	trace(#core_room__isMemberOfRoomByService, member);
+	
+} return {
+	member
+} on channel __selfName

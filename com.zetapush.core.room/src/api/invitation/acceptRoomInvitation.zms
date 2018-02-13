@@ -1,0 +1,25 @@
+/**
+ * Accept Room Invitation
+ */
+macroscript acceptRoomInvitation(
+	/** Invitation id */ @NotNull string invitationId,
+	/** Owner id */ @NotNull string roomId,
+	/** Invitation owner */ @NotNull string owner
+) {
+	
+	/** Get invitation for room */
+	const invitation = sudo owner await core_room__getInvitationByService({
+		invitationId, roomId, owner, zpService: zpServiceGda
+	});
+	
+	const { room } = sudo owner await getRoom({ id: roomId, owner});
+	
+	// Check if we've been invited
+	if (invitation.guest == __userKey){
+		sudo owner await addRoomMember({
+			id: roomId,
+			member: __userKey
+		}) loud;
+	} 
+	
+} return {room} on channel __selfName

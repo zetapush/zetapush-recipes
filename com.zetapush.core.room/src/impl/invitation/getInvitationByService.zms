@@ -1,0 +1,18 @@
+/**
+ *
+ */
+macroscript core_room__getInvitationByService(
+	/** Invitation Id */ @NotNull string invitationId,
+	/** Room Id */ @NotNull string roomId,
+	/** Invitation Owner */ string owner,
+	/** Storage Service */ @NotNull service<gda> zpService
+) {
+	
+	const key = str:join('', CORE__ROOM_TYPE_INVITATION, roomId);
+	
+	const { result: invitation }  = zpService.get({
+		key,
+		table: TABLE_ROOM_INVITATION
+	});
+	
+} return invitation on channel __selfName

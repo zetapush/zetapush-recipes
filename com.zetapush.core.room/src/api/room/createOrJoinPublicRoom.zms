@@ -1,0 +1,36 @@
+/**
+ * Create a room with the global owner user
+ */
+macroscript createOrJoinPublicRoom(
+	/** Room room name */ @NotNull string name
+) {
+	/** Add current user a room member */
+	var members = [];
+	
+	const visio = str:join("", name, PAD_PUBLIC_ROOM_NAME);
+	const id = str:substr(visio, 0, NUMBER_OF_CHARS_IN_ROOM_ID);
+	
+	const { room } = sudo zpRecipeUtils::GLOBAL_OWNER await core_room__createRoomByService({ 
+		id, name, members, zpService: zpServiceGroups
+	});
+	// Check if there is more than two users in the room
+	if (coll:size(room.members) < 2) {
+		sudo zpRecipeUtils::GLOBAL_OWNER await addRoomMember({
+			id: id,
+			member: __userKey
+		});
+	} else {
+		
+		const { member } = await core_room__isMemberOfRoomByService({
+			id, owner: zpRecipeUtils::GLOBAL_OWNER, zpService: zpServiceGroups
+		});
+		// If the user is not already a member, then we fail 
+		if (!member){
+			fail ERROR_MESSAGE_PUBLIC_ROOM_FULL 'The room is full';
+		}
+	}
+	
+} broadcast(room.resource) {
+	Room room,
+	string member: __userKey
+} on channel __selfName

@@ -1,0 +1,14 @@
+/**
+ *
+ */
+
+@CreateRoomListener()
+macroscript createPublicRoomListener(
+	@NotNull Room room
+){
+	
+	//trace(#createPublicRoomListener, { room, userKey: __userKey });
+	
+	// TODO Delete the public after a certain amount of time
+	
+}

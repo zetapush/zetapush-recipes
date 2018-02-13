@@ -1,0 +1,33 @@
+/**
+ * Create a room with the global owner user
+ */
+macroscript leavePublicRoom(
+	/** Room room name */ @NotNull string name
+) {
+	
+	const visio = str:join("", name, PAD_PUBLIC_ROOM_NAME);
+	const id = str:substr(visio, 0, NUMBER_OF_CHARS_IN_ROOM_ID);
+	
+	const { member } = await core_room__isMemberOfRoomByService({
+			id, owner: zpRecipeUtils::GLOBAL_OWNER, zpService: zpServiceGroups
+		});
+	// Only a current member of the room can leave the public room	
+	if (!member) {
+		fail ERROR_MESSAGE_PUBLIC_ROOM_NOT_MEMBER 'You are not a member of the room';
+	}
+	
+	const { room } = sudo zpRecipeUtils::GLOBAL_OWNER await core_room__getRoomGroupByService({ 
+		id, zpService: zpServiceGroups
+	});
+	
+	trace(#leavePublicRoom, "room members ", room.members);
+	
+	sudo zpRecipeUtils::GLOBAL_OWNER await core_room__deleteRoomByService({
+		id, zpService: zpServiceGroups
+	});
+	
+	
+} broadcast(room.resource) {
+	Room room,
+	member: __userKey
+} on channel __selfName
