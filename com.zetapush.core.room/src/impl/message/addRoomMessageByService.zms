@@ -14,7 +14,7 @@ macroscript core_room__addRoomMessageByService(
 	const { createdAt, now, key } = usr:core_room__message_key(container);
 	/** Prepare data storage */
 	var targets = [];
-	const readers = {};
+	const readers = [];
 	/*
 	for member in room.members {
 		const { userKey } = member;
@@ -34,7 +34,7 @@ macroscript core_room__addRoomMessageByService(
 				[COLUMN_STORAGE_VALUE]: value,
 				[COLUMN_STORAGE_CREATED_AT]: createdAt,
 				[COLUMN_STORAGE_METADATA]: metadata,
-				[COLUMN_STORAGE_READERS]: readers,
+				[COLUMN_STORAGE_READERS]: zpRecipeUtils::reduce_array_to_map(readers),
 				[COLUMN_STORAGE_TARGETS]: zpRecipeUtils::reduce_array_to_map(targets)
 			}
 		}],
