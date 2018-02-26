@@ -3,7 +3,7 @@
 * Created on Thu Jul 27 16:13:49 CEST 2017 by damien
 * Documentation in a source comment for a simple description
 */
-recipe com.zetapush.core.callBrick 1.0.0;
+recipe com.zetapush.core.visio 1.0.0;
 
 // =====================
 // 		IMPORTS
