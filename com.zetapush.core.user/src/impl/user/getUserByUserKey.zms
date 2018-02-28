@@ -15,4 +15,4 @@ macroscript core_user__getUserByUserKey(
 		/** Add computed property userKey */
 		user.avatar = avatar.url.url;
 	}
-} broadcast { User user } on channel __selfName
+} broadcast { user } on channel __selfName

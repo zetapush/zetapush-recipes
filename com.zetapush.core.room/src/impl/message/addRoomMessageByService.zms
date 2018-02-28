@@ -16,11 +16,13 @@ macroscript core_room__addRoomMessageByService(
 	/** Prepare data storage */
 	var targets = [];
 	const readers = {};
+	
 	for member in room.members {
 		const { userKey } = member;
 		targets += userKey;
 		readers[userKey] = 0;
 	}
+	
 	/** Define message structure */
 	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
 	/** Store message */
@@ -40,6 +42,9 @@ macroscript core_room__addRoomMessageByService(
 		table: TABLE_ROOM_STORAGE,
 		owner: room.owner
 	});
+	
+	var storedMsg = zpService.get({table : TABLE_ROOM_STORAGE, key, owner: room.owner});
+	
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__ADD_ROOM_MESSAGE,

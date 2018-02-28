@@ -18,6 +18,7 @@ function core_room__message_suffix_id() return str:substr(str:rnd36(ROOM_MESSAGE
  * Format a stored message
  */
 function core_room__format_stored_message(stored) return {
+
 	id: stored.__key,
 	[COLUMN_STORAGE_AUTHOR]: stored[COLUMN_STORAGE_AUTHOR],
 	[COLUMN_STORAGE_TYPE]: stored[COLUMN_STORAGE_TYPE],

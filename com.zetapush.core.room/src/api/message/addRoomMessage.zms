@@ -14,6 +14,50 @@ macroscript addRoomMessage(
 	const { message } = await core_room__addRoomMessageByService({ 
 		room, container, type, value, metadata, zpService: zpServiceGda
 	});
+	
+	// Associate message to room
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({
+		table : TABLE_ASSOCIATE_MESSAGE_TO_ROOM,
+		data : room.id, 
+		key : message.id,
+		column : COLUMN_ASSOCIATE_MESSAGE_TO_ROOM
+	});
+	
+	// Update the unread room message
+	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
+		table : TABLE_UNREAD_MESSAGES,
+		key : room.id
+	});
+	
+	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
+	var readersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
+	
+	// Update owners message
+	if (ownersMsg[message.author]??) {
+		ownersMsg[message.author] = list:add(ownersMsg[message.author], message.id);
+	} else {
+		ownersMsg[message.author] = [message.id];
+	}
+	
+	// Update readers message
+	if (readersMsg[message.author]??) {
+		readersMsg[message.author]  = list:add(readersMsg[message.author], message.id);
+	} else {
+		readersMsg[message.author] = [message.id];
+	}
+	
+	// Put changes in database
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({
+		table : TABLE_UNREAD_MESSAGES,
+		column: COLUMN_UNREAD_MESSAGES,
+		key : room.id,
+		data: {
+			ownersMsg,
+			readersMsg
+		}
+	});
+
+
 } broadcast(room.resource) {
 	string container,
 	Room room,

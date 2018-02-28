@@ -1,0 +1,38 @@
+macroscript updateReaderMessage(
+	/** Room message id */ @ValidRoomMessageId string id,
+	/** Room room object */ @NotNull Room room,
+	/** Message reader */ @NotNull string reader
+) {
+	// Update the unread room message
+	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
+		table : TABLE_UNREAD_MESSAGES,
+		key : room.id
+	});
+	
+	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
+	var readersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
+	
+	if (readersMsg[reader]?? != null) {
+		if (!coll:contains(readersMsg[reader], id)) {
+			readersMsg[reader] = list:add(readersMsg[reader], id);
+		}
+	} else {
+		readersMsg[reader] = [id];
+	}
+	
+	// Put changes in database
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({
+		table : TABLE_UNREAD_MESSAGES,
+		column: COLUMN_UNREAD_MESSAGES,
+		key : room.id,
+		data: {
+			ownersMsg,
+			readersMsg
+		}
+	});
+	
+	
+} broadcast(room.resource) {
+	Room room,
+	string reader
+} on channel __selfName

@@ -64,3 +64,29 @@ zpServiceGda.gda_createTable({
 		type: GdaDataType_STRING
 	}]
 });
+
+
+/** Unread messages */
+zpServiceGda.gda_createTable({
+	columns : [{
+		name: COLUMN_UNREAD_MESSAGES,
+		type: GdaDataType_OBJECT
+	}], 
+	name : TABLE_UNREAD_MESSAGES,
+	idempotence : Idempotence_IGNORE_IDENTICAL
+});
+
+
+/** Associate message to room */
+zpServiceGda.gda_createTable({
+	columns : [{
+		name: COLUMN_ASSOCIATE_MESSAGE_TO_ROOM,
+		type: GdaDataType_STRING
+	}], 
+	name : TABLE_ASSOCIATE_MESSAGE_TO_ROOM,
+	idempotence : Idempotence_IGNORE_IDENTICAL
+});
+
+
+
+

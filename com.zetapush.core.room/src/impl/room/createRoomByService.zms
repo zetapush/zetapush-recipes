@@ -21,6 +21,18 @@ macroscript core_room__createRoomByService(
 		event: EVENT__CREATE_ROOM,
 		data: { room }
 	});
+	
+	// Create row in database for unread messages
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({
+		table : TABLE_UNREAD_MESSAGES, 
+		key : id,
+		column : COLUMN_UNREAD_MESSAGES,
+		data : {
+			ownersMsg: {},
+			readersMsg: {}
+		}
+	});
+	
 } return {
 	string container: id,
 	Room room

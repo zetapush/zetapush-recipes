@@ -4,7 +4,9 @@
 macroscript createOneToOneRoom(
 	/** Room interlocutor */ @NotNull string interlocutor
 ) {
-	const members = [__userKey, interlocutor];
+	var members = [];
+	members += interlocutor;
+	members += __userKey;
 	const hash = zpRecipeUtils::reduce_array_to_hash(members, TABLE_ROOM_STORAGE) + usr:core_room__id();
 	const id = str:substr(hash, 0, NUMBER_OF_CHARS_IN_ROOM_ID);
 	const name = str:join('.', 'I18N', 'ONE_TO_ONE_ROOM');

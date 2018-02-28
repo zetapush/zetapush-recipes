@@ -1,0 +1,46 @@
+/**
+ *	Macro to check if a room has unread messages
+ */
+macroscript checkHasUnreadMessages(
+	/** ID of the room */ @NotNull string id,
+	/** userKey of the caller */ string userKey
+) {
+	userKey = userKey ?: __userKey;
+	
+	var hasUnreadMessages = false;
+	
+	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
+		table : TABLE_UNREAD_MESSAGES,
+		key : id
+	});
+	
+	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
+	var readerMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
+	
+	var listAllMsg = [];
+	for elt in ownersMsg {	
+		for i in ownersMsg {
+			for owner in i.value {
+				listAllMsg = list:add(listAllMsg, owner);
+			}
+		}
+	}
+	
+	trace('LIST MESSAGES', listAllMsg);
+	trace('readerMsg', readerMsg);
+
+	if (readerMsg != null) {
+		if (coll:size(readerMsg[userKey]) != coll:size(listAllMsg)) {
+			hasUnreadMessages = true;
+		}
+	} else {
+		if (coll:size(listAllMsg) > 0) {
+			hasUnreadMessages = true;
+		}
+	}
+	
+} return {
+	hasUnreadMessages
+} on channel __selfName
+
+

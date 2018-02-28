@@ -1,4 +1,5 @@
 
 class Room extends zpRecipeGroup::Group {
-	zetapush::GrantListItem[] grants;	
+	zetapush::GrantListItem[] grants;
+	boolean hasUnreadMessages;	
 }

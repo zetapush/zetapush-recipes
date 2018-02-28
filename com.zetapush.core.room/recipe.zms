@@ -31,6 +31,12 @@ const COLUMN_INVITATION_CREATED_AT = 'createdAt';
 const COLUMN_INVITATION_CONTEXT = 'context';
 const COLUMN_INVITATION_MESSAGE = 'message';
 
+const TABLE_UNREAD_MESSAGES = 'TableUnreadMessage';
+const COLUMN_UNREAD_MESSAGES = 'ColumnUnreadMessage';
+
+const TABLE_ASSOCIATE_MESSAGE_TO_ROOM = 'TableAssociateMessageToRoom';
+const COLUMN_ASSOCIATE_MESSAGE_TO_ROOM = 'ColumnAssociateMessageToRoom';
+
 // File System
 
 const ROOM_ATTACHMENTS_PATH = 'room/attachments/';

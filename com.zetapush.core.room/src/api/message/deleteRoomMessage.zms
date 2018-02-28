@@ -5,6 +5,55 @@ macroscript deleteRoomMessage(
 	
 	owner = owner ?: __userKey;
 	
+	//Get room id from message
+	var request = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
+		table : TABLE_ASSOCIATE_MESSAGE_TO_ROOM,
+		key : id
+	});
+	
+	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
+		table : TABLE_UNREAD_MESSAGES,
+		key : request.result[COLUMN_ASSOCIATE_MESSAGE_TO_ROOM]
+	});
+	
+	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
+	var readersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
+	
+	for ownerMsg in ownersMsg {
+		var lastIndexByOwner = coll:size(ownerMsg.value);
+		for indexMsgByOwner in (0..lastIndexByOwner) {
+			if (ownerMsg.value[indexMsgByOwner] == id) {
+				var rm = list:remove(indexMsgByOwner, ownerMsg.value);
+			}
+		}
+	}
+	
+	for readerMsg in readersMsg {
+		var lastIndexByReader = coll:size(readerMsg.value);
+		for indexMsgByReader in(0..lastIndexByReader) {
+			if (readerMsg.value[indexMsgByReader] == id) {
+				var rm = list:remove(indexMsgByReader, readerMsg.value);
+			}
+		}
+	}
+	
+	// Put changes in database
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({
+		table : TABLE_UNREAD_MESSAGES,
+		column: COLUMN_UNREAD_MESSAGES,
+		key : request.result[COLUMN_ASSOCIATE_MESSAGE_TO_ROOM],
+		data: {
+			ownersMsg,
+			readersMsg
+		}
+	});
+	
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.removeRow({
+		table : TABLE_ASSOCIATE_MESSAGE_TO_ROOM,
+		key : id
+	});
+
+
 	const { result } = sudo owner await core_room__deleteRoomMessageByService({
 		id: id,
 		zpService: zpServiceGda 

@@ -9,4 +9,9 @@ macroscript deleteRoom(
 		zpService : zpServiceGroups
 	});
 	
+	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.removeRow({
+		table : TABLE_UNREAD_MESSAGES,
+		key : id
+	});
+	
 } on channel __selfName

@@ -8,6 +8,12 @@ macroscript core_room__getUserRoomListByService(
 	const groups = zpService.myGroups({});
 	const { list: rooms } = await zpRecipeGroup::core_group__getGroupListByService({ groups, zpService });
 	const list = coll:map(rooms, (room) => { room });
+	
+	// Check if each room has unread messages
+	for elt in list {
+		var { hasUnreadMessages } = await checkHasUnreadMessages({id : elt.room.id});
+		elt.room.hasUnreadMessages = hasUnreadMessages;
+	}
 } broadcast {
 	list
 } on channel __selfName
