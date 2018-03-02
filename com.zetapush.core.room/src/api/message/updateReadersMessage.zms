@@ -3,6 +3,13 @@ macroscript updateReaderMessage(
 	/** Room room object */ @NotNull Room room,
 	/** Message reader */ @NotNull string reader
 ) {
+	
+	trace('id', id);
+	trace('room', room);
+	trace('reader', reader);
+	trace('userKey', __userKey);
+	
+	
 	// Update the unread room message
 	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
 		table : TABLE_UNREAD_MESSAGES,
@@ -12,6 +19,9 @@ macroscript updateReaderMessage(
 	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
 	var readersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
 	
+	trace('ownersMsg', ownersMsg);
+	trace('readersMsg', readersMsg);
+	
 	if (readersMsg[reader]?? != null) {
 		if (!coll:contains(readersMsg[reader], id)) {
 			readersMsg[reader] = list:add(readersMsg[reader], id);
@@ -19,6 +29,9 @@ macroscript updateReaderMessage(
 	} else {
 		readersMsg[reader] = [id];
 	}
+	
+	trace('ownersMsg+', ownersMsg);
+	trace('readersMsg+', readersMsg);
 	
 	// Put changes in database
 	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({

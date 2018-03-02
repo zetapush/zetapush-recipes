@@ -21,13 +21,12 @@ macroscript checkHasUnreadMessages(
 	for elt in ownersMsg {	
 		for i in ownersMsg {
 			for owner in i.value {
-				listAllMsg = list:add(listAllMsg, owner);
+				if (!coll:contains(listAllMsg, owner)) {
+					listAllMsg = list:add(listAllMsg, owner);
+				}
 			}
 		}
 	}
-	
-	trace('LIST MESSAGES', listAllMsg);
-	trace('readerMsg', readerMsg);
 
 	if (readerMsg != null) {
 		if (coll:size(readerMsg[userKey]) != coll:size(listAllMsg)) {
