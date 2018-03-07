@@ -11,13 +11,20 @@ macroscript deleteRoomMessage(
 		key : id
 	});
 	
+	trace('REQUEST', request);
+	
 	var requestUnreadMessage = sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.get({
 		table : TABLE_UNREAD_MESSAGES,
 		key : request.result[COLUMN_ASSOCIATE_MESSAGE_TO_ROOM]
 	});
 	
+	trace('requestUnreadMessage', requestUnreadMessage);
+	
 	var ownersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].ownersMsg;
 	var readersMsg = requestUnreadMessage.result[COLUMN_UNREAD_MESSAGES].readersMsg;
+	
+	trace('ownersMsg', ownersMsg);
+	trace('readersMsg', readersMsg);
 	
 	for ownerMsg in ownersMsg {
 		var lastIndexByOwner = coll:size(ownerMsg.value);
@@ -36,6 +43,9 @@ macroscript deleteRoomMessage(
 			}
 		}
 	}
+	
+	trace('ownersMsg', ownersMsg);
+	trace('readersMsg', readersMsg);
 	
 	// Put changes in database
 	sudo zpRecipeUtils::GLOBAL_OWNER zpServiceGda.put({

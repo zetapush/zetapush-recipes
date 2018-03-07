@@ -31,6 +31,12 @@ macroscript core_room__onConfirmFileUploadCallback(
 			resource: str:join(':', zpService, owner, path),
 			owner
 		});
+		zpServiceGroups.grant({
+			action: Verb_zpfs_hdfs_freeUploadUrl,
+			group: id,
+			resource: str:join(':', zpService, owner, path),
+			owner
+		});
 		trace(#core_room__onConfirmFileUploadCallback, { room });
 		/** Add attachment as room message */
 		const { message } = await addRoomMessage({
@@ -46,7 +52,9 @@ macroscript core_room__onConfirmFileUploadCallback(
 		/** Update message matadata */
 		metadata.message = message;
 		/** Notify file service of metadata */
-		zpService.updateMeta({path, metadata });
+		sudo owner zpService.updateMeta({path, metadata, owner });
+		
+		var stat = zpService.stat({path, owner});
 	}	
 } broadcast(resource) {
 	string id,

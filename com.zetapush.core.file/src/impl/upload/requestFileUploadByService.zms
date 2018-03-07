@@ -17,4 +17,5 @@ macroscript core_file__requestFileUploadByService(
 		event: EVENT__REQUEST_FILE_UPLOAD,
 		data: { zpService, upload: request }
 	});
+	
 } return request on channel __selfName

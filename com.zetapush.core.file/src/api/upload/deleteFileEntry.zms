@@ -9,7 +9,7 @@ macroscript deleteFileEntry(
 	owner = owner ?: __userKey;
 	trace(#deleteFileEntry, path, owner);
 	/** Remove file */
-	zpServiceFile.rm({
+	sudo owner zpServiceFile.rm({
 		path,
 		owner
 	});

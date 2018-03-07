@@ -56,6 +56,8 @@ macroscript addRoomMessage(
 			readersMsg
 		}
 	});
+	
+	trace('MESSAGE', message);
 
 
 } broadcast(room.resource) {

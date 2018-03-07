@@ -37,9 +37,6 @@ macroscript core_room__getRoomMessageListByService(
 	});
 	/** Format stored data */
 	
-	trace('CONTENT', content);	
-	
-	
 	const list = coll:map(content, usr:core_room__format_stored_message);
 	
 } return {

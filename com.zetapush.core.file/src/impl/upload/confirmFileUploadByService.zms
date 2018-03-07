@@ -19,4 +19,5 @@ macroscript core_file__confirmFileUploadByService(
 		event: EVENT__CONFIRM_FILE_UPLOAD,
 		data: { zpService, actions, file }
 	});
+	
 } return file on channel __selfName
