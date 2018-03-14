@@ -33,6 +33,10 @@ macroscript core_room__purgeRoomMessageListByService(
 		stop,
 		owner: room.owner
 	});
+	
+	var all = zpService.list({table : TABLE_ROOM_STORAGE, page : {}});
+	trace('all', all);
+	
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__PURGE_ROOM,

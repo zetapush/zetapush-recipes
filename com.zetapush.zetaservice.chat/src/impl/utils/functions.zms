@@ -1,0 +1,4 @@
+/** Function to format an ID of a room to 32 chars */
+function formatIdRoom(id) {
+	return str:padRight(id, 32, 'z');
+}

@@ -1,0 +1,18 @@
+/**
+* Recipe com.zetapush.service.chat
+* Created on Tue Mar 13 14:09:05 CET 2018 by ubuntu
+* Documentation in a source comment for a simple description
+*/
+recipe com.zetapush.zetaservice.chat 1.0.0;
+
+import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
+import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
+import recipe com.zetapush.core.user 1.0.0 in zpRecipeUser;
+
+/** our code is run by this service */
+service code = macro(__default) for 'src/api';
+
+/** Our code not exposed for client side */
+service codeImpl = macro(__default) for 'src/impl';
+
+

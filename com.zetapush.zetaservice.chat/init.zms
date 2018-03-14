@@ -1,0 +1,22 @@
+// Create testing user
+zpRecipeUser::zpServiceSimpleAuth.memauth_createUser({
+	login: "testing",
+	password: "testing",
+	email: "zp-testing@yopmail.com",		
+	idempotence: Idempotence_IGNORE_IDENTICAL
+});
+
+zpRecipeUser::zpServiceSimpleAuth.memauth_createUser({
+	login: "testing1",
+	password: "testing1",
+	email: "zp-testing1@yopmail.com",		
+	idempotence: Idempotence_IGNORE_IDENTICAL
+});
+
+zpRecipeUser::zpServiceSimpleAuth.memauth_createUser({
+	login: "testing2",
+	password: "testing2",
+	email: "zp-testing2@yopmail.com",		
+	idempotence: Idempotence_IGNORE_IDENTICAL
+});
+

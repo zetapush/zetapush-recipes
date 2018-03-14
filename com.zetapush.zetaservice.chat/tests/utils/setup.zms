@@ -1,0 +1,16 @@
+zms_test_setup users {
+	zms_test_user testingUser = zpRecipeUser::zpServiceSimpleAuth({
+		login: "testing",
+		password: "testing"
+	});
+	
+	zms_test_user testingUser1 = zpRecipeUser::zpServiceSimpleAuth({
+		login: "testing1",
+		password: "testing1"
+	});
+	
+	zms_test_user testingUser2 = zpRecipeUser::zpServiceSimpleAuth({
+		login: "testing2",
+		password: "testing2"
+	});
+}

@@ -1,0 +1,22 @@
+zms_test test_sendMessageWithoutExistingRoom {
+	zms_test_setup {
+		import zms_test_setup users;
+		
+		sudo testingUser call zpRecipeRoom::deleteRoom({id: usr:formatIdRoom(DEFAULT_CHAT_ROOM_TESTING)});
+		
+		sudo testingUser await zpRecipeRoom::createRoom({name: DEFAULT_CHAT_ROOM_TESTING, id: usr:formatIdRoom(DEFAULT_CHAT_ROOM_TESTING), members: [__userKey]});
+		sudo testingUser await sendMessage({room : DEFAULT_CHAT_ROOM_TESTING, sender : null, timestamp : null, content : 'Test'});
+	}
+	
+	zms_add_handler(testingUser, getMessagesByRoom, (result, errors) => {
+		trace(getMessagesByRoom.name, result, errors);
+		
+		assert result.existingRoom == DEFAULT_CHAT_ROOM_TESTING "Existing room should be DefaultChatRoomTesting";
+		assert result.messages[0].value.content == "Test" "The message should be 'Test'";
+		
+		zms_test_success;
+	});
+	
+	
+	sudo testingUser await getMessagesByRoom({room : DEFAULT_CHAT_ROOM_TESTING });
+}

@@ -1,0 +1,23 @@
+/**
+ *	Get all messages of a room, from a room id
+ */
+macroscript getMessagesByRoom(
+	/** Room id */ string room = DEFAULT_CHAT_ROOM
+) {
+	// Get the room
+	var requestRoom = call zpRecipeRoom::getRoom({id : usr:formatIdRoom(room), owner: zpRecipeUtils::GLOBAL_OWNER, page: {}});
+	var existingRoom = requestRoom.result.room;
+	
+	// Create the room if no existing
+	var messages = [];
+	if (existingRoom??) {
+		// Get the messages
+		const { list } = await zpRecipeRoom::getRoomMessageList({room : existingRoom, page : {pageSize: 9999999, pageNumber: 0}});
+		messages = list;
+	}
+	
+
+} return {
+	/** Room */ zpRecipeRoom::Room existingRoom: room,
+	/** Messages of the room */ zpRecipeRoom::Message[] messages
+} on channel __selfName

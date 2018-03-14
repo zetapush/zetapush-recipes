@@ -1,0 +1,26 @@
+zms_test test_sendMessageBetweenTwoUsers {
+	zms_test_setup {
+		import zms_test_setup users;
+		
+		var roomRequest = sudo testingUser1 call zpRecipeRoom::getRoom({id: usr:formatIdRoom(DEFAULT_CHAT_ROOM_TESTING), owner: zpRecipeUtils::GLOBAL_OWNER, page: {}});
+		sudo testingUser1 call zpRecipeRoom::purgeRoomMessageList({room: roomRequest.result.room});
+		sudo testingUser1 call zpRecipeRoom::deleteRoom({id: usr:formatIdRoom(DEFAULT_CHAT_ROOM_TESTING)});
+		
+		sudo testingUser1 await sendMessage({room : DEFAULT_CHAT_ROOM_TESTING, sender : null, timestamp : null, content : 'Test'});
+		sudo testingUser1 await sendMessage({room : DEFAULT_CHAT_ROOM_TESTING, sender : null, timestamp : null, content : 'Test'});
+		sudo testingUser2 await sendMessage({room : DEFAULT_CHAT_ROOM_TESTING, sender : null, timestamp : null, content : 'Test'});
+		sudo testingUser2 await sendMessage({room : DEFAULT_CHAT_ROOM_TESTING, sender : null, timestamp : null, content : 'Test'});
+	}
+		
+	zms_add_handler(testingUser1, getMessagesByRoom, (result, errors) => {
+		trace(getMessagesByRoom.name, result, errors);
+		
+		assert result.existingRoom == DEFAULT_CHAT_ROOM_TESTING "Existing room should be DefaultChatRoomTesting";
+		assert coll:size(result.messages) == 4 "The testingUser1 should have 4 messages";
+		
+		zms_test_success;
+	});
+	
+	
+	sudo testingUser1 await getMessagesByRoom({room : DEFAULT_CHAT_ROOM_TESTING });
+}

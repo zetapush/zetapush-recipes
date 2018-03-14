@@ -35,6 +35,7 @@ macroscript core_room__getRoomMessageListByService(
 		owner: room.owner,
 		page
 	});
+	
 	/** Format stored data */
 	const list = coll:map(content, usr:core_room__format_stored_message);
 } return {

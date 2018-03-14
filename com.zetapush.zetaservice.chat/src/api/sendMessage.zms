@@ -1,0 +1,29 @@
+/**
+ *	Send message to a room
+ */
+macroscript sendMessage(
+	/** ID of the room */ string room = DEFAULT_CHAT_ROOM,
+	/** userKey of the sender */ string sender = __userKey,
+	/** Timestamp of the message */ number timestamp,
+	/** Content of the message */ @NotNull string content
+) {
+	// Set default timestamp to now if not specified
+	timestamp = timestamp ?: time:now();
+	
+	// Get the room
+	var requestRoom = call zpRecipeRoom::getRoom({id : usr:formatIdRoom(room), owner: zpRecipeUtils::GLOBAL_OWNER, page: {}});
+	var existingRoom = requestRoom.result.room;
+	
+	// Create the room if no existing
+	if (!existingRoom??) {
+		const { room: createdRoom } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeRoom::createRoom({name : room, members : [sender], id : usr:formatIdRoom(room)});
+		existingRoom = createdRoom;
+	}
+	
+	// Send the message to the room
+	var message = {};
+	if (str:len(content) > 0) {
+		var addedMessage = await zpRecipeRoom::addRoomMessage({room : existingRoom, type : zpRecipeRoom::MESSAGE_TYPE_DATA, value : { content }, metadata : {}});
+		message = addedMessage.message;		
+	}
+} return message on channel __selfName

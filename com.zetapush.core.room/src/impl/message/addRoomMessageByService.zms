@@ -23,8 +23,9 @@ macroscript core_room__addRoomMessageByService(
 	}
 	/** Define message structure */
 	const message = { id: key, author: __userKey, type, value, createdAt, metadata, readers, targets };
+	
 	/** Store message */
-	zpService.puts({
+	var res = zpService.puts({
 		rows: [{
 			key,
 			data: {
@@ -40,6 +41,9 @@ macroscript core_room__addRoomMessageByService(
 		table: TABLE_ROOM_STORAGE,
 		owner: room.owner
 	});
+	
+	trace('res', res);
+	
 	/** Execute all registered macros */
 	zpRecipeUtils::zpServiceTrigger.trigger({
 		event: EVENT__ADD_ROOM_MESSAGE,
