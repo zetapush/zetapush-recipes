@@ -1,5 +1,5 @@
-/**core_file__getFileEntryByService
- *
+/**
+ * core_file__getFileEntryByService
  */
 macroscript requestFileUpload(
 	@NotNull string contentType,

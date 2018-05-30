@@ -9,4 +9,7 @@ macroscript getUserByLogin(
 		login,
 		zpService: zpServiceSimpleAuth
 	});
+
+	assert response.user.userKey != null "USER_NOT_FOUND";
+	
 } return response on channel __selfName
