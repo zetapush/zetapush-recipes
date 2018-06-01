@@ -7,10 +7,16 @@ macroscript getUserRoleList(
 	/** Get group list from API */
 	const groups = sudo userKey zpServiceGroupsRole.myGroups({});
 	/** Delegate get all user groups */
-	const { list } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__getGroupListByService({
+	const { list: listRoles } = sudo zpRecipeUtils::GLOBAL_OWNER await zpRecipeGroup::core_group__getGroupListByService({
 		groups,
 		zpService: zpServiceGroupsRole
 	});
+	
+	var roles = [];
+	for role in listRoles {
+		roles = list:add(roles, role.name);
+	}
+	
 } return {
-	Role[] list
+	roles
 } on channel __selfName

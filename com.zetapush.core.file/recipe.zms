@@ -20,9 +20,9 @@ const EVENT__CONFIRM_FILE_UPLOAD = 'ZetaPushEvent__Filesystem_ConfirmFileUpload'
 // Services declaration
 
 /**
- * Public API (Client and Server side) macro service
+ * Private API (Client and Server side) macro service
  */
-service zpServiceApiMacro = macro(__default) for 'src/api';
+service zpServiceApiMacro = macro("macro_2").forbiddenVerbs(__all) for 'src/api';
 /**
  * Private API (Server side only) macro service
  */
