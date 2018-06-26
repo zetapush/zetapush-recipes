@@ -19,8 +19,4 @@ macroscript createUser(
 		zpService: zpServiceSimpleAuth
 	});
 	
-	trace('fieldsUser', fields);
-	trace('response', response);
-	
-	
 } broadcast response on channel __selfName
