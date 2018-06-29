@@ -18,11 +18,7 @@ macroscript getMissedCallByUser(
 		table : TABLE_DATABASE_CALL,
 		stop : '~',
 		page,
-		function : x -> ((x[COLUMN_CALL_OBJECT].caller == userKey ||
-						  x[COLUMN_CALL_OBJECT].called == userKey ||
-						  coll:contains(listGroupId, x[COLUMN_CALL_OBJECT].caller) ||
-						  coll:contains(listGroupId, x[COLUMN_CALL_OBJECT].called)) &&
-						  x[COLUMN_CALL_OBJECT].state == STATE_CALL_MISSED)
+		function : x -> (x[COLUMN_CALL_OBJECT].state == STATE_CALL_MISSED)
 		
 	});	
 	
