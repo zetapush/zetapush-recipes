@@ -12,7 +12,6 @@ recipe com.zetapush.core.visio 1.0.0;
 import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
 import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
 import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
-import recipe com.zetapush.core.role 1.0.0 in zpRecipeRole;
 
 // =====================
 //		CONSTANTES
