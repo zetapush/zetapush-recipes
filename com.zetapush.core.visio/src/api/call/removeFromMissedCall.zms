@@ -1,0 +1,11 @@
+/** 
+ *	Macroscript that used to send the call object as a missed call.
+ *	The client need to listen this macroscript to handle missed calls
+ */
+macroscript removeFromMissedCall(
+	/** ID of the call */ @NotNull string id
+) {
+	
+	sudo zpRecipeUtils::GLOBAL_OWNER database.removeRow({table : TABLE_DATABASE_CALL, key : id});
+	
+} broadcast (id) {} on channel __selfName

@@ -6,4 +6,10 @@ macroscript addToMissedCall(
 	/** Call object */ @NotNull Call callObject
 ) {
 	
+	/** Execute all registered macros */
+	zpRecipeUtils::zpServiceTrigger.trigger({
+		event: EVENT__ADD_MISSED_CALL,
+		data: { callObject }
+	});
+
 } broadcast ( callObject.called ) { callObject } on channel __selfName
