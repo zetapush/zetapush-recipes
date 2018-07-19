@@ -2,12 +2,14 @@
  *
  */
 macroscript generateToken(
-	@TokenDuration number duration = DEFAULT_TOKEN_DURATION
+	@TokenDuration number duration = DEFAULT_TOKEN_DURATION,
+	number tokenSize = DEFAULT_TOKEN_SIZE
 ) {
 	trace(generateToken.name, __parameters);
 	const token = await core_token__generateToken({
 		duration,
-		creator: __userKey
+		creator: __userKey,
+		tokenSize
 	});
 	trace(generateToken.name, token);
 } broadcast token on channel __selfName

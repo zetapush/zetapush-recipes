@@ -4,7 +4,8 @@
 @Sudo(TOKEN_OWNER)
 macroscript core_token__generateToken(
 	@NotNull string creator,
-	@TokenDuration number duration = DEFAULT_TOKEN_DURATION
+	@TokenDuration number duration = DEFAULT_TOKEN_DURATION,
+	number tokenSize = DEFAULT_TOKEN_SIZE
 ) {
 	const createdAt = time:now();
 	const expiredAt = duration?? ? createdAt + duration : 0;
@@ -12,7 +13,7 @@ macroscript core_token__generateToken(
 		createdAt,
 		creator,
 		expiredAt,
-		value: fmt:pad(math:lrand(0, 10000000000), 10, 0, '.')
+		value: str:substr(fmt:pad(math:lrand(0, math:pow(10, tokenSize)), tokenSize, 0, '.'), 0, tokenSize)
 	});
 	const { result } = zpServiceGda.get({
 		table : TOKEN_TABLE,
