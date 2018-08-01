@@ -12,16 +12,13 @@ macroscript core_token__validateToken(
 	});
 
 	assert coll:size(result) > 0 ERROR__TOKEN_NOT_FOUND;
-	assert !result[COLUMN_TOKEN_VALIDATED_AT]?? ERROR__TOKEN_ALREADY_VALIDATED;
-	assert validatedAt < result[COLUMN_TOKEN_EXPIRED_AT] ERROR__TOKEN_EXPIRED;
+	assert !result[COLUMN_TOKEN_VALIDATED_AT]?? ERROR__TOKEN_ALREADY_VALIDATED; //useless
+	assert validatedAt < result[COLUMN_TOKEN_EXPIRED_AT] ERROR__TOKEN_EXPIRED; //useless
 
-	zpServiceGda.puts({
+	//remove the row of the token
+	zpServiceGda.removeRow({
 		table : TOKEN_TABLE,
-		rows : [{
-			key: tokenValue,
-			data: {
-				[COLUMN_TOKEN_VALIDATED_AT]: validatedAt
-			}
-		}]
+		key : tokenValue
 	});
+	
 } return {} on channel __selfName

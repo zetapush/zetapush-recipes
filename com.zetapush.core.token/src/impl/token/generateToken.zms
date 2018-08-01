@@ -7,6 +7,8 @@ macroscript core_token__generateToken(
 	@TokenDuration number duration = DEFAULT_TOKEN_DURATION,
 	number tokenSize = DEFAULT_TOKEN_SIZE
 ) {
+	trace("test test");
+	assert 2 < 1 ERROR__TOKEN_COLLISION;
 	const createdAt = time:now();
 	const expiredAt = duration?? ? createdAt + duration : 0;
 	const token = Token.new({
