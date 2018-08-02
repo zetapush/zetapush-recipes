@@ -15,7 +15,7 @@ macroscript core_token__validateToken(
 	assert !result[COLUMN_TOKEN_VALIDATED_AT]?? ERROR__TOKEN_ALREADY_VALIDATED;
 	assert validatedAt < result[COLUMN_TOKEN_EXPIRED_AT] ERROR__TOKEN_EXPIRED;
 
-	zpServiceGda.puts({
+	zpServiceGda.puts({ //useless en vrai?
 		table : TOKEN_TABLE,
 		rows : [{
 			key: tokenValue,
@@ -25,3 +25,11 @@ macroscript core_token__validateToken(
 		}]
 	});
 } return {} on channel __selfName
+
+@Sudo(TOKEN_OWNER)
+macroscript core_token__removeToken ( string tokenValue ){
+	zpServiceGda.removeRow({
+		table : TOKEN_TABLE,
+		key : tokenValue
+	});
+} 
