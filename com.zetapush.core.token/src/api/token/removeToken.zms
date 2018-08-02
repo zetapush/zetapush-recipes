@@ -1,0 +1,10 @@
+/**
+ *
+ */
+macroscript removeToken(
+	string tokenValue
+) {
+	trace(removeToken.name, __parameters);
+	await core_token__removeToken({tokenValue});
+
+} broadcast {} on channel __selfName
