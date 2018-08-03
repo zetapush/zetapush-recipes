@@ -1,0 +1,17 @@
+@Sudo(TOKEN_OWNER)
+macroscript hotfix_core_token__cleanValidatedToken(
+) {
+	const { result } = zpServiceGda.filter({
+		columns : [COLUMN_TOKEN_VALIDATED_AT],
+		start : '000000000000',
+		stop : '999999999999', 
+		table : TOKEN_TABLE,
+		function : (row) => row[COLUMN_TOKEN_VALIDATED_AT] == null ? false : true
+	});
+	for row in result.content {
+		zpServiceGda.removeRow({
+			table : TOKEN_TABLE,
+			key : row.__key
+		});
+	}
+}
