@@ -1,0 +1,2 @@
+/** Handle a Create Token Event */
+macroscript_annotation CreateTokenListener = @EventListener(eventName = EVENT__CREATE_TOKEN, triggerService = zpServiceTrigger);

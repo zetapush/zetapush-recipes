@@ -23,6 +23,7 @@ const TOKEN_SIZE 	= 32; // o generate token value
 
 const DEFAULT_TOKEN_DURATION = @config.token.duration ?: (1000 * 60); // 1 minute
 const DEFAULT_TOKEN_SIZE = @(number)config.token.size ?: 10;
+const DEFAULT_TOKEN_AUTOCLEAN = @(boolean)config.token.autoclean ?: false;
 
 // Events
 
@@ -49,3 +50,7 @@ service zpServiceImplMacro = macro(zpRecipeUtils::SERVICE_MACRO_IMPL_ID).forbidd
  * Data Storage service
  */
 service zpServiceGda = gda('cr_tkn_gda').forbiddenVerbs(__all);
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);
