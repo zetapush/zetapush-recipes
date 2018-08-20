@@ -7,6 +7,7 @@ macroscript core_user__getUserByUserKey(
 	});
 	/** Normalize user fields */
 	const user = users[userKey];
+	assert user?? ERROR__USER_NOT_FOUND;
 	user.userKey = userKey;
 	trace('core_user__getUserByUserKey', user);
 	/** Confirm file upload */
