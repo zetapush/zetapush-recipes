@@ -70,7 +70,7 @@ macroscript core_openhours__isInOpenedHours(
 ) {
 	if (now == 0) now = time:now();
 	var date = time:fmt(now, Format_YMD);
-	var hours = await core_openhours__getOpenedHoursForDate( {date});
+	var {hours} = await core_openhours__getOpenedHoursForDate( {date});
 } return {
 	/** Whether the current time is during working hours*/
 	boolean open : usr:isDuringWorkingHours(hours, now),
