@@ -13,7 +13,6 @@ macroscript getRoom(
 	});
 	/** Get room message list */
 	const { list: messages, page: pageResult } = await getRoomMessageList({ room, page });
-	
 } return {
 	Room room,
 	map[] messages,

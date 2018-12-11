@@ -4,6 +4,7 @@
 macroscript confirmFileUpload(
 	@NotNull string guid,
 	string owner,
+	string url,
 	map actions = {},
 	map metadata = {},
 	array tags = []

@@ -43,6 +43,7 @@ macroscript core_room__onConfirmFileUploadCallback(
 			room,
 			type: MESSAGE_TYPE_ATTACHMENT,
 			value: {
+				url: file.file.url,
 				guid,
 				owner,
 				path: str:join('/', room.metadata.attachments, guid)

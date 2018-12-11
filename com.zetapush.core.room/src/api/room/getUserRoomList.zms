@@ -12,6 +12,9 @@ macroscript getUserRoomList(
 	const { list } = sudo userKey await core_room__getUserRoomListByService({ 
 		page, zpService: zpServiceGroups
 	});
+	
+	trace('list : ', list);
+	
 } broadcast {
 	map[] list
 } on channel __selfName
