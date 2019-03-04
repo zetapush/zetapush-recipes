@@ -8,9 +8,10 @@ recipe com.zetapush.core.visio 1.0.0;
 // =====================
 // 		IMPORTS
 // =====================
+
+import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
 import recipe com.zetapush.core.utils 1.0.0 in zpRecipeUtils;
 import recipe com.zetapush.core.group 1.0.0 in zpRecipeGroup;
-import recipe com.zetapush.core.room 1.0.0 in zpRecipeRoom;
 
 // =====================
 //		CONSTANTES
@@ -33,6 +34,12 @@ const ROOM_ID_ENTROPY 							= 32; // To generate call id
 const NUMBER_OF_CHARS_IN_ROOM_ID 				= 32; // To generate call id
 
 // =====================
+// 		EVENTS
+// =====================
+
+const EVENT__ADD_MISSED_CALL = 'ZetaPushEvent__Visio_AddMissedCall';
+
+// =====================
 // 		SERVICES
 // =====================
 /** our code is run by this service */
@@ -49,6 +56,11 @@ service database = new gda(__default).forbiddenVerbs(__all);
 
 /** Weak service for our tests */
 service auth = new weak(__default).forbiddenVerbs(__all);
+
+/**
+ * Event trigger service
+ */
+service zpServiceTrigger = trigger(__default).forbiddenVerbs(__all);
 
 
 
