@@ -9,4 +9,9 @@ macroscript plugin_user_role__initialize(
 	await zpRecipeRole::createRole({
 		name: zpRecipeRole::CORE__ROLE_USER
 	});
+	
+	/** Create user role */
+	await zpRecipeRole::createRole({
+		name: zpRecipeRole::CORE__ROLE_ADMIN
+	});
 }
